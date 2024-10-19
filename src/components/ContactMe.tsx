@@ -33,18 +33,18 @@ const ContactMe: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="mb-12">
-      <h2 className="text-3xl font-bold mb-4">Contact Me</h2>
-      <div className="max-w-lg">
+    <section id="contact" className="mb-12 flex justify-center">
+      <div className="max-w-lg w-full">
+        <h2 className="text-3xl font-bold mb-4 text-center">Contact Me</h2>
         <div className="mb-4">
-          <label htmlFor="topic" className="block text-gray-700 font-bold mb-2">Topic</label>
+          <label htmlFor="topic" className="block text-gray-700 dark:text-gray-300 font-bold mb-2">Topic</label>
           <select
             id="topic"
             name="topic"
             value={topic}
             onChange={handleTopicChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-200"
           >
             <option value="talk">I want to invite you for a talk</option>
             <option value="podcast">I want to invite you for a podcast</option>

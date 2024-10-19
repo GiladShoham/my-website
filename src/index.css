@@ -28,3 +28,27 @@
 .slick-dots li.slick-active button:before {
   color: #2563EB;
 }
+
+/* Make carousel taller */
+.slick-slide > div {
+  height: 500px;
+}
+
+.slick-slide > div > div {
+  height: 100%;
+}
+
+/* Ensure text is visible in dark mode */
+.dark h2,
+.dark h3,
+.dark p {
+  color: #E5E7EB;
+}
+
+.dark .text-gray-700 {
+  color: #D1D5DB;
+}
+
+.dark .text-gray-600 {
+  color: #9CA3AF;
+}
