@@ -79,7 +79,7 @@ const AboutMe: React.FC = () => {
       <h2 className="text-3xl font-bold mb-4">About Me</h2>
       <div className="flex flex-col md:flex-row items-start mb-8">
         <img
-          src="https://res.cloudinary.com/dzc7cp7jh/image/upload/v1728585776/Profile_Picture_Gilad_ubruik.png"
+          src="https://res.cloudinary.com/dzc7cp7jh/image/upload/t_Profile/v1728585776/Profile_Picture_Gilad_ubruik.png"
           alt="Gilad Shoham"
           className="w-64 h-64 rounded-full object-cover mb-4 md:mr-8"
         />
