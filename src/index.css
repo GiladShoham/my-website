@@ -31,7 +31,7 @@
 
 /* Make carousel taller */
 .slick-slide > div {
-  height: 500px;
+  height: 600px; /* Increased from 500px to 600px */
 }
 
 .slick-slide > div > div {
