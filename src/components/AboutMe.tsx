@@ -106,14 +106,14 @@ const AboutMe: React.FC = () => {
         <Slider ref={sliderRef} {...settings}>
           {sections.map((section, index) => (
             <div key={index} className="px-4">
-              <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row items-center">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow flex flex-col md:flex-row items-center h-full">
                 <img src={section.image} alt={section.title} className="w-full md:w-1/2 h-64 object-cover rounded-lg mb-4 md:mb-0 md:mr-4" />
                 <div className="md:w-1/2">
-                  <h3 className="text-xl font-semibold mb-2 flex items-center">
+                  <h3 className="text-2xl font-semibold mb-4 flex items-center text-gray-800 dark:text-gray-100">
                     {section.icon}
                     {section.title}
                   </h3>
-                  <p>{section.content}</p>
+                  <p className="text-lg text-gray-600 dark:text-gray-300">{section.content}</p>
                 </div>
               </div>
             </div>
@@ -121,17 +121,17 @@ const AboutMe: React.FC = () => {
         </Slider>
         <button
           onClick={goToPrev}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md"
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white dark:bg-gray-700 bg-opacity-50 dark:bg-opacity-50 rounded-full p-2 shadow-md"
           aria-label="Previous slide"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={24} className="text-gray-800 dark:text-gray-200" />
         </button>
         <button
           onClick={goToNext}
-          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md"
+          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white dark:bg-gray-700 bg-opacity-50 dark:bg-opacity-50 rounded-full p-2 shadow-md"
           aria-label="Next slide"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={24} className="text-gray-800 dark:text-gray-200" />
         </button>
       </div>
     </section>
