@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7ede07f6-4df7-4dfe-87e9-015b5260768a/deploy-status)](https://app.netlify.com/sites/gilad-website/deploys)
+
 # Personal Website
 
 This is the source code for my personal website, built with [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/). The website fetches data from [Supabase](https://supabase.com/).
