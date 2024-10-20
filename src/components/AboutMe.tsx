@@ -36,7 +36,7 @@ const AboutMe: React.FC = () => {
       title: 'Smart Home Expert',
       icon: <Home className="w-6 h-6 mr-2" />,
       content: 'As an early adopter and innovator in smart home technology, I\'ve developed custom solutions and integrated various platforms to create seamless, intelligent living spaces.',
-      image: 'https://images.unsplash.com/photo-1703675858673-56aab77ccbec?q=80&w=2289&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+      image: 'https://images.unsplash.com/photo-1703675858673-56aab77ccbec?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
     },
     {
       title: 'Blogger',
