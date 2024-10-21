@@ -15,7 +15,7 @@ function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col transition-colors duration-200">
         <Header activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-grow container mx-auto px-4 py-8 max-w-full">
+        <main className="flex-grow container mx-auto px-4 py-8">
           {activeTab === 'about' && <AboutMe />}
           {activeTab === 'talks' && <Talks />}
           {activeTab === 'podcasts' && <Podcasts />}
