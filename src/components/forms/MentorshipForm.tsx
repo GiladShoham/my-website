@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 
 interface FormData {
+  topic: string;
   name: string;
   email: string;
   mentorshipArea: string;
+  paid: boolean;
   message: string;
 }
 
 const MentorshipForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
+    topic: 'mentorship',
     name: '',
     email: '',
     mentorshipArea: '',
+    paid: false,
     message: '',
   });
 
@@ -25,7 +29,7 @@ const MentorshipForm: React.FC = () => {
     console.log('Mentorship Form submitted:', formData);
     // Here you would typically send the form data to a server
     alert('Thank you for your mentorship request! I will review your application and get back to you soon.');
-    setFormData({ name: '', email: '', mentorshipArea: '', message: '' });
+    setFormData({ topic: 'mentorship', name: '', email: '', mentorshipArea: '', paid: false, message: '' });
   };
 
   return (
@@ -65,6 +69,18 @@ const MentorshipForm: React.FC = () => {
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+      </div>
+      <div className="mb-4">
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            name="paid"
+            checked={formData.paid}
+            onChange={(e) => setFormData(prev => ({ ...prev, paid: e.target.checked }))}
+            className="mr-2"
+          />
+          <span className="text-gray-700 font-bold">Willing to pay for mentorship</span>
+        </label>
       </div>
       <div className="mb-4">
         <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message</label>

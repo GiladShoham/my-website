@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 
 interface FormData {
+  topic: string;
+  eventTopic: string;
   name: string;
   email: string;
   eventName: string;
   eventDate: string;
+  eventFormat: string;
+  audienceSize: string;
   message: string;
 }
 
 const TalkForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
+    topic: 'talk',
+    eventTopic: '',
     name: '',
     email: '',
     eventName: '',
     eventDate: '',
+    eventFormat: '',
+    audienceSize: '',
     message: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
@@ -27,7 +35,17 @@ const TalkForm: React.FC = () => {
     console.log('Talk Form submitted:', formData);
     // Here you would typically send the form data to a server
     alert('Thank you for your invitation! I will get back to you soon.');
-    setFormData({ name: '', email: '', eventName: '', eventDate: '', message: '' });
+    setFormData({ 
+      topic: 'talk', 
+      eventTopic: '', 
+      name: '', 
+      email: '', 
+      eventName: '', 
+      eventDate: '', 
+      eventFormat: '', 
+      audienceSize: '', 
+      message: '' 
+    });
   };
 
   return (
@@ -75,6 +93,56 @@ const TalkForm: React.FC = () => {
           id="eventDate"
           name="eventDate"
           value={formData.eventDate}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="eventFormat" className="block text-gray-700 font-bold mb-2">Event Format</label>
+        <select
+          id="eventFormat"
+          name="eventFormat"
+          value={formData.eventFormat}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Select Format</option>
+          <option value="in-person">In Person</option>
+          <option value="virtual">Virtual</option>
+          <option value="hybrid">Hybrid</option>
+        </select>
+      </div>
+      <div className="mb-4">
+        <label htmlFor="eventTopic" className="block text-gray-700 font-bold mb-2">Event Topic</label>
+        <select
+          id="eventTopic"
+          name="eventTopic"
+          value={formData.eventTopic}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Select Topic</option>
+          <option value="technology">Technology</option>
+          <option value="entrepreneurship">Entrepreneurship</option>
+          <option value="startup">Startup</option>
+          <option value="innovation">Innovation</option>
+          <option value="leadership">Leadership</option>
+          <option value="digital-transformation">Digital Transformation</option>
+          <option value="ai">Artificial Intelligence</option>
+          <option value="smart-home">Smart Home Technology</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div className="mb-4">
+        <label htmlFor="audienceSize" className="block text-gray-700 font-bold mb-2">Expected Audience Size</label>
+        <input
+          type="number"
+          id="audienceSize"
+          name="audienceSize"
+          value={formData.audienceSize}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

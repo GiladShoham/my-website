@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 
 interface FormData {
+  topic: string;
   name: string;
   email: string;
   companyName: string;
-  projectIdea: string;
+  companyWebsite: string;
+  deckUrl: string;
+  projectDescription: string;
+  roundSize: string;
   message: string;
 }
 
 const InvestmentForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
+    topic: 'investment',
     name: '',
     email: '',
     companyName: '',
-    projectIdea: '',
+    companyWebsite: '',
+    deckUrl: '',
+    projectDescription: '',
+    roundSize: '',
     message: '',
   });
 
@@ -27,7 +35,7 @@ const InvestmentForm: React.FC = () => {
     console.log('Investment Form submitted:', formData);
     // Here you would typically send the form data to a server
     alert('Thank you for your investment inquiry! I will review your proposal and get back to you soon.');
-    setFormData({ name: '', email: '', companyName: '', projectIdea: '', message: '' });
+    setFormData({ topic: 'investment', name: '', email: '', companyName: '', companyWebsite: '', deckUrl: '', projectDescription: '', roundSize: '', message: '' });
   };
 
   return (
@@ -69,16 +77,52 @@ const InvestmentForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="projectIdea" className="block text-gray-700 font-bold mb-2">Project/Idea Description</label>
+        <label htmlFor="companyWebsite" className="block text-gray-700 font-bold mb-2">Company Website</label>
+        <input
+          type="text"
+          id="companyWebsite"
+          name="companyWebsite"
+          value={formData.companyWebsite}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="deckUrl" className="block text-gray-700 font-bold mb-2">Deck URL</label>
+        <input
+          type="text"
+          id="deckUrl"
+          name="deckUrl"
+          value={formData.deckUrl}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="projectDescription" className="block text-gray-700 font-bold mb-2">Project Description</label>
         <textarea
-          id="projectIdea"
-          name="projectIdea"
-          value={formData.projectIdea}
+          id="projectDescription"
+          name="projectDescription"
+          value={formData.projectDescription}
           onChange={handleChange}
           required
           rows={4}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         ></textarea>
+      </div>
+      <div className="mb-4">
+        <label htmlFor="roundSize" className="block text-gray-700 font-bold mb-2">Round Size</label>
+        <input
+          type="text"
+          id="roundSize"
+          name="roundSize"
+          value={formData.roundSize}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
       <div className="mb-4">
         <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Additional Message</label>

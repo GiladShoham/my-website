@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 
 interface FormData {
+  topic: string;
   name: string;
   email: string;
   homeSize: string;
+  numberOfDevices: string;
   message: string;
 }
 
 const SmartHomeForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
+    topic: 'smarthome',
     name: '',
     email: '',
     homeSize: '',
+    numberOfDevices: '',
     message: '',
   });
 
@@ -25,7 +29,7 @@ const SmartHomeForm: React.FC = () => {
     console.log('Smart Home Form submitted:', formData);
     // Here you would typically send the form data to a server
     alert('Thank you for your smart home consulting request! I will get back to you soon with more information.');
-    setFormData({ name: '', email: '', homeSize: '', message: '' });
+    setFormData({ topic: 'smarthome', name: '', email: '', homeSize: '', numberOfDevices: '', message: '' });
   };
 
   return (
@@ -61,6 +65,18 @@ const SmartHomeForm: React.FC = () => {
           id="homeSize"
           name="homeSize"
           value={formData.homeSize}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="numberOfDevices" className="block text-gray-700 font-bold mb-2">Number of Smart Devices</label>
+        <input
+          type="number"
+          id="numberOfDevices"
+          name="numberOfDevices"
+          value={formData.numberOfDevices}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
