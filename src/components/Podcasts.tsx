@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, ExternalLink } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import Modal from './Modal';
 
 interface Podcast {
   id: number;
@@ -24,56 +25,79 @@ interface Podcast {
 }
 
 const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const title = podcast.og_title || `${podcast.podcast_name} - ${podcast.episode}`;
   const description = podcast.og_description || '';
 
   const languageFlag = podcast.lang === 'Hebrew' ? '🇮🇱' : '🇺🇸';
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-      {podcast.og_image_url && (
-        <img src={podcast.og_image_url} alt={title} className="w-full h-32 object-cover rounded-t-lg mb-2" />
-      )}
-      <h3 className="text-lg font-semibold mb-1 truncate">
-        {languageFlag} {title}
-      </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">{description}</p>
-      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
-        <Mic className="mr-1 w-4 h-4" />
-        <span>{podcast.podcast_name} - {new Date(podcast.date).toLocaleDateString()}</span>
-      </div>
-      {podcast.tags && podcast.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-2">
-          {podcast.tags.map((tag, index) => (
-            <span key={index} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded">
-              {tag}
-            </span>
-          ))}
+    <>
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        {podcast.og_image_url && (
+          <img src={podcast.og_image_url} alt={title} className="w-full h-32 object-cover rounded-t-lg mb-2" />
+        )}
+        <h3 className="text-lg font-semibold mb-1 truncate">
+          {languageFlag} {title}
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          {description.slice(0, 100)}
+          {description.length > 100 && (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="ml-1 text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Read More
+            </button>
+          )}
+        </p>
+        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
+          <Mic className="mr-1 w-4 h-4" />
+          <span>{podcast.podcast_name} - {new Date(podcast.date).toLocaleDateString()}</span>
         </div>
-      )}
-      <div className="flex flex-wrap gap-2">
-        {podcast.main_link && (
-          <a href={podcast.main_link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
-            <ExternalLink size={12} className="mr-1" /> Listen
-          </a>
+        {podcast.tags && podcast.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-2">
+            {podcast.tags.map((tag, index) => (
+              <span key={index} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
         )}
-        {podcast.spotify_link && (
-          <a href={podcast.spotify_link} target="_blank" rel="noopener noreferrer" className="text-green-600 dark:text-green-400 hover:underline flex items-center text-sm">
-            <ExternalLink size={12} className="mr-1" /> Spotify
-          </a>
-        )}
-        {podcast.apple && (
-          <a href={podcast.apple} target="_blank" rel="noopener noreferrer" className="text-purple-600 dark:text-purple-400 hover:underline flex items-center text-sm">
-            <ExternalLink size={12} className="mr-1" /> Apple
-          </a>
-        )}
-        {podcast.google && (
-          <a href={podcast.google} target="_blank" rel="noopener noreferrer" className="text-red-600 dark:text-red-400 hover:underline flex items-center text-sm">
-            <ExternalLink size={12} className="mr-1" /> Google
-          </a>
-        )}
+        <div className="flex flex-wrap gap-2">
+          {podcast.main_link && (
+            <a href={podcast.main_link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
+              <ExternalLink size={12} className="mr-1" /> Listen
+            </a>
+          )}
+          {podcast.spotify_link && (
+            <a href={podcast.spotify_link} target="_blank" rel="noopener noreferrer" className="text-green-600 dark:text-green-400 hover:underline flex items-center text-sm">
+              <ExternalLink size={12} className="mr-1" /> Spotify
+            </a>
+          )}
+          {podcast.apple && (
+            <a href={podcast.apple} target="_blank" rel="noopener noreferrer" className="text-purple-600 dark:text-purple-400 hover:underline flex items-center text-sm">
+              <ExternalLink size={12} className="mr-1" /> Apple
+            </a>
+          )}
+          {podcast.google && (
+            <a href={podcast.google} target="_blank" rel="noopener noreferrer" className="text-red-600 dark:text-red-400 hover:underline flex items-center text-sm">
+              <ExternalLink size={12} className="mr-1" /> Google
+            </a>
+          )}
+        </div>
       </div>
-    </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={title}
+      >
+        <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+          {description}
+        </p>
+      </Modal>
+    </>
   );
 };
 

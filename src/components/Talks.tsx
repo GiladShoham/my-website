@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Video, ExternalLink, Filter } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import Modal from './Modal';
 
 interface Talk {
   id: number;
@@ -25,43 +26,66 @@ interface Talk {
 }
 
 const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const title = talk.override_title || talk.og_title || talk.Name;
   const description = talk.override_description || talk.og_description || talk.short_desc;
   const languageFlag = talk.lang === 'Hebrew' ? '🇮🇱' : '🇺🇸';
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-      {talk.og_image_url && (
-        <img src={talk.og_image_url} alt={title} className="w-full h-32 object-cover rounded-t-lg mb-2" />
-      )}
-      <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
-        {languageFlag} {title}
-      </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">{description}</p>
-      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
-        <Video className="mr-1 w-4 h-4" />
-        <span>{talk.Conference} - {new Date(talk.Date).toLocaleDateString()}</span>
-      </div>
-      <div className="flex flex-wrap gap-1 mb-2">
-        {talk.Tags && talk.Tags.slice(0, 3).map((tag, index) => (
-          <span key={index} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className="flex space-x-2">
-        {talk.URL && (
-          <a href={talk.URL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
-            <ExternalLink size={12} className="mr-1" /> Watch
-          </a>
+    <>
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        {talk.og_image_url && (
+          <img src={talk.og_image_url} alt={title} className="w-full h-32 object-cover rounded-t-lg mb-2" />
         )}
-        {talk.slides_url && (
-          <a href={talk.slides_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
-            <ExternalLink size={12} className="mr-1" /> Slides
-          </a>
-        )}
+        <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
+          {languageFlag} {title}
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          {description.slice(0, 100)}
+          {description.length > 100 && (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="ml-1 text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Read More
+            </button>
+          )}
+        </p>
+        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
+          <Video className="mr-1 w-4 h-4" />
+          <span>{talk.Conference} - {new Date(talk.Date).toLocaleDateString()}</span>
+        </div>
+        <div className="flex flex-wrap gap-1 mb-2">
+          {talk.Tags && talk.Tags.slice(0, 3).map((tag, index) => (
+            <span key={index} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="flex space-x-2">
+          {talk.URL && (
+            <a href={talk.URL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
+              <ExternalLink size={12} className="mr-1" /> Watch
+            </a>
+          )}
+          {talk.slides_url && (
+            <a href={talk.slides_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
+              <ExternalLink size={12} className="mr-1" /> Slides
+            </a>
+          )}
+        </div>
       </div>
-    </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={title}
+      >
+        <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+          {description}
+        </p>
+      </Modal>
+    </>
   );
 };
 
