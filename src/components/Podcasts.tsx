@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Mic, ExternalLink } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import Modal from './Modal';
+import { cardClasses } from './common/CardStyles';
+import { formClasses } from './common/FormStyles';
+import ContentCard from './common/ContentCard';
 
 interface Podcast {
   id: number;
@@ -160,44 +163,64 @@ const Podcasts: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <section className="mb-12">
-      <h2 className="text-3xl font-bold mb-4">Podcasts</h2>
-      <div className="mb-4 flex flex-wrap gap-4">
-        <div>
-          <label htmlFor="language-filter" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Language
-          </label>
-          <select
-            id="language-filter"
-            value={languageFilter}
-            onChange={(e) => setLanguageFilter(e.target.value)}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          >
-            <option value="all">All Languages</option>
-            <option value="English">English</option>
-            <option value="Hebrew">Hebrew</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="tag-filter" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tag
-          </label>
-          <select
-            id="tag-filter"
-            value={tagFilter}
-            onChange={(e) => setTagFilter(e.target.value)}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          >
-            <option value="">All Tags</option>
-            {allTags.map((tag) => (
-              <option key={tag} value={tag}>{tag}</option>
-            ))}
-          </select>
+    <section className="container mx-auto px-4 py-8">
+      <h2 className={cardClasses.formTitle}>Podcasts</h2>
+      
+      <div className={cardClasses.filterSection}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="relative">
+            <label htmlFor="language-filter" className={formClasses.label}>
+              Language
+            </label>
+            <select
+              id="language-filter"
+              value={languageFilter}
+              onChange={(e) => setLanguageFilter(e.target.value)}
+              className={formClasses.select}
+            >
+              <option value="all">All Languages</option>
+              <option value="English">English</option>
+              <option value="Hebrew">Hebrew</option>
+            </select>
+          </div>
+          
+          <div className="relative">
+            <label htmlFor="tag-filter" className={formClasses.label}>
+              Topic
+            </label>
+            <select
+              id="tag-filter"
+              value={tagFilter}
+              onChange={(e) => setTagFilter(e.target.value)}
+              className={formClasses.select}
+            >
+              <option value="">All Tags</option>
+              {allTags.map((tag) => (
+                <option key={tag} value={tag}>{tag}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+      <div className={cardClasses.container}>
         {filteredPodcasts.map((podcast) => (
-          <PodcastCard key={podcast.id} podcast={podcast} />
+          <ContentCard
+            key={podcast.id}
+            title={podcast.og_title || `${podcast.podcast_name} - ${podcast.episode}`}
+            description={podcast.og_description || ''}
+            imageUrl={podcast.og_image_url}
+            date={new Date(podcast.date).toLocaleDateString()}
+            tags={podcast.tags || []}
+            icon={<Mic className="w-4 h-4" />}
+            language={podcast.description_lang}
+            links={[
+              ...(podcast.main_link ? [{ url: podcast.main_link, label: 'Listen' }] : []),
+              ...(podcast.spotify_link ? [{ url: podcast.spotify_link, label: 'Spotify', color: 'text-green-600 dark:text-green-400' }] : []),
+              ...(podcast.apple ? [{ url: podcast.apple, label: 'Apple', color: 'text-purple-600 dark:text-purple-400' }] : []),
+              ...(podcast.google ? [{ url: podcast.google, label: 'Google', color: 'text-red-600 dark:text-red-400' }] : [])
+            ]}
+          />
         ))}
       </div>
     </section>

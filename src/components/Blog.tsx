@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, ExternalLink } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import ContentCard from './common/ContentCard';
+import { cardClasses } from './common/CardStyles';
+import { formClasses } from './common/FormStyles';
 
 interface BlogPost {
   id: number;
@@ -73,76 +76,63 @@ const Blog: React.FC = () => {
   if (error) return <div className="text-center text-red-600">Error: {error}</div>;
 
   return (
-    <section className="mb-12">
-      <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Blog</h2>
-      <div className="mb-4 flex flex-wrap gap-4">
-        <div>
-          <label htmlFor="language-filter" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Language
-          </label>
-          <select
-            id="language-filter"
-            value={languageFilter}
-            onChange={(e) => setLanguageFilter(e.target.value)}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          >
-            <option value="all">All Languages</option>
-            <option value="English">English</option>
-            <option value="Hebrew">Hebrew</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="tag-filter" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tag
-          </label>
-          <select
-            id="tag-filter"
-            value={tagFilter}
-            onChange={(e) => setTagFilter(e.target.value)}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          >
-            <option value="">All Tags</option>
-            {allTags.map((tag) => (
-              <option key={tag} value={tag}>{tag}</option>
-            ))}
-          </select>
+    <section className="container mx-auto px-4 py-8">
+      <h2 className={cardClasses.formTitle}>Blog</h2>
+      
+      <div className={cardClasses.filterSection}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="relative">
+            <label htmlFor="language-filter" className={formClasses.label}>
+              Language
+            </label>
+            <select
+              id="language-filter"
+              value={languageFilter}
+              onChange={(e) => setLanguageFilter(e.target.value)}
+              className={formClasses.select}
+            >
+              <option value="all">All Languages</option>
+              <option value="English">English</option>
+              <option value="Hebrew">Hebrew</option>
+            </select>
+          </div>
+          
+          <div className="relative">
+            <label htmlFor="tag-filter" className={formClasses.label}>
+              Topic
+            </label>
+            <select
+              id="tag-filter"
+              value={tagFilter}
+              onChange={(e) => setTagFilter(e.target.value)}
+              className={formClasses.select}
+            >
+              <option value="">All Tags</option>
+              {allTags.map((tag) => (
+                <option key={tag} value={tag}>{tag}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-      {filteredPosts.length === 0 ? (
-        <p className="text-center text-gray-600 dark:text-gray-400">No blog posts available.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredPosts.map((post) => (
-            <div key={post.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-              {post.og_image_url && (
-                <img src={post.og_image_url} alt={post.og_title || post.name} className="w-full h-48 object-cover rounded-t-lg mb-2" />
-              )}
-              <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
-                {post.lang === 'Hebrew' ? '🇮🇱' : '🇺🇸'} {post.og_title || post.name}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">
-                {post.og_description || post.short_description}
-              </p>
-              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
-                <BookOpen className="mr-1 w-4 h-4" />
-                <span>{new Date(post.id).toLocaleDateString()}</span>
-              </div>
-              {post.tags && post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {post.tags.slice(0, 3).map((tag, index) => (
-                    <span key={index} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-              <a href={post.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
-                <ExternalLink size={12} className="mr-1" /> Read More
-              </a>
-            </div>
-          ))}
-        </div>
-      )}
+
+      <div className={cardClasses.container}>
+        {filteredPosts.map((post) => (
+          <ContentCard
+            key={post.id}
+            title={post.og_title || post.name}
+            description={post.og_description || post.short_description}
+            imageUrl={post.og_image_url}
+            date={new Date(post.id).toLocaleDateString()}
+            tags={post.tags}
+            icon={<BookOpen className="w-4 h-4" />}
+            language={post.lang as 'Hebrew' | 'English'}
+            links={[
+              { url: post.url, label: 'Read More' }
+            ]}
+          />
+        ))}
+      </div>
     </section>
   );
 };
