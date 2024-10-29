@@ -5,6 +5,7 @@ import InvestmentForm from './forms/InvestmentForm';
 import MentorshipForm from './forms/MentorshipForm';
 import SmartHomeForm from './forms/SmartHomeForm';
 import OtherForm from './forms/OtherForm';
+import { formClasses } from './common/FormStyles';
 
 type Topic = 'talk' | 'podcast' | 'investment' | 'mentorship' | 'smarthome' | 'other';
 
@@ -35,26 +36,32 @@ const ContactMe: React.FC = () => {
   return (
     <section id="contact" className="mb-12 flex justify-center">
       <div className="max-w-lg w-full">
-        <h2 className="text-3xl font-bold mb-4 text-center">Contact Me</h2>
-        <div className="mb-4">
-          <label htmlFor="topic" className="block text-gray-700 dark:text-gray-300 font-bold mb-2">Topic</label>
-          <select
-            id="topic"
-            name="topic"
-            value={topic}
-            onChange={handleTopicChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-200"
-          >
-            <option value="talk">I want to invite you for a talk</option>
-            <option value="podcast">I want to invite you for a podcast</option>
-            <option value="investment">I'm looking for investment</option>
-            <option value="mentorship">I'm looking for a mentor</option>
-            <option value="smarthome">I'm looking for smart home consulting</option>
-            <option value="other">Other</option>
-          </select>
+        <h2 className={`${formClasses.formTitle} !mb-8`}>Contact Me</h2>
+        <div className={formClasses.container}>
+          <div className={formClasses.inputWrapper}>
+            <label htmlFor="topic" className={formClasses.label}>
+              How can I help you?<span className={formClasses.requiredStar}>*</span>
+            </label>
+            <select
+              id="topic"
+              name="topic"
+              value={topic}
+              onChange={handleTopicChange}
+              required
+              className={formClasses.select}
+            >
+              <option value="talk">I want to invite you for a talk</option>
+              <option value="podcast">I want to invite you for a podcast</option>
+              <option value="investment">I'm looking for investment</option>
+              <option value="mentorship">I'm looking for a mentor</option>
+              <option value="smarthome">I'm looking for smart home consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
-        {renderForm()}
+        <div className="mt-6">
+          {renderForm()}
+        </div>
       </div>
     </section>
   );

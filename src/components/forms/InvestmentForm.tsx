@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { submitContactForm } from '../../lib/submit-contact-form';
 import Popup from '../common/Popup';
+import { formClasses, getInputClassName } from '../common/FormStyles';
 
 interface FormData {
   topic: string;
@@ -69,10 +70,13 @@ const InvestmentForm: React.FC = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+    <div className={formClasses.container}>
+      <h2 className={formClasses.formTitle}>Investment Proposal</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="name" className={formClasses.label}>
+            Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="name"
@@ -80,11 +84,15 @@ const InvestmentForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your full name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="email" className={formClasses.label}>
+            Email<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="email"
             id="email"
@@ -92,11 +100,15 @@ const InvestmentForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="your@email.com"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">Company Name</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="company_name" className={formClasses.label}>
+            Company Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="company_name"
@@ -104,47 +116,47 @@ const InvestmentForm: React.FC = () => {
             value={formData.company_name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Your company name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="company_website" className="block text-gray-700 font-bold mb-2">Company Website</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="company_website" className={formClasses.label}>
+            Company Website<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
-            type="text"
+            type="url"
             id="company_website"
             name="company_website"
             value={formData.company_website}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="https://your-company.com"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="deck_url" className="block text-gray-700 font-bold mb-2">Deck URL</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="deck_url" className={formClasses.label}>
+            Deck URL<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
-            type="text"
+            type="url"
             id="deck_url"
             name="deck_url"
             value={formData.deck_url}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="https://deck-url.com"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="project_description" className="block text-gray-700 font-bold mb-2">Project Description</label>
-          <textarea
-            id="project_description"
-            name="project_description"
-            value={formData.project_description}
-            onChange={handleChange}
-            required
-            rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          ></textarea>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="round_size" className="block text-gray-700 font-bold mb-2">Round Size</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="round_size" className={formClasses.label}>
+            Round Size<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="round_size"
@@ -152,31 +164,52 @@ const InvestmentForm: React.FC = () => {
             value={formData.round_size}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="e.g., $1M - $5M"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Additional Message</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="project_description" className={formClasses.label}>
+            Project Description<span className={formClasses.requiredStar}>*</span>
+          </label>
+          <textarea
+            id="project_description"
+            name="project_description"
+            value={formData.project_description}
+            onChange={handleChange}
+            required
+            className={formClasses.textarea}
+            placeholder="Describe your project in detail..."
+          />
+        </div>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="message" className={formClasses.label}>
+            Additional Message
+          </label>
           <textarea
             id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
-            rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          ></textarea>
+            className={formClasses.textarea}
+            placeholder="Any additional information..."
+          />
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+
+        <button type="submit" className={formClasses.button}>
           Submit Proposal
         </button>
       </form>
+      
       <Popup
         isOpen={popup.isOpen}
         onClose={() => setPopup(prev => ({ ...prev, isOpen: false }))}
         message={popup.message}
         type={popup.type}
       />
-    </>
+    </div>
   );
 };
 

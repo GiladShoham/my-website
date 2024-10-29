@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { submitContactForm } from '../../lib/submit-contact-form';
 import Popup from '../common/Popup';
+import { formClasses, getInputClassName } from '../common/FormStyles';
 
 interface FormData {
   topic: string;
@@ -69,10 +70,13 @@ const TalkForm: React.FC = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+    <div className={formClasses.container}>
+      <h2 className={formClasses.formTitle}>Speaking Engagement Request</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="name" className={formClasses.label}>
+            Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="name"
@@ -80,11 +84,14 @@ const TalkForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your full name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="email" className={formClasses.label}>
+            Email<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="email"
             id="email"
@@ -92,11 +99,14 @@ const TalkForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your email"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="event_name" className="block text-gray-700 font-bold mb-2">Event Name</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="event_name" className={formClasses.label}>
+            Event Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="event_name"
@@ -104,11 +114,14 @@ const TalkForm: React.FC = () => {
             value={formData.event_name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter the event name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="event_date" className="block text-gray-700 font-bold mb-2">Event Date</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="event_date" className={formClasses.label}>
+            Event Date<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="date"
             id="event_date"
@@ -116,18 +129,21 @@ const TalkForm: React.FC = () => {
             value={formData.event_date}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter the event date"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="event_format" className="block text-gray-700 font-bold mb-2">Event Format</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="event_format" className={formClasses.label}>
+            Event Format<span className={formClasses.requiredStar}>*</span>
+          </label>
           <select
             id="event_format"
             name="event_format"
             value={formData.event_format}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.select}
           >
             <option value="">Select Format</option>
             <option value="in-person">In Person</option>
@@ -135,15 +151,17 @@ const TalkForm: React.FC = () => {
             <option value="hybrid">Hybrid</option>
           </select>
         </div>
-        <div className="mb-4">
-          <label htmlFor="event_topic" className="block text-gray-700 font-bold mb-2">Event Topic</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="event_topic" className={formClasses.label}>
+            Event Topic<span className={formClasses.requiredStar}>*</span>
+          </label>
           <select
             id="event_topic"
             name="event_topic"
             value={formData.event_topic}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.select}
           >
             <option value="">Select Topic</option>
             <option value="technology">Technology</option>
@@ -157,8 +175,10 @@ const TalkForm: React.FC = () => {
             <option value="other">Other</option>
           </select>
         </div>
-        <div className="mb-4">
-          <label htmlFor="audience_size" className="block text-gray-700 font-bold mb-2">Expected Audience Size</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="audience_size" className={formClasses.label}>
+            Expected Audience Size<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="number"
             id="audience_size"
@@ -166,11 +186,14 @@ const TalkForm: React.FC = () => {
             value={formData.audience_size}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter the expected audience size"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="message" className={formClasses.label}>
+            Message<span className={formClasses.requiredStar}>*</span>
+          </label>
           <textarea
             id="message"
             name="message"
@@ -178,10 +201,11 @@ const TalkForm: React.FC = () => {
             onChange={handleChange}
             required
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your message"
           ></textarea>
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+        <button type="submit" className={formClasses.button}>
           Send Invitation
         </button>
       </form>
@@ -191,7 +215,7 @@ const TalkForm: React.FC = () => {
         message={popup.message}
         type={popup.type}
       />
-    </>
+    </div>
   );
 };
 

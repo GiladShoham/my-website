@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { submitContactForm } from '../../lib/submit-contact-form';
 import Popup from '../common/Popup';
+import { formClasses, getInputClassName } from '../common/FormStyles';
 
 interface FormData {
   topic: string;
@@ -52,10 +53,13 @@ const PodcastForm: React.FC = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+    <div className={formClasses.container}>
+      <h2 className={formClasses.formTitle}>Podcast Invitation</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="name" className={formClasses.label}>
+            Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="name"
@@ -63,11 +67,14 @@ const PodcastForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your full name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="email" className={formClasses.label}>
+            Email<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="email"
             id="email"
@@ -75,11 +82,14 @@ const PodcastForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your email"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="podcast_name" className="block text-gray-700 font-bold mb-2">Podcast Name</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="podcast_name" className={formClasses.label}>
+            Podcast Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="podcast_name"
@@ -87,11 +97,14 @@ const PodcastForm: React.FC = () => {
             value={formData.podcast_name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter the podcast name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message</label>
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="message" className={formClasses.label}>
+            Message<span className={formClasses.requiredStar}>*</span>
+          </label>
           <textarea
             id="message"
             name="message"
@@ -99,10 +112,11 @@ const PodcastForm: React.FC = () => {
             onChange={handleChange}
             required
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.textarea}
+            placeholder="Enter your message"
           ></textarea>
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+        <button type="submit" className={formClasses.button}>
           Send Invitation
         </button>
       </form>
@@ -112,7 +126,7 @@ const PodcastForm: React.FC = () => {
         message={popup.message}
         type={popup.type}
       />
-    </>
+    </div>
   );
 };
 

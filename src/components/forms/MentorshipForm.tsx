@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { submitContactForm } from '../../lib/submit-contact-form';
 import Popup from '../common/Popup';
+import { formClasses, getInputClassName } from '../common/FormStyles';
 
 interface FormData {
   topic: string;
@@ -60,10 +61,13 @@ const MentorshipForm: React.FC = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+    <div className={formClasses.container}>
+      <h2 className={formClasses.formTitle}>Request Mentorship</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="name" className={formClasses.label}>
+            Name<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="text"
             id="name"
@@ -71,11 +75,15 @@ const MentorshipForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="Enter your full name"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="email" className={formClasses.label}>
+            Email<span className={formClasses.requiredStar}>*</span>
+          </label>
           <input
             type="email"
             id="email"
@@ -83,56 +91,72 @@ const MentorshipForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={formClasses.input}
+            placeholder="your@email.com"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="mentorship_area" className="block text-gray-700 font-bold mb-2">Area of Mentorship</label>
-          <input
-            type="text"
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="mentorship_area" className={formClasses.label}>
+            Mentorship Area<span className={formClasses.requiredStar}>*</span>
+          </label>
+          <select
             id="mentorship_area"
             name="mentorship_area"
             value={formData.mentorship_area}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            className={formClasses.select}
+          >
+            <option value="">Select an area</option>
+            <option value="career">Career Development</option>
+            <option value="technical">Technical Skills</option>
+            <option value="leadership">Leadership</option>
+            <option value="entrepreneurship">Entrepreneurship</option>
+          </select>
         </div>
-        <div className="mb-4">
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              name="paid"
-              checked={formData.paid}
-              onChange={(e) => setFormData(prev => ({ ...prev, paid: e.target.checked }))}
-              className="mr-2"
-            />
-            <span className="text-gray-700 font-bold">Willing to pay for mentorship</span>
+
+        <div className={formClasses.checkbox.wrapper}>
+          <input
+            type="checkbox"
+            id="paid"
+            name="paid"
+            checked={formData.paid}
+            onChange={(e) => setFormData(prev => ({ ...prev, paid: e.target.checked }))}
+            className={formClasses.checkbox.input}
+          />
+          <label htmlFor="paid" className={formClasses.checkbox.label}>
+            Willing to pay for mentorship
           </label>
         </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message</label>
+
+        <div className={formClasses.inputWrapper}>
+          <label htmlFor="message" className={formClasses.label}>
+            Message<span className={formClasses.requiredStar}>*</span>
+          </label>
           <textarea
             id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
             required
-            rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          ></textarea>
+            className={formClasses.textarea}
+            placeholder="Tell me about your goals and expectations..."
+          />
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+
+        <button type="submit" className={formClasses.button}>
           Request Mentorship
         </button>
       </form>
+      
       <Popup
         isOpen={popup.isOpen}
         onClose={() => setPopup(prev => ({ ...prev, isOpen: false }))}
         message={popup.message}
         type={popup.type}
       />
-    </>
+    </div>
   );
 };
 
