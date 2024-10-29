@@ -39,7 +39,7 @@ const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
     <>
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         {podcast.og_image_url && (
-          <img src={podcast.og_image_url} alt={title} className="w-full h-32 object-cover rounded-t-lg mb-2" />
+          <img src={podcast.og_image_url} alt={title} className="w-full h-48 object-cover rounded-t-lg mb-2" />
         )}
         <h3 className="text-lg font-semibold mb-1 truncate">
           {languageFlag} {title}

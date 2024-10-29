@@ -39,7 +39,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
     <>
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
         {talk.og_image_url && (
-          <img src={talk.og_image_url} alt={title} className="w-full h-32 object-cover rounded-t-lg mb-2" />
+          <img src={talk.og_image_url} alt={title} className="w-full h-48 object-cover rounded-t-lg mb-2" />
         )}
         <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
           {languageFlag} {title}

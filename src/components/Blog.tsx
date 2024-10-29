@@ -111,31 +111,33 @@ const Blog: React.FC = () => {
       {filteredPosts.length === 0 ? (
         <p className="text-center text-gray-600 dark:text-gray-400">No blog posts available.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredPosts.map((post) => (
             <div key={post.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
               {post.og_image_url && (
-                <img src={post.og_image_url} alt={post.og_title || post.name} className="w-full h-40 object-cover mb-2 rounded" />
+                <img src={post.og_image_url} alt={post.og_title || post.name} className="w-full h-48 object-cover rounded-t-lg mb-2" />
               )}
-              <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">
+              <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
                 {post.lang === 'Hebrew' ? '🇮🇱' : '🇺🇸'} {post.og_title || post.name}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">{post.og_description || post.short_description}</p>
-              {post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {post.tags.map((tag, index) => (
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">
+                {post.og_description || post.short_description}
+              </p>
+              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
+                <BookOpen className="mr-1 w-4 h-4" />
+                <span>{new Date(post.id).toLocaleDateString()}</span>
+              </div>
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {post.tags.slice(0, 3).map((tag, index) => (
                     <span key={index} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded">
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
-              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
-                <BookOpen className="mr-2" />
-                <span>{new Date(post.id).toLocaleDateString()}</span>
-              </div>
-              <a href={post.url} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
-                Read More <ExternalLink size={16} className="ml-1" />
+              <a href={post.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm">
+                <ExternalLink size={12} className="mr-1" /> Read More
               </a>
             </div>
           ))}
