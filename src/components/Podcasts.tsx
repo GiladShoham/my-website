@@ -22,6 +22,7 @@ interface Podcast {
   og_image_url: string;
   lang: string;
   tags: string[];
+  description_lang: 'Hebrew' | 'English';
 }
 
 const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
@@ -30,6 +31,9 @@ const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
   const description = podcast.og_description || '';
 
   const languageFlag = podcast.lang === 'Hebrew' ? '🇮🇱' : '🇺🇸';
+
+  const isDescriptionRTL = podcast.description_lang === 'Hebrew';
+  const readMoreText = isDescriptionRTL ? 'קרא עוד' : 'Read More';
 
   return (
     <>
@@ -40,16 +44,16 @@ const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
         <h3 className="text-lg font-semibold mb-1 truncate">
           {languageFlag} {title}
         </h3>
-        <p className={`text-sm text-gray-600 dark:text-gray-300 mb-2 flex ${podcast.lang === 'Hebrew' ? 'flex-row-reverse text-right' : 'flex-row'}`}>
-          <span className="flex-grow" dir={podcast.lang === 'Hebrew' ? 'rtl' : 'ltr'}>
+        <p className={`text-sm text-gray-600 dark:text-gray-300 mb-2 flex ${isDescriptionRTL ? 'flex-row-reverse text-right' : 'flex-row'}`}>
+          <span className="flex-grow" dir={isDescriptionRTL ? 'rtl' : 'ltr'}>
             {description.slice(0, 100)}
           </span>
           {description.length > 100 && (
             <button
               onClick={() => setIsModalOpen(true)}
-              className={`${podcast.lang === 'Hebrew' ? 'mr-2' : 'ml-2'} text-blue-600 dark:text-blue-400 hover:underline flex-shrink-0`}
+              className={`${isDescriptionRTL ? 'mr-2' : 'ml-2'} text-blue-600 dark:text-blue-400 hover:underline flex-shrink-0`}
             >
-              {podcast.lang === 'Hebrew' ? 'קרא עוד' : 'Read More'}
+              {readMoreText}
             </button>
           )}
         </p>
@@ -95,7 +99,7 @@ const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
         onClose={() => setIsModalOpen(false)}
         title={title}
       >
-        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${podcast.lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
+        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${isDescriptionRTL ? 'text-right dir-rtl' : ''}`}>
           {description}
         </p>
       </Modal>

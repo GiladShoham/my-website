@@ -23,6 +23,7 @@ interface Talk {
   og_title: string;
   og_description: string;
   og_image_url: string;
+  description_lang: 'Hebrew' | 'English';
 }
 
 const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
@@ -30,6 +31,9 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
   const title = talk.override_title || talk.og_title || talk.Name;
   const description = talk.override_description || talk.og_description || talk.short_desc;
   const languageFlag = talk.lang === 'Hebrew' ? '🇮🇱' : '🇺🇸';
+
+  const isDescriptionRTL = talk.description_lang === 'Hebrew';
+  const readMoreText = isDescriptionRTL ? 'קרא עוד' : 'Read More';
 
   return (
     <>
@@ -40,16 +44,16 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
           {languageFlag} {title}
         </h3>
-        <p className={`text-sm text-gray-600 dark:text-gray-300 mb-2 flex ${talk.lang === 'Hebrew' ? 'flex-row-reverse text-right' : 'flex-row'}`}>
-          <span className="flex-grow" dir={talk.lang === 'Hebrew' ? 'rtl' : 'ltr'}>
+        <p className={`text-sm text-gray-600 dark:text-gray-300 mb-2 flex ${isDescriptionRTL ? 'flex-row-reverse text-right' : 'flex-row'}`}>
+          <span className="flex-grow" dir={isDescriptionRTL ? 'rtl' : 'ltr'}>
             {description.slice(0, 100)}
           </span>
           {description.length > 100 && (
             <button
               onClick={() => setIsModalOpen(true)}
-              className={`${talk.lang === 'Hebrew' ? 'mr-2' : 'ml-2'} text-blue-600 dark:text-blue-400 hover:underline flex-shrink-0`}
+              className={`${isDescriptionRTL ? 'mr-2' : 'ml-2'} text-blue-600 dark:text-blue-400 hover:underline flex-shrink-0`}
             >
-              {talk.lang === 'Hebrew' ? 'קרא עוד' : 'Read More'}
+              {readMoreText}
             </button>
           )}
         </p>
@@ -83,7 +87,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         onClose={() => setIsModalOpen(false)}
         title={title}
       >
-        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${talk.lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
+        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${isDescriptionRTL ? 'text-right dir-rtl' : ''}`}>
           {description}
         </p>
       </Modal>
