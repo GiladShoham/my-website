@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
+import { submitContactForm } from '../../lib/submit-contact-form';
 
 interface FormData {
   topic: string;
-  eventTopic: string;
   name: string;
   email: string;
-  eventName: string;
-  eventDate: string;
-  eventFormat: string;
-  audienceSize: string;
+  event_name: string;
+  event_date: string;
+  event_format: string;
+  audience_size: string;
+  event_topic: string;
   message: string;
 }
 
 const TalkForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     topic: 'talk',
-    eventTopic: '',
     name: '',
     email: '',
-    eventName: '',
-    eventDate: '',
-    eventFormat: '',
-    audienceSize: '',
+    event_name: '',
+    event_date: '',
+    event_format: '',
+    audience_size: '',
+    event_topic: '',
     message: '',
   });
 
@@ -30,22 +31,26 @@ const TalkForm: React.FC = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Talk Form submitted:', formData);
-    // Here you would typically send the form data to a server
-    alert('Thank you for your invitation! I will get back to you soon.');
-    setFormData({ 
-      topic: 'talk', 
-      eventTopic: '', 
-      name: '', 
-      email: '', 
-      eventName: '', 
-      eventDate: '', 
-      eventFormat: '', 
-      audienceSize: '', 
-      message: '' 
-    });
+    const result = await submitContactForm(formData);
+    
+    if (result.success) {
+      alert('Thank you for your invitation! I will get back to you soon.');
+      setFormData({ 
+        topic: 'talk', 
+        name: '', 
+        email: '', 
+        event_name: '', 
+        event_date: '', 
+        event_format: '', 
+        audience_size: '', 
+        event_topic: '', 
+        message: '' 
+      });
+    } else {
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -75,35 +80,35 @@ const TalkForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="eventName" className="block text-gray-700 font-bold mb-2">Event Name</label>
+        <label htmlFor="event_name" className="block text-gray-700 font-bold mb-2">Event Name</label>
         <input
           type="text"
-          id="eventName"
-          name="eventName"
-          value={formData.eventName}
+          id="event_name"
+          name="event_name"
+          value={formData.event_name}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="eventDate" className="block text-gray-700 font-bold mb-2">Event Date</label>
+        <label htmlFor="event_date" className="block text-gray-700 font-bold mb-2">Event Date</label>
         <input
           type="date"
-          id="eventDate"
-          name="eventDate"
-          value={formData.eventDate}
+          id="event_date"
+          name="event_date"
+          value={formData.event_date}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="eventFormat" className="block text-gray-700 font-bold mb-2">Event Format</label>
+        <label htmlFor="event_format" className="block text-gray-700 font-bold mb-2">Event Format</label>
         <select
-          id="eventFormat"
-          name="eventFormat"
-          value={formData.eventFormat}
+          id="event_format"
+          name="event_format"
+          value={formData.event_format}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -115,11 +120,11 @@ const TalkForm: React.FC = () => {
         </select>
       </div>
       <div className="mb-4">
-        <label htmlFor="eventTopic" className="block text-gray-700 font-bold mb-2">Event Topic</label>
+        <label htmlFor="event_topic" className="block text-gray-700 font-bold mb-2">Event Topic</label>
         <select
-          id="eventTopic"
-          name="eventTopic"
-          value={formData.eventTopic}
+          id="event_topic"
+          name="event_topic"
+          value={formData.event_topic}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -137,12 +142,12 @@ const TalkForm: React.FC = () => {
         </select>
       </div>
       <div className="mb-4">
-        <label htmlFor="audienceSize" className="block text-gray-700 font-bold mb-2">Expected Audience Size</label>
+        <label htmlFor="audience_size" className="block text-gray-700 font-bold mb-2">Expected Audience Size</label>
         <input
           type="number"
-          id="audienceSize"
-          name="audienceSize"
-          value={formData.audienceSize}
+          id="audience_size"
+          name="audience_size"
+          value={formData.audience_size}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

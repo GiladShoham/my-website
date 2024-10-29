@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { submitContactForm } from '../../lib/submit-contact-form';
 
 interface FormData {
   topic: string;
   name: string;
   email: string;
-  homeSize: string;
-  numberOfDevices: string;
+  home_size: string;
+  number_of_devices: string;
   message: string;
 }
 
@@ -14,8 +15,8 @@ const SmartHomeForm: React.FC = () => {
     topic: 'smarthome',
     name: '',
     email: '',
-    homeSize: '',
-    numberOfDevices: '',
+    home_size: '',
+    number_of_devices: '',
     message: '',
   });
 
@@ -24,12 +25,23 @@ const SmartHomeForm: React.FC = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Smart Home Form submitted:', formData);
-    // Here you would typically send the form data to a server
-    alert('Thank you for your smart home consulting request! I will get back to you soon with more information.');
-    setFormData({ topic: 'smarthome', name: '', email: '', homeSize: '', numberOfDevices: '', message: '' });
+    const result = await submitContactForm(formData);
+    
+    if (result.success) {
+      alert('Thank you for your smart home consulting request! I will get back to you soon with more information.');
+      setFormData({ 
+        topic: 'smarthome', 
+        name: '', 
+        email: '', 
+        home_size: '', 
+        number_of_devices: '', 
+        message: '' 
+      });
+    } else {
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -59,24 +71,24 @@ const SmartHomeForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="homeSize" className="block text-gray-700 font-bold mb-2">Home Size (sq ft/m²)</label>
+        <label htmlFor="home_size" className="block text-gray-700 font-bold mb-2">Home Size (sq ft/m²)</label>
         <input
           type="text"
-          id="homeSize"
-          name="homeSize"
-          value={formData.homeSize}
+          id="home_size"
+          name="home_size"
+          value={formData.home_size}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="numberOfDevices" className="block text-gray-700 font-bold mb-2">Number of Smart Devices</label>
+        <label htmlFor="number_of_devices" className="block text-gray-700 font-bold mb-2">Number of Smart Devices</label>
         <input
           type="number"
-          id="numberOfDevices"
-          name="numberOfDevices"
-          value={formData.numberOfDevices}
+          id="number_of_devices"
+          name="number_of_devices"
+          value={formData.number_of_devices}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

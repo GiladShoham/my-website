@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { submitContactForm } from '../../lib/submit-contact-form';
 
 interface FormData {
   topic: string;
   name: string;
   email: string;
-  mentorshipArea: string;
+  mentorship_area: string;
   paid: boolean;
   message: string;
 }
@@ -14,7 +15,7 @@ const MentorshipForm: React.FC = () => {
     topic: 'mentorship',
     name: '',
     email: '',
-    mentorshipArea: '',
+    mentorship_area: '',
     paid: false,
     message: '',
   });
@@ -24,12 +25,23 @@ const MentorshipForm: React.FC = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Mentorship Form submitted:', formData);
-    // Here you would typically send the form data to a server
-    alert('Thank you for your mentorship request! I will review your application and get back to you soon.');
-    setFormData({ topic: 'mentorship', name: '', email: '', mentorshipArea: '', paid: false, message: '' });
+    const result = await submitContactForm(formData);
+    
+    if (result.success) {
+      alert('Thank you for your mentorship request! I will review your application and get back to you soon.');
+      setFormData({ 
+        topic: 'mentorship', 
+        name: '', 
+        email: '', 
+        mentorship_area: '', 
+        paid: false, 
+        message: '' 
+      });
+    } else {
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -59,12 +71,12 @@ const MentorshipForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="mentorshipArea" className="block text-gray-700 font-bold mb-2">Area of Mentorship</label>
+        <label htmlFor="mentorship_area" className="block text-gray-700 font-bold mb-2">Area of Mentorship</label>
         <input
           type="text"
-          id="mentorshipArea"
-          name="mentorshipArea"
-          value={formData.mentorshipArea}
+          id="mentorship_area"
+          name="mentorship_area"
+          value={formData.mentorship_area}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { submitContactForm } from '../../lib/submit-contact-form';
 
 interface FormData {
   topic: string;
   name: string;
   email: string;
-  companyName: string;
-  companyWebsite: string;
-  deckUrl: string;
-  projectDescription: string;
-  roundSize: string;
+  company_name: string;
+  company_website: string;
+  deck_url: string;
+  project_description: string;
+  round_size: string;
   message: string;
 }
 
@@ -17,11 +18,11 @@ const InvestmentForm: React.FC = () => {
     topic: 'investment',
     name: '',
     email: '',
-    companyName: '',
-    companyWebsite: '',
-    deckUrl: '',
-    projectDescription: '',
-    roundSize: '',
+    company_name: '',
+    company_website: '',
+    deck_url: '',
+    project_description: '',
+    round_size: '',
     message: '',
   });
 
@@ -30,12 +31,26 @@ const InvestmentForm: React.FC = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Investment Form submitted:', formData);
-    // Here you would typically send the form data to a server
-    alert('Thank you for your investment inquiry! I will review your proposal and get back to you soon.');
-    setFormData({ topic: 'investment', name: '', email: '', companyName: '', companyWebsite: '', deckUrl: '', projectDescription: '', roundSize: '', message: '' });
+    const result = await submitContactForm(formData);
+    
+    if (result.success) {
+      alert('Thank you for your investment inquiry! I will review your proposal and get back to you soon.');
+      setFormData({ 
+        topic: 'investment', 
+        name: '', 
+        email: '', 
+        company_name: '', 
+        company_website: '', 
+        deck_url: '', 
+        project_description: '', 
+        round_size: '', 
+        message: '' 
+      });
+    } else {
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -65,47 +80,47 @@ const InvestmentForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="companyName" className="block text-gray-700 font-bold mb-2">Company Name</label>
+        <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">Company Name</label>
         <input
           type="text"
-          id="companyName"
-          name="companyName"
-          value={formData.companyName}
+          id="company_name"
+          name="company_name"
+          value={formData.company_name}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="companyWebsite" className="block text-gray-700 font-bold mb-2">Company Website</label>
+        <label htmlFor="company_website" className="block text-gray-700 font-bold mb-2">Company Website</label>
         <input
           type="text"
-          id="companyWebsite"
-          name="companyWebsite"
-          value={formData.companyWebsite}
+          id="company_website"
+          name="company_website"
+          value={formData.company_website}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="deckUrl" className="block text-gray-700 font-bold mb-2">Deck URL</label>
+        <label htmlFor="deck_url" className="block text-gray-700 font-bold mb-2">Deck URL</label>
         <input
           type="text"
-          id="deckUrl"
-          name="deckUrl"
-          value={formData.deckUrl}
+          id="deck_url"
+          name="deck_url"
+          value={formData.deck_url}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="projectDescription" className="block text-gray-700 font-bold mb-2">Project Description</label>
+        <label htmlFor="project_description" className="block text-gray-700 font-bold mb-2">Project Description</label>
         <textarea
-          id="projectDescription"
-          name="projectDescription"
-          value={formData.projectDescription}
+          id="project_description"
+          name="project_description"
+          value={formData.project_description}
           onChange={handleChange}
           required
           rows={4}
@@ -113,12 +128,12 @@ const InvestmentForm: React.FC = () => {
         ></textarea>
       </div>
       <div className="mb-4">
-        <label htmlFor="roundSize" className="block text-gray-700 font-bold mb-2">Round Size</label>
+        <label htmlFor="round_size" className="block text-gray-700 font-bold mb-2">Round Size</label>
         <input
           type="text"
-          id="roundSize"
-          name="roundSize"
-          value={formData.roundSize}
+          id="round_size"
+          name="round_size"
+          value={formData.round_size}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

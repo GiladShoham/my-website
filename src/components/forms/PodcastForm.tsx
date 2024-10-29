@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import { submitContactForm } from '../../lib/submit-contact-form';
 
 interface FormData {
+  topic: string;
   name: string;
   email: string;
-  podcastName: string;
+  podcast_name: string;
   message: string;
 }
 
 const PodcastForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
+    topic: 'podcast',
     name: '',
     email: '',
-    podcastName: '',
+    podcast_name: '',
     message: '',
   });
 
@@ -20,12 +23,17 @@ const PodcastForm: React.FC = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Podcast Form submitted:', formData);
-    // Here you would typically send the form data to a server
-    alert('Thank you for your podcast invitation! I will get back to you soon.');
-    setFormData({ name: '', email: '', podcastName: '', message: '' });
+    const formDataWithTopic = { ...formData, topic: 'podcast' };
+    const result = await submitContactForm(formDataWithTopic);
+    
+    if (result.success) {
+      alert('Thank you for your podcast invitation! I will get back to you soon.');
+      setFormData({ topic: 'podcast', name: '', email: '', podcast_name: '', message: '' });
+    } else {
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -55,12 +63,12 @@ const PodcastForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="podcastName" className="block text-gray-700 font-bold mb-2">Podcast Name</label>
+        <label htmlFor="podcast_name" className="block text-gray-700 font-bold mb-2">Podcast Name</label>
         <input
           type="text"
-          id="podcastName"
-          name="podcastName"
-          value={formData.podcastName}
+          id="podcast_name"
+          name="podcast_name"
+          value={formData.podcast_name}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
