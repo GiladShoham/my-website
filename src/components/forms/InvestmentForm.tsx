@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { submitContactForm } from '../../lib/submit-contact-form';
+import Popup from '../common/Popup';
 
 interface FormData {
   topic: string;
@@ -26,6 +27,12 @@ const InvestmentForm: React.FC = () => {
     message: '',
   });
 
+  const [popup, setPopup] = useState({
+    isOpen: false,
+    message: '',
+    type: 'success' as 'success' | 'error'
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
@@ -36,7 +43,11 @@ const InvestmentForm: React.FC = () => {
     const result = await submitContactForm(formData);
     
     if (result.success) {
-      alert('Thank you for your investment inquiry! I will review your proposal and get back to you soon.');
+      setPopup({
+        isOpen: true,
+        message: 'Thank you for your investment inquiry! I will review your proposal and get back to you soon.',
+        type: 'success'
+      });
       setFormData({ 
         topic: 'investment', 
         name: '', 
@@ -49,111 +60,123 @@ const InvestmentForm: React.FC = () => {
         message: '' 
       });
     } else {
-      alert('There was an error submitting your form. Please try again.');
+      setPopup({
+        isOpen: true,
+        message: 'There was an error submitting your form. Please try again.',
+        type: 'error'
+      });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">Company Name</label>
-        <input
-          type="text"
-          id="company_name"
-          name="company_name"
-          value={formData.company_name}
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="company_website" className="block text-gray-700 font-bold mb-2">Company Website</label>
-        <input
-          type="text"
-          id="company_website"
-          name="company_website"
-          value={formData.company_website}
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="deck_url" className="block text-gray-700 font-bold mb-2">Deck URL</label>
-        <input
-          type="text"
-          id="deck_url"
-          name="deck_url"
-          value={formData.deck_url}
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="project_description" className="block text-gray-700 font-bold mb-2">Project Description</label>
-        <textarea
-          id="project_description"
-          name="project_description"
-          value={formData.project_description}
-          onChange={handleChange}
-          required
-          rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        ></textarea>
-      </div>
-      <div className="mb-4">
-        <label htmlFor="round_size" className="block text-gray-700 font-bold mb-2">Round Size</label>
-        <input
-          type="text"
-          id="round_size"
-          name="round_size"
-          value={formData.round_size}
-          onChange={handleChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Additional Message</label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        ></textarea>
-      </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
-        Submit Proposal
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">Company Name</label>
+          <input
+            type="text"
+            id="company_name"
+            name="company_name"
+            value={formData.company_name}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="company_website" className="block text-gray-700 font-bold mb-2">Company Website</label>
+          <input
+            type="text"
+            id="company_website"
+            name="company_website"
+            value={formData.company_website}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="deck_url" className="block text-gray-700 font-bold mb-2">Deck URL</label>
+          <input
+            type="text"
+            id="deck_url"
+            name="deck_url"
+            value={formData.deck_url}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="project_description" className="block text-gray-700 font-bold mb-2">Project Description</label>
+          <textarea
+            id="project_description"
+            name="project_description"
+            value={formData.project_description}
+            onChange={handleChange}
+            required
+            rows={4}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="round_size" className="block text-gray-700 font-bold mb-2">Round Size</label>
+          <input
+            type="text"
+            id="round_size"
+            name="round_size"
+            value={formData.round_size}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Additional Message</label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows={4}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+          Submit Proposal
+        </button>
+      </form>
+      <Popup
+        isOpen={popup.isOpen}
+        onClose={() => setPopup(prev => ({ ...prev, isOpen: false }))}
+        message={popup.message}
+        type={popup.type}
+      />
+    </>
   );
 };
 
