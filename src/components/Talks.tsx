@@ -40,14 +40,16 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         <h3 className="text-lg font-semibold mb-1 truncate text-gray-800 dark:text-gray-100">
           {languageFlag} {title}
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-          {description.slice(0, 100)}
+        <p className={`text-sm text-gray-600 dark:text-gray-300 mb-2 flex ${talk.lang === 'Hebrew' ? 'flex-row-reverse text-right' : 'flex-row'}`}>
+          <span className="flex-grow" dir={talk.lang === 'Hebrew' ? 'rtl' : 'ltr'}>
+            {description.slice(0, 100)}
+          </span>
           {description.length > 100 && (
             <button
               onClick={() => setIsModalOpen(true)}
-              className="ml-1 text-blue-600 dark:text-blue-400 hover:underline"
+              className={`${talk.lang === 'Hebrew' ? 'mr-2' : 'ml-2'} text-blue-600 dark:text-blue-400 hover:underline flex-shrink-0`}
             >
-              Read More
+              {talk.lang === 'Hebrew' ? 'קרא עוד' : 'Read More'}
             </button>
           )}
         </p>
@@ -81,7 +83,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         onClose={() => setIsModalOpen(false)}
         title={title}
       >
-        <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${talk.lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
           {description}
         </p>
       </Modal>

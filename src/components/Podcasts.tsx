@@ -40,14 +40,16 @@ const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
         <h3 className="text-lg font-semibold mb-1 truncate">
           {languageFlag} {title}
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-          {description.slice(0, 100)}
+        <p className={`text-sm text-gray-600 dark:text-gray-300 mb-2 flex ${podcast.lang === 'Hebrew' ? 'flex-row-reverse text-right' : 'flex-row'}`}>
+          <span className="flex-grow" dir={podcast.lang === 'Hebrew' ? 'rtl' : 'ltr'}>
+            {description.slice(0, 100)}
+          </span>
           {description.length > 100 && (
             <button
               onClick={() => setIsModalOpen(true)}
-              className="ml-1 text-blue-600 dark:text-blue-400 hover:underline"
+              className={`${podcast.lang === 'Hebrew' ? 'mr-2' : 'ml-2'} text-blue-600 dark:text-blue-400 hover:underline flex-shrink-0`}
             >
-              Read More
+              {podcast.lang === 'Hebrew' ? 'קרא עוד' : 'Read More'}
             </button>
           )}
         </p>
@@ -93,7 +95,7 @@ const PodcastCard: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
         onClose={() => setIsModalOpen(false)}
         title={title}
       >
-        <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${podcast.lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
           {description}
         </p>
       </Modal>
