@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { User, Menu, X } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface HeaderProps {
   activeTab: string;
@@ -8,132 +9,52 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
-    setIsMenuOpen(false);
+    navigate(`/${tab}`);
   };
 
   return (
-    <header className="bg-blue-600 dark:bg-blue-800 text-white p-4 transition-colors duration-200">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center">
-          <User className="mr-2" />
-          <h1 className="text-2xl font-bold">Gilad Shoham</h1>
-        </div>
-        <nav className="hidden md:flex items-center">
-          <ul className="flex space-x-4 mr-4">
-            <li>
-              <a
-                href="#about"
-                className={`hover:underline ${activeTab === 'about' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('about'); }}
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#talks"
-                className={`hover:underline ${activeTab === 'talks' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('talks'); }}
-              >
-                Talks
-              </a>
-            </li>
-            <li>
-              <a
-                href="#podcasts"
-                className={`hover:underline ${activeTab === 'podcasts' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('podcasts'); }}
-              >
-                Podcasts
-              </a>
-            </li>
-            <li>
-              <a
-                href="#blog"
-                className={`hover:underline ${activeTab === 'blog' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('blog'); }}
-              >
-                Blog
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                className={`hover:underline ${activeTab === 'contact' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('contact'); }}
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-          <ThemeToggle />
-        </nav>
-        <div className="md:hidden flex items-center">
-          <ThemeToggle />
-          <button onClick={toggleMenu} className="ml-4">
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+    <header className="bg-white dark:bg-gray-800 shadow-md">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center">
+            <Link to="/" className="text-xl font-bold text-gray-800 dark:text-white">
+              Gilad Shoham
+            </Link>
+          </div>
+          
+          <nav className="flex-grow flex justify-center">
+            <ul className="flex space-x-8">
+              {['about', 'talks', 'podcasts', 'blog', 'contact'].map((tab) => (
+                <li key={tab}>
+                  <button
+                    onClick={() => handleTabClick(tab)}
+                    className={`px-3 py-2 text-sm font-medium rounded-md ${
+                      activeTab === tab
+                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                    }`}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         </div>
       </div>
-      {isMenuOpen && (
-        <nav className="md:hidden mt-4">
-          <ul className="flex flex-col space-y-2">
-            <li>
-              <a
-                href="#about"
-                className={`block py-2 ${activeTab === 'about' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('about'); }}
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#talks"
-                className={`block py-2 ${activeTab === 'talks' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('talks'); }}
-              >
-                Talks
-              </a>
-            </li>
-            <li>
-              <a
-                href="#podcasts"
-                className={`block py-2 ${activeTab === 'podcasts' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('podcasts'); }}
-              >
-                Podcasts
-              </a>
-            </li>
-            <li>
-              <a
-                href="#blog"
-                className={`block py-2 ${activeTab === 'blog' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('blog'); }}
-              >
-                Blog
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                className={`block py-2 ${activeTab === 'contact' ? 'font-bold' : ''}`}
-                onClick={(e) => { e.preventDefault(); handleTabClick('contact'); }}
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-        </nav>
-      )}
     </header>
   );
 };
