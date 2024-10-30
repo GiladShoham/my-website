@@ -4,6 +4,7 @@ import {
   Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { cardClasses } from './common/CardStyles';
+import { formClasses } from './common/FormStyles';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -68,7 +69,7 @@ const AboutMe: React.FC = () => {
 
   return (
     <section className="container mx-auto px-4 py-16">
-      <h2 className={`${cardClasses.formTitle} text-center mb-12`}>About Me</h2>
+      <h2 className={`${formClasses.formTitle} text-center mb-12`}>About Me</h2>
       
       {/* Bio Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">

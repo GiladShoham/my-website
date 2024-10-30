@@ -115,7 +115,6 @@ const Talks: React.FC = () => {
 
   return (
     <section className="container mx-auto px-4 py-8">
-      <h2 className={cardClasses.formTitle}>Talks</h2>
       <div className={cardClasses.filterSection}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative">
