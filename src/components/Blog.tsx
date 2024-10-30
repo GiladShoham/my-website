@@ -16,6 +16,7 @@ interface BlogPost {
   og_description: string;
   og_image_url: string;
   lang: string;
+  date: string;
 }
 
 const Blog: React.FC = () => {
@@ -40,8 +41,8 @@ const Blog: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('blogs')
-        .select('id, name, short_description, tags, url, short_url, og_title, og_description, og_image_url, lang')
-        .order('id', { ascending: false });
+        .select('id, name, short_description, tags, url, short_url, og_title, og_description, og_image_url, lang, date')
+        .order('date', { ascending: false });
 
       if (error) throw error;
 
@@ -123,7 +124,7 @@ const Blog: React.FC = () => {
             title={post.og_title || post.name}
             description={post.og_description || post.short_description}
             imageUrl={post.og_image_url}
-            date={new Date(post.id).toLocaleDateString()}
+            date={post.date || new Date(post.id).toLocaleDateString()}
             tags={post.tags}
             icon={<BookOpen className="w-4 h-4" />}
             language={post.lang as 'Hebrew' | 'English'}
