@@ -103,7 +103,7 @@ const Podcasts: React.FC = () => {
             title={podcast.og_title || `${podcast.podcast_name} - ${podcast.episode}`}
             description={podcast.og_description || ''}
             imageUrl={podcast.og_image_url}
-            date={new Date(podcast.date).toLocaleDateString()}
+            date={`${new Date(podcast.date).toLocaleDateString()} • ${podcast.podcast_name}${podcast.episode ? ` - #${podcast.episode}` : ''}`}
             tags={podcast.tags || []}
             icon={<Mic className="w-4 h-4" />}
             language={podcast.lang as 'Hebrew' | 'English'}
