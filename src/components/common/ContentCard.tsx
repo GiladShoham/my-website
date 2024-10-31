@@ -55,7 +55,8 @@ const ContentCard: React.FC<ContentCardProps> = ({
           {description.length > 100 && (
             <button
               onClick={onReadMore}
-              className={`${cardClasses.link} mt-2 block md:inline-block`}
+              style={{ cursor: 'pointer' }}
+              className="text-blue-600 dark:text-blue-400 hover:underline mt-2 block md:inline-block"
             >
               {readMoreText}
             </button>
@@ -77,9 +78,10 @@ const ContentCard: React.FC<ContentCardProps> = ({
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${cardClasses.link} ${link.color || ''}`}
+              style={{ cursor: 'pointer' }}
+              className={`text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 ${link.color || ''}`}
             >
-              <ExternalLink size={12} className="mr-1" />
+              <ExternalLink size={12} />
               {link.label}
             </a>
           ))}
