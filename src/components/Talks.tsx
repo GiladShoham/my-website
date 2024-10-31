@@ -41,7 +41,8 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         date={`${talk.Conference} - ${new Date(talk.Date).toLocaleDateString()}`}
         tags={talk.Tags || []}
         icon={<Video className="mr-1 w-4 h-4" />}
-        language={talk.description_lang}
+        language={talk.lang as 'Hebrew' | 'English'}
+        descriptionLang={talk.description_lang}
         links={[
           ...(talk.URL ? [{ url: talk.URL, label: 'Watch' }] : []),
           ...(talk.slides_url ? [{ url: talk.slides_url, label: 'Slides' }] : [])

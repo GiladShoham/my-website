@@ -211,7 +211,8 @@ const Podcasts: React.FC = () => {
             date={new Date(podcast.date).toLocaleDateString()}
             tags={podcast.tags || []}
             icon={<Mic className="w-4 h-4" />}
-            language={podcast.description_lang}
+            language={podcast.lang as 'Hebrew' | 'English'}
+            descriptionLang={podcast.description_lang}
             links={[
               ...(podcast.main_link ? [{ url: podcast.main_link, label: 'Listen' }] : []),
               ...(podcast.spotify_link ? [{ url: podcast.spotify_link, label: 'Spotify', color: 'text-green-600 dark:text-green-400' }] : []),

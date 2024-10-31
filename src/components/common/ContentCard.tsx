@@ -15,6 +15,7 @@ interface ContentCardProps {
     color?: string;
   }>;
   language: 'Hebrew' | 'English';
+  descriptionLang: 'Hebrew' | 'English';
   onReadMore?: () => void;
 }
 
@@ -27,11 +28,13 @@ const ContentCard: React.FC<ContentCardProps> = ({
   icon,
   links,
   language,
+  descriptionLang,
   onReadMore
 }) => {
   const languageFlag = language === 'Hebrew' ? '🇮🇱' : '🇺🇸';
-  const isRTL = language === 'Hebrew';
-  const readMoreText = isRTL ? 'קרא עוד' : 'Read More';
+  const isDescriptionRTL = descriptionLang === 'Hebrew';
+  const isTitleRTL = descriptionLang === 'Hebrew';
+  const readMoreText = isDescriptionRTL ? 'קרא עוד' : 'Read More';
 
   return (
     <article className={cardClasses.card}>
@@ -41,10 +44,13 @@ const ContentCard: React.FC<ContentCardProps> = ({
         </div>
       )}
       <div className={cardClasses.content}>
-        <h3 className={cardClasses.title}>
-          {languageFlag} {title}
+        <h3 className={`${cardClasses.title} ${isTitleRTL ? 'text-right' : ''}`} dir={isTitleRTL ? 'rtl' : 'ltr'}>
+          {isTitleRTL ? title : ''} {languageFlag} {!isTitleRTL ? title : ''}
         </h3>
-        <div className={`${cardClasses.description} ${isRTL ? 'text-right' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
+        <div 
+          className={`${cardClasses.description} ${isDescriptionRTL ? 'text-right' : ''}`} 
+          dir={isDescriptionRTL ? 'rtl' : 'ltr'}
+        >
           <p className="line-clamp-3">{description}</p>
           {description.length > 100 && (
             <button
