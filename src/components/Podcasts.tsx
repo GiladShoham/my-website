@@ -94,7 +94,7 @@ const Podcasts: React.FC = () => {
               id="language-filter"
               value={languageFilter}
               onChange={(e) => setLanguageFilter(e.target.value)}
-              className={formClasses.select}
+              className={`${formClasses.select} w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
             >
               <option value="all">All Languages</option>
               <option value="English">English</option>
@@ -110,9 +110,9 @@ const Podcasts: React.FC = () => {
               id="tag-filter"
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
-              className={formClasses.select}
+              className={`${formClasses.select} w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
             >
-              <option value="">All Tags</option>
+              <option value="">All Topics</option>
               {allTags.map((tag) => (
                 <option key={tag} value={tag}>{tag}</option>
               ))}
