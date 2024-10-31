@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, ExternalLink } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
-import { formClasses } from './common/FormStyles';
 import ContentFilters from './common/ContentFilters';
 
 interface BlogPost {

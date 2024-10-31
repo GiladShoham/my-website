@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Mic, ExternalLink } from 'lucide-react';
+import { Mic } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import Modal from './Modal';
 import { cardClasses } from './common/CardStyles';
-import { formClasses } from './common/FormStyles';
 import ContentCard from './common/ContentCard';
 import ContentFilters from './common/ContentFilters';
 

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Video, ExternalLink, Filter } from 'lucide-react';
+import { Video } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import Modal from './Modal';
 import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
-import { formClasses } from './common/FormStyles';
 import ContentFilters from './common/ContentFilters';
 
 interface Talk {
