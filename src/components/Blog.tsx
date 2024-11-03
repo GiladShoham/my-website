@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
 import ContentFilters from './common/ContentFilters';
+import { useFilterParams } from '../hooks/useFilterParams';
 
 interface BlogPost {
   id: number;
@@ -35,6 +36,13 @@ const Blog: React.FC = () => {
   useEffect(() => {
     filterPosts();
   }, [blogPosts, languageFilter, tagFilter]);
+
+  useFilterParams({
+    languageFilter,
+    setLanguageFilter,
+    tagFilter,
+    setTagFilter
+  });
 
   const fetchBlogPosts = async () => {
     try {

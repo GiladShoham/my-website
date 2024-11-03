@@ -5,6 +5,7 @@ import Modal from './Modal';
 import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
 import ContentFilters from './common/ContentFilters';
+import { useFilterParams } from '../hooks/useFilterParams';
 
 interface Talk {
   id: number;
@@ -110,6 +111,13 @@ const Talks: React.FC = () => {
     }
     setFilteredTalks(filtered);
   };
+
+  useFilterParams({
+    languageFilter,
+    setLanguageFilter,
+    tagFilter,
+    setTagFilter
+  });
 
   if (loading) return <div className="text-gray-800 dark:text-gray-100">Loading talks...</div>;
   if (error) return <div className="text-red-600 dark:text-red-400">Error: {error}</div>;

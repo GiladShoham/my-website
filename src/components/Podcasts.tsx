@@ -5,6 +5,7 @@ import Modal from './Modal';
 import { cardClasses } from './common/CardStyles';
 import ContentCard from './common/ContentCard';
 import ContentFilters from './common/ContentFilters';
+import { useFilterParams } from '../hooks/useFilterParams';
 
 interface Podcast {
   id: number;
@@ -39,6 +40,13 @@ const Podcasts: React.FC = () => {
   const [allTags, setAllTags] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPodcast, setSelectedPodcast] = useState<Podcast | null>(null);
+
+  useFilterParams({
+    languageFilter,
+    setLanguageFilter,
+    tagFilter,
+    setTagFilter
+  });
 
   useEffect(() => {
     fetchPodcasts();
