@@ -9,19 +9,19 @@ import { useFilterParams } from '../hooks/useFilterParams';
 
 interface Talk {
   id: number;
-  Name: string;
-  Conference: string;
+  name: string;
+  conference: string;
   short_desc: string;
-  Duration: string;
+  duration: string;
   lang: string;
-  Date: string;
-  Tags: string[];
-  Draft_URL: string;
-  URL: string;
+  date: string;
+  tags: string[];
+  draft_url: string;
+  url: string;
   short_url: string;
   slides_url: string;
   slides_sho: string;
-  Status: string;
+  status: string;
   override_title: string | null;
   override_description: string | null;
   og_title: string;
@@ -36,16 +36,16 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
   return (
     <>
       <ContentCard
-        title={talk.override_title || talk.og_title || talk.Name}
+        title={talk.override_title || talk.og_title || talk.name}
         description={talk.override_description || talk.og_description || talk.short_desc}
         imageUrl={talk.og_image_url}
-        date={`${talk.Conference} - ${new Date(talk.Date).toLocaleDateString()}`}
-        tags={talk.Tags || []}
+        date={`${talk.conference} - ${new Date(talk.date).toLocaleDateString()}`}
+        tags={talk.tags || []}
         icon={<Video className="mr-1 w-4 h-4" />}
         language={talk.lang as 'Hebrew' | 'English'}
         descriptionLang={talk.description_lang}
         links={[
-          ...(talk.URL ? [{ url: talk.URL, label: 'Watch' }] : []),
+          ...(talk.url ? [{ url: talk.url, label: 'Watch' }] : []),
           ...(talk.slides_url ? [{ url: talk.slides_url, label: 'Slides' }] : [])
         ]}
         onReadMore={() => setIsModalOpen(true)}
@@ -53,7 +53,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={talk.override_title || talk.og_title || talk.Name}
+        title={talk.override_title || talk.og_title || talk.name}
       >
         <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${talk.description_lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
           {talk.override_description || talk.og_description || talk.short_desc}
@@ -86,7 +86,7 @@ const Talks: React.FC = () => {
       const { data, error } = await supabase
         .from('talks')
         .select('*, og_title, og_description, og_image_url')
-        .order('Date', { ascending: false });
+        .order('date', { ascending: false });
 
       if (error) throw error;
 
@@ -107,7 +107,7 @@ const Talks: React.FC = () => {
       filtered = filtered.filter(talk => talk.lang === languageFilter);
     }
     if (tagFilter) {
-      filtered = filtered.filter(talk => talk.Tags && talk.Tags.includes(tagFilter));
+      filtered = filtered.filter(talk => talk.tags && talk.tags.includes(tagFilter));
     }
     setFilteredTalks(filtered);
   };
