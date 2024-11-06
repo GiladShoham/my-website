@@ -15,7 +15,7 @@ interface ContentCardProps {
     color?: string;
   }>;
   language: 'Hebrew' | 'English';
-  descriptionLang: 'Hebrew' | 'English';
+  descriptionLang?: 'Hebrew' | 'English';
   onReadMore?: () => void;
 }
 
@@ -28,7 +28,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
   icon,
   links,
   language,
-  descriptionLang,
+  descriptionLang = 'English',
   onReadMore
 }) => {
   const languageFlag = language === 'Hebrew' ? '🇮🇱' : '🇺🇸';
