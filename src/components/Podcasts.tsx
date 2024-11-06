@@ -11,7 +11,7 @@ interface Podcast {
   id: number;
   podcast_name: string;
   episode: string;
-  date: string;
+  date: Date;
   main_link: string;
   short_main_link: string;
   spotify_link: string | null;
@@ -61,13 +61,18 @@ const Podcasts: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('podcasts')
-        .select('*, og_title, og_description, og_image_url, lang, tags')
+        .select('*')
         .order('date', { ascending: false });
 
       if (error) throw error;
 
-      setPodcasts(data || []);
-      const tags = Array.from(new Set(data?.flatMap(podcast => podcast.tags || []) || []));
+      const formattedData = (data || []).map(podcast => ({
+        ...podcast,
+        date: new Date(podcast.date),
+        tags: podcast.tags || []
+      }));
+      setPodcasts(formattedData);
+      const tags = Array.from(new Set(formattedData.flatMap(podcast => podcast.tags)));
       setAllTags(tags);
     } catch (error) {
       setError('Failed to fetch podcasts');
@@ -110,7 +115,11 @@ const Podcasts: React.FC = () => {
             title={podcast.og_title || `${podcast.podcast_name} - ${podcast.episode}`}
             description={podcast.og_description || ''}
             imageUrl={podcast.og_image_url}
-            date={`${new Date(podcast.date).toLocaleDateString()} • ${podcast.podcast_name}${podcast.episode ? ` - #${podcast.episode}` : ''}`}
+            date={podcast.date}
+            metadata={{
+              podcastName: podcast.podcast_name,
+              episodeNumber: podcast.episode
+            }}
             tags={podcast.tags || []}
             icon={<Mic className="w-4 h-4" />}
             language={podcast.lang as 'Hebrew' | 'English'}

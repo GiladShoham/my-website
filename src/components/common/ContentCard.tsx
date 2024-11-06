@@ -6,7 +6,12 @@ interface ContentCardProps {
   title: string;
   description: string;
   imageUrl?: string;
-  date: string;
+  date: Date;
+  metadata?: {
+    podcastName?: string;
+    episodeNumber?: string;
+    conference?: string;
+  };
   tags: string[];
   icon: React.ReactNode;
   links: Array<{
@@ -24,6 +29,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
   description,
   imageUrl,
   date,
+  metadata,
   tags,
   icon,
   links,
@@ -33,8 +39,27 @@ const ContentCard: React.FC<ContentCardProps> = ({
 }) => {
   const languageFlag = language === 'Hebrew' ? '🇮🇱' : '🇺🇸';
   const isDescriptionRTL = descriptionLang === 'Hebrew';
-  const isTitleRTL = descriptionLang === 'Hebrew';
+  const isTitleRTL = language === 'Hebrew';
   const readMoreText = isDescriptionRTL ? 'קרא עוד' : 'Read More';
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const formatMetadata = () => {
+    if (!metadata) return '';
+    const parts = [];
+    if (metadata.conference) parts.push(metadata.conference);
+    if (metadata.podcastName) {
+      parts.push(metadata.podcastName);
+      if (metadata.episodeNumber) parts.push(`#${metadata.episodeNumber}`);
+    }
+    return parts.length > 0 ? ` • ${parts.join(' - ')}` : '';
+  };
 
   return (
     <article className={cardClasses.card}>
@@ -64,7 +89,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
         </div>
         <div className={cardClasses.stats}>
           {icon}
-          <span>{date}</span>
+          <span>{formatDate(date)}{formatMetadata()}</span>
         </div>
         <div className={cardClasses.tags}>
           {tags.slice(0, 3).map((tag, index) => (

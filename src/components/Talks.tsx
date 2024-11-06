@@ -14,7 +14,7 @@ interface Talk {
   short_desc: string;
   duration: string;
   lang: string;
-  date: string;
+  date: Date;
   tags: string[];
   draft_url: string;
   url: string;
@@ -39,7 +39,10 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         title={talk.override_title || talk.og_title || talk.name}
         description={talk.override_description || talk.og_description || talk.short_desc}
         imageUrl={talk.og_image_url}
-        date={`${talk.conference} - ${new Date(talk.date).toLocaleDateString()}`}
+        date={talk.date}
+        metadata={{
+          conference: talk.conference
+        }}
         tags={talk.tags || []}
         icon={<Video className="mr-1 w-4 h-4" />}
         language={talk.lang as 'Hebrew' | 'English'}
@@ -85,13 +88,18 @@ const Talks: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('talks')
-        .select('*, og_title, og_description, og_image_url')
+        .select('*')
         .order('date', { ascending: false });
 
       if (error) throw error;
 
-      setTalks(data || []);
-      const tags = Array.from(new Set(data?.flatMap(talk => talk.Tags || []) || []));
+      const formattedData = (data || []).map(talk => ({
+        ...talk,
+        date: new Date(talk.date),
+        tags: talk.tags || []
+      }));
+      setTalks(formattedData);
+      const tags = Array.from(new Set(formattedData.flatMap(talk => talk.Tags || [])));
       setAllTags(tags);
     } catch (error) {
       setError('Failed to fetch talks');
