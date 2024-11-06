@@ -1,5 +1,4 @@
 import React from 'react';
-import { cardClasses } from './CardStyles';
 import { ExternalLink } from 'lucide-react';
 
 interface ContentCardProps {
@@ -39,7 +38,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
 }) => {
   const languageFlag = language === 'Hebrew' ? '🇮🇱' : '🇺🇸';
   const isDescriptionRTL = descriptionLang === 'Hebrew';
-  const isTitleRTL = language === 'Hebrew';
+  const isTitleRTL = descriptionLang === 'Hebrew';
   const readMoreText = isDescriptionRTL ? 'קרא עוד' : 'Read More';
 
   const formatDate = (date: Date) => {
@@ -62,54 +61,83 @@ const ContentCard: React.FC<ContentCardProps> = ({
   };
 
   return (
-    <article className={cardClasses.card}>
-      {imageUrl && (
-        <div className={cardClasses.imageWrapper}>
-          <img src={imageUrl} alt={title} className={cardClasses.image} />
-        </div>
-      )}
-      <div className={cardClasses.content}>
-        <h3 className={`${cardClasses.title} ${isTitleRTL ? 'text-right' : ''}`} dir={isTitleRTL ? 'rtl' : 'ltr'}>
-          {isTitleRTL ? title : ''} {languageFlag} {!isTitleRTL ? title : ''}
-        </h3>
-        <div 
-          className={`${cardClasses.description} ${isDescriptionRTL ? 'text-right' : ''}`} 
-          dir={isDescriptionRTL ? 'rtl' : 'ltr'}
-        >
-          <p className="line-clamp-3">{description}</p>
-          {description.length > 100 && (
-            <button
-              onClick={onReadMore}
-              style={{ cursor: 'pointer' }}
-              className="text-blue-600 dark:text-blue-400 hover:underline mt-2 block md:inline-block"
+    <article className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden h-full">
+      <div className="flex flex-col h-full">
+        {imageUrl && (
+          <div className="w-full h-64">
+            <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
+          </div>
+        )}
+        
+        <div className="p-6 flex flex-col flex-1">
+          {/* Title Container - Fixed Height */}
+          <div className="min-h-[3rem] mb-2">
+            <h3 
+              className={`text-xl font-semibold ${isTitleRTL ? 'text-right' : ''} line-clamp-2`} 
+              dir={isTitleRTL ? 'rtl' : 'ltr'}
             >
-              {readMoreText}
-            </button>
-          )}
-        </div>
-        <div className={cardClasses.stats}>
-          {icon}
-          <span>{formatDate(date)}{formatMetadata()}</span>
-        </div>
-        <div className={cardClasses.tags}>
-          {tags.slice(0, 3).map((tag, index) => (
-            <span key={index} className={cardClasses.tag}>{tag}</span>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-2 mt-4">
-          {links.map((link, index) => (
-            <a
-              key={index}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ cursor: 'pointer' }}
-              className={`text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 ${link.color || ''}`}
+              {isTitleRTL ? title : ''} {languageFlag} {!isTitleRTL ? title : ''}
+            </h3>
+          </div>
+
+          {/* Content Container */}
+          <div className="flex flex-col flex-1">
+            {/* Description Section */}
+            <div 
+              className={`${isDescriptionRTL ? 'text-right' : ''}`} 
+              dir={isDescriptionRTL ? 'rtl' : 'ltr'}
             >
-              <ExternalLink size={12} />
-              {link.label}
-            </a>
-          ))}
+              <p className="text-gray-600 dark:text-gray-300 line-clamp-3">{description}</p>
+              {description.length > 100 && onReadMore && (
+                <button
+                  onClick={onReadMore}
+                  className="text-blue-600 dark:text-blue-400 hover:underline mt-2"
+                >
+                  {readMoreText}
+                </button>
+              )}
+            </div>
+
+            {/* Footer Section */}
+            <div className="mt-auto pt-6 space-y-4">
+              {/* Date and Metadata */}
+              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                {icon}
+                <span className="ml-2">
+                  {formatDate(date)}
+                  {formatMetadata()}
+                </span>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {tags.slice(0, 3).map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Links */}
+              <div className="flex flex-wrap gap-2">
+                {links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1 text-sm ${link.color || 'text-blue-600 dark:text-blue-400'} hover:underline`}
+                  >
+                    <ExternalLink size={12} />
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </article>
