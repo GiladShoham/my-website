@@ -57,8 +57,9 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={talk.override_title || talk.og_title || talk.name}
+        isRTL={talk.description_lang === 'Hebrew'}
       >
-        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${talk.description_lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
+        <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
           {talk.override_description || talk.og_description || talk.short_desc}
         </p>
       </Modal>

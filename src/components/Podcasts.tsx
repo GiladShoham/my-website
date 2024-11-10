@@ -141,8 +141,9 @@ const Podcasts: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={selectedPodcast ? (selectedPodcast.og_title || `${selectedPodcast.podcast_name} - ${selectedPodcast.episode}`) : ''}
+        isRTL={selectedPodcast?.description_lang === 'Hebrew'}
       >
-        <p className={`text-gray-600 dark:text-gray-300 whitespace-pre-wrap ${selectedPodcast?.description_lang === 'Hebrew' ? 'text-right dir-rtl' : ''}`}>
+        <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
           {selectedPodcast?.og_description || ''}
         </p>
       </Modal>
