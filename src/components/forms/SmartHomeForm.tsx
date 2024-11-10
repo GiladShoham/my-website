@@ -10,6 +10,7 @@ interface FormData {
   home_size: string;
   number_of_devices: string;
   message: string;
+  paid: boolean;
 }
 
 const SmartHomeForm: React.FC = () => {
@@ -20,6 +21,7 @@ const SmartHomeForm: React.FC = () => {
     home_size: '',
     number_of_devices: '',
     message: '',
+    paid: false,
   });
 
   const [popup, setPopup] = useState({
@@ -49,7 +51,8 @@ const SmartHomeForm: React.FC = () => {
         email: '', 
         home_size: '', 
         number_of_devices: '', 
-        message: '' 
+        message: '', 
+        paid: false 
       });
     } else {
       setPopup({
@@ -126,6 +129,20 @@ const SmartHomeForm: React.FC = () => {
             className={formClasses.input}
             placeholder="e.g., 10"
           />
+        </div>
+
+        <div className={formClasses.checkbox.wrapper}>
+          <input
+            type="checkbox"
+            id="paid"
+            name="paid"
+            checked={formData.paid}
+            onChange={(e) => setFormData(prev => ({ ...prev, paid: e.target.checked }))}
+            className={formClasses.checkbox.input}
+          />
+          <label htmlFor="paid" className={formClasses.checkbox.label}>
+            Willing to pay for consultation
+          </label>
         </div>
 
         <div className={formClasses.inputWrapper}>

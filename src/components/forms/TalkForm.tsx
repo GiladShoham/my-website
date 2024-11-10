@@ -13,6 +13,7 @@ interface FormData {
   audience_size: string;
   event_topic: string;
   message: string;
+  paid: boolean;
 }
 
 const TalkForm: React.FC = () => {
@@ -26,6 +27,7 @@ const TalkForm: React.FC = () => {
     audience_size: '',
     event_topic: '',
     message: '',
+    paid: false,
   });
 
   const [popup, setPopup] = useState({
@@ -58,7 +60,8 @@ const TalkForm: React.FC = () => {
         event_format: '', 
         audience_size: '', 
         event_topic: '', 
-        message: '' 
+        message: '', 
+        paid: false 
       });
     } else {
       setPopup({
@@ -189,6 +192,19 @@ const TalkForm: React.FC = () => {
             className={formClasses.input}
             placeholder="Enter the expected audience size"
           />
+        </div>
+        <div className={formClasses.checkbox.wrapper}>
+          <input
+            type="checkbox"
+            id="paid"
+            name="paid"
+            checked={formData.paid}
+            onChange={(e) => setFormData(prev => ({ ...prev, paid: e.target.checked }))}
+            className={formClasses.checkbox.input}
+          />
+          <label htmlFor="paid" className={formClasses.checkbox.label}>
+            Willing to pay for the talk
+          </label>
         </div>
         <div className={formClasses.inputWrapper}>
           <label htmlFor="message" className={formClasses.label}>
