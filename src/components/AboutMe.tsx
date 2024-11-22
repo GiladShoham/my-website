@@ -46,7 +46,7 @@ const AboutMe: React.FC = () => {
       title: 'Smart Home Expert',
       icon: <Home className="w-6 h-6 mr-2" />,
       content: "I'm a huge fan of smart homes, with hundreds of devices in my own setup. I share my knowledge through a podcast, blog, and YouTube channel (in Hebrew) and love helping others build their own smart homes—for free, simply out of passion for the field.",
-      image: 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      image: 'https://images.unsplash.com/photo-1702390796625-6dd9b46b1c0b?ixlib=rb-1.2.1&auto=format&fit=contain&w=500&q=60',
     },
     {
       title: 'Professional Debater',
