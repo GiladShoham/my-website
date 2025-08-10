@@ -131,7 +131,8 @@ const Podcasts: React.FC = () => {
             links={[
               ...(podcast.pod_link ? [{ url: podcast.pod_link, label: 'Listen' }] : []),
               ...(podcast.spotify_link ? [{ url: podcast.spotify_link, label: 'Spotify', color: 'text-green-600 dark:text-green-400' }] : []),
-              ...(podcast.apple ? [{ url: podcast.apple, label: 'Apple', color: 'text-purple-600 dark:text-purple-400' }] : [])
+              ...(podcast.apple ? [{ url: podcast.apple, label: 'Apple', color: 'text-purple-600 dark:text-purple-400' }] : []),
+              ...(podcast.youtube_link ? [{ url: podcast.youtube_link, label: 'YouTube', color: 'text-red-600 dark:text-red-400' }] : [])
             ]}
           />
         ))}
