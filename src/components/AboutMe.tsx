@@ -19,6 +19,12 @@ const AboutMe: React.FC = () => {
       image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     },
     {
+      title: 'Community Leader',
+      icon: <Users className="w-6 h-6 mr-2" />,
+      content: "I lead two active and fast-growing communities: MCP Israel and n8n Israel. These communities bring together developers, enthusiasts, and professionals to share knowledge, collaborate on projects, and drive innovation in their respective domains. Building and nurturing these communities allows me to foster learning and growth while connecting like-minded individuals.",
+      image: 'https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754834694/combined-logos_taaqne.png',
+    },
+    {
       title: 'Angel Investor',
       icon: <DollarSign className="w-6 h-6 mr-2" />,
       content: "I love connecting with entrepreneurs and helping them thrive. As an angel investor, I sometimes invest alone and other times with a group. While I primarily invest in the dev tools space, I'm open to other verticals where I can add value and help startups achieve their goals.",
