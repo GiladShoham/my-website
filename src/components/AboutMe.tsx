@@ -84,7 +84,7 @@ const AboutMe: React.FC = () => {
           <div className="relative w-64 h-64 lg:w-80 lg:h-80">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 blur opacity-25"></div>
             <img
-              src="https://res.cloudinary.com/dzc7cp7jh/image/upload/t_Profile/v1728585776/Profile_Picture_Gilad_ubruik.png"
+              src="https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754835143/AT_T_Leaders_in_Tech_May_2025_-_square_stnetd.png"
               alt="Gilad Shoham"
               className="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800"
             />
