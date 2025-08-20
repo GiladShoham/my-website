@@ -100,7 +100,7 @@ const Talks: React.FC = () => {
         tags: talk.tags || []
       }));
       setTalks(formattedData);
-      const tags = Array.from(new Set(formattedData.flatMap(talk => talk.Tags || [])));
+      const tags = Array.from(new Set(formattedData.flatMap(talk => talk.tags || [])));
       setAllTags(tags);
     } catch (error) {
       setError('Failed to fetch talks');
