@@ -73,7 +73,7 @@ const AboutMe: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen">
+    <section className="relative">
       {/* Modern Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Animated Background Elements */}
@@ -83,17 +83,12 @@ const AboutMe: React.FC = () => {
           <div className="absolute bottom-40 right-1/3 w-60 h-60 bg-gradient-to-br from-cyan-400/20 to-blue-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
 
-        <div className="relative container mx-auto px-4 py-20 min-h-screen flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
+        <div className="relative container mx-auto px-4 py-12 lg:py-16 flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
             {/* Content Side */}
-            <div className="space-y-8 text-center lg:text-left">
+            <div className="space-y-6 text-center lg:text-left">
               {/* Main Title */}
               <div className="space-y-4">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                  Available for opportunities
-                </div>
-                
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
                   <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
                     Gilad Shoham
@@ -166,13 +161,6 @@ const AboutMe: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-gray-400 dark:border-gray-600 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gray-400 dark:bg-gray-600 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
       </div>
 
       {/* Detailed Bio Section */}
@@ -182,16 +170,16 @@ const AboutMe: React.FC = () => {
             My Story
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
+            <div className="space-y-6 flex flex-col">
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Philosophy</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   I believe that software development is a tool to improve human life. I find software to be the most powerful way to share value in order to connect people and improve the quality of all our lives.
                 </p>
               </div>
               
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Passion</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   Software engineering for me is like painting or sculpting, it's a way to take a complicated and beautiful structure, connect all the dots piece by piece, and create a masterpiece. It's more than just art, it's life.
@@ -199,15 +187,15 @@ const AboutMe: React.FC = () => {
               </div>
             </div>
             
-            <div className="space-y-6">
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="space-y-6 flex flex-col">
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Dedication</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   That's why I wake up with a smile and keep it on all day long. I am lucky to be paid for doing what I love the most. I'm not smarter than others, I just really care. I love what I do and do what I love, so I don't play the nine-to-five game, I live it 24/7.
                 </p>
               </div>
               
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Leadership</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
