@@ -114,7 +114,7 @@ const AboutMe: React.FC = () => {
                   Learn More About Me
                 </button>
                 <button
-                  onClick={() => window.open('https://linktr.ee/giladshoham', '_blank')}
+                  onClick={() => window.open('https://www.linkedin.com/in/shohamgilad/', '_blank')}
                   className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-105 transition-all duration-200"
                 >
                   Connect With Me
@@ -170,37 +170,33 @@ const AboutMe: React.FC = () => {
             My Story
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
-            <div className="space-y-6 flex flex-col">
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Philosophy</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I believe that software development is a tool to improve human life. I find software to be the most powerful way to share value in order to connect people and improve the quality of all our lives.
-                </p>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Passion</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Software engineering for me is like painting or sculpting, it's a way to take a complicated and beautiful structure, connect all the dots piece by piece, and create a masterpiece. It's more than just art, it's life.
-                </p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Philosophy</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                I believe that software development is a tool to improve human life. I find software to be the most powerful way to share value in order to connect people and improve the quality of all our lives.
+              </p>
             </div>
             
-            <div className="space-y-6 flex flex-col">
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Dedication</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  That's why I wake up with a smile and keep it on all day long. I am lucky to be paid for doing what I love the most. I'm not smarter than others, I just really care. I love what I do and do what I love, so I don't play the nine-to-five game, I live it 24/7.
-                </p>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex-1">
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Leadership</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
-                </p>
-              </div>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Passion</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Software engineering for me is like painting or sculpting, it's a way to take a complicated and beautiful structure, connect all the dots piece by piece, and create a masterpiece. It's more than just art, it's life.
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Dedication</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                That's why I wake up with a smile and keep it on all day long. I am lucky to be paid for doing what I love the most. I'm not smarter than others, I just really care. I love what I do and do what I love, so I don't play the nine-to-five game, I live it 24/7.
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Leadership</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
+              </p>
             </div>
           </div>
         </div>
