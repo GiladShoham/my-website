@@ -4,7 +4,6 @@ import {
   Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { cardClasses } from './common/CardStyles';
-import { formClasses } from './common/FormStyles';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -74,45 +73,141 @@ const AboutMe: React.FC = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 py-16">
-      <h2 className={`${formClasses.formTitle} text-center mb-12`}>About Me</h2>
-      
-      {/* Bio Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-        {/* Profile Image */}
-        <div className="flex justify-center">
-          <div className="relative w-64 h-64 lg:w-80 lg:h-80">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 blur opacity-25"></div>
-            <img
-              src="https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754835143/AT_T_Leaders_in_Tech_May_2025_-_square_stnetd.png"
-              alt="Gilad Shoham"
-              className="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800"
-            />
+    <section className="relative">
+      {/* Modern Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 -left-32 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-40 right-1/3 w-60 h-60 bg-gradient-to-br from-cyan-400/20 to-blue-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+
+        <div className="relative container mx-auto px-4 py-12 lg:py-16 flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+            {/* Content Side */}
+            <div className="space-y-6 text-center lg:text-left">
+              {/* Main Title */}
+              <div className="space-y-4">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                  <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
+                    Gilad Shoham
+                  </span>
+                </h1>
+                
+                <h2 className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 font-light">
+                  Dev Leader & Open Source Enthusiast
+                </h2>
+              </div>
+
+              {/* Description */}
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Building the future through code, community, and innovation. With 15+ years of leadership experience, I'm passionate about creating solutions that empower developers worldwide.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <button 
+                  onClick={() => document.getElementById('about-details')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
+                  Learn More About Me
+                </button>
+                <button
+                  onClick={() => window.open('https://www.linkedin.com/in/shohamgilad/', '_blank')}
+                  className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-105 transition-all duration-200"
+                >
+                  Connect With Me
+                </button>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="grid grid-cols-3 gap-6 pt-8">
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">15+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Years Leading</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">100+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">2</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Communities</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Image Side */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                {/* Floating elements around the image */}
+                <div className="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl opacity-20 animate-bounce delay-100"></div>
+                <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full opacity-30 animate-bounce delay-300"></div>
+                <div className="absolute top-1/2 -right-8 w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg opacity-25 animate-bounce delay-500"></div>
+                
+                {/* Main image container */}
+                <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+                  <div className="relative w-full h-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-2 shadow-2xl">
+                    <img
+                      src="https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754835143/AT_T_Leaders_in_Tech_May_2025_-_square_stnetd.png"
+                      alt="Gilad Shoham"
+                      className="w-full h-full object-cover rounded-2xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        {/* Bio Text */}
-        <div className="prose dark:prose-invert max-w-none">
-          <p className="mb-4 text-lg">
-            I believe that software development is a tool to improve human life. I find software to be the most powerful way to share value in order to connect people and improve the quality of all our lives.
-          </p>
-          
-          <p className="mb-4 text-lg">
-            Software engineering for me is like painting or sculpting, it's a way to take a complicated and beautiful structure lay, connect all the dots piece by piece, and create a masterpiece. It's more than just art, it's life.
-          </p>
-          
-          <p className="mb-4 text-lg">
-            That's why I wake up with a smile and keep it on all day long. I am lucky to be paid for doing what I love the most. That's what makes me a great engineer. I'm not smarter than others, I just really care. I love what I do and do what I love, so I don't play the nine-to-five game, I live it 24/7.
-          </p>
+      </div>
 
-          <p className="text-lg">
-            This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy running around and having fun without the need for any additional incentive. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
-          </p>
+      {/* Detailed Bio Section */}
+      <div id="about-details" className="container mx-auto px-4 py-20">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+            My Story
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Philosophy</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                I believe that software development is a tool to improve human life. I find software to be the most powerful way to share value in order to connect people and improve the quality of all our lives.
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Passion</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Software engineering for me is like painting or sculpting, it's a way to take a complicated and beautiful structure, connect all the dots piece by piece, and create a masterpiece. It's more than just art, it's life.
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Dedication</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                That's why I wake up with a smile and keep it on all day long. I am lucky to be paid for doing what I love the most. I'm not smarter than others, I just really care. I love what I do and do what I love, so I don't play the nine-to-five game, I live it 24/7.
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Leadership</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Carousel Section */}
-      <div className="relative mt-20">
+      <div className="relative bg-gray-50 dark:bg-gray-900 py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+            What I Do
+          </h2>
         <Slider ref={sliderRef} {...settings}>
           {sections.map((section, index) => (
             <div key={index} className="px-4 pb-8">
@@ -180,6 +275,7 @@ const AboutMe: React.FC = () => {
         >
           <ChevronRight className="w-6 h-6" />
         </button>
+        </div>
       </div>
     </section>
   );
