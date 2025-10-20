@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X, Languages } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 interface HeaderProps {
   activeTab: string;
@@ -11,6 +13,8 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage } = useLanguage();
+  const t = useTranslation(language);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleTabClick = (tab: string) => {
@@ -55,15 +59,23 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                   >
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    {t.nav[tab as keyof typeof t.nav]}
                   </button>
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Theme Toggle - Desktop */}
-          <div className="hidden md:block">
+          {/* Controls - Desktop */}
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              onClick={toggleLanguage}
+              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+              aria-label="Toggle language"
+              title={language === 'en' ? 'עברית' : 'English'}
+            >
+              <Languages size={20} />
+            </button>
             <button
               onClick={toggleTheme}
               className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
@@ -88,10 +100,18 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                   >
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    {t.nav[tab as keyof typeof t.nav]}
                   </button>
                 </li>
               ))}
+              <li>
+                <button
+                  onClick={toggleLanguage}
+                  className="w-full px-4 py-2 text-sm font-medium rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center"
+                >
+                  <Languages size={16} className="mr-2" /> {language === 'en' ? 'עברית' : 'English'}
+                </button>
+              </li>
               <li>
                 <button
                   onClick={toggleTheme}
@@ -99,11 +119,11 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 >
                   {theme === 'dark' ? (
                     <>
-                      <Sun size={16} className="mr-2" /> Light Mode
+                      <Sun size={16} className="mr-2" /> {t.nav.lightMode}
                     </>
                   ) : (
                     <>
-                      <Moon size={16} className="mr-2" /> Dark Mode
+                      <Moon size={16} className="mr-2" /> {t.nav.darkMode}
                     </>
                   )}
                 </button>

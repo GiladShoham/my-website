@@ -4,62 +4,44 @@ import {
   Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { cardClasses } from './common/CardStyles';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const AboutMe: React.FC = () => {
   const sliderRef = React.useRef<Slider>(null);
+  const { language } = useLanguage();
+  const t = useTranslation(language);
 
-  const sections = [
-    {
-      title: 'Dev and Open Source Leader',
-      icon: <Code className="w-6 h-6 mr-2" />,
-      content: "With 15+ years in leadership, I lead a global team of OSS developers at Bit.dev, focusing on Bit's CLI. I'm passionate about open source, contributing to projects like pnpm, rspack, oxc, oxlint-node, and GraphQL tools—building solutions that empower developers worldwide.",
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    {
-      title: 'Community Leader',
-      icon: <Users className="w-6 h-6 mr-2" />,
-      content: "I lead two active and fast-growing communities: MCP Israel and n8n Israel. These communities bring together developers, enthusiasts, and professionals to share knowledge, collaborate on projects, and drive innovation in their respective domains. Building and nurturing these communities allows me to foster learning and growth while connecting like-minded individuals.",
-      image: 'https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754834694/combined-logos_taaqne.png',
-    },
-    {
-      title: 'Angel Investor',
-      icon: <DollarSign className="w-6 h-6 mr-2" />,
-      content: "I love connecting with entrepreneurs and helping them thrive. As an angel investor, I sometimes invest alone and other times with a group. While I primarily invest in the dev tools space, I'm open to other verticals where I can add value and help startups achieve their goals.",
-      image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    {
-      title: 'Public Speaker',
-      icon: <Mic className="w-6 h-6 mr-2" />,
-      content: 'I love sharing my experience on stage, with years of speaking at events from local meetups to international conferences. My talks cover topics like web, dev tools, architecture, JS, development processes, smart homes, and more. I focus on deep technical dives and real innovation.',
-      image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    {
-      title: 'Entrepreneur',
-      icon: <PenTool className="w-6 h-6 mr-2" />,
-      content: "I'm passionate about innovation and solving real-world problems. I founded a startup in the US real estate market as a business venture and have built social impact projects like Stunity voluntarily. These efforts are my way of contributing to the world and making a positive difference.",
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    {
-      title: 'Mentor',
-      icon: <Users className="w-6 h-6 mr-2" />,
-      content: "I'm passionate about guiding the next generation of tech talent. I mentor junior developers, experienced professionals, and early-stage entrepreneurs. Most of my mentoring is done pro bono, helping others grow and succeed while giving back to the community.",
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    {
-      title: 'Smart Home Expert',
-      icon: <Home className="w-6 h-6 mr-2" />,
-      content: "I'm a huge fan of smart homes, with hundreds of devices in my own setup. I share my knowledge through a podcast, blog, and YouTube channel (in Hebrew) and love helping others build their own smart homes—for free, simply out of passion for the field.",
-      image: 'https://images.unsplash.com/photo-1702390796625-6dd9b46b1c0b?ixlib=rb-1.2.1&auto=format&fit=contain&w=500&q=60',
-    },
-    {
-      title: 'Professional Debater',
-      icon: <MessageSquare className="w-6 h-6 mr-2" />,
-      content: "I'm a former professional debater and debate coach. This experience has shaped my approach to problem-solving and communication. I believe in the power of structured thinking and clear communication to drive understanding and progress.",
-      image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
+  const iconMap = [
+    <Code className="w-6 h-6 mr-2" key="code" />,
+    <Users className="w-6 h-6 mr-2" key="users1" />,
+    <DollarSign className="w-6 h-6 mr-2" key="dollar" />,
+    <Mic className="w-6 h-6 mr-2" key="mic" />,
+    <PenTool className="w-6 h-6 mr-2" key="pen" />,
+    <Users className="w-6 h-6 mr-2" key="users2" />,
+    <Home className="w-6 h-6 mr-2" key="home" />,
+    <MessageSquare className="w-6 h-6 mr-2" key="message" />,
   ];
+
+  const images = [
+    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754834694/combined-logos_taaqne.png',
+    'https://images.unsplash.com/photo-1553729459-efe14ef6055d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1702390796625-6dd9b46b1c0b?ixlib=rb-1.2.1&auto=format&fit=contain&w=500&q=60',
+    'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+  ];
+
+  const sections = t.whatIDo.sections.map((section, index) => ({
+    title: section.title,
+    icon: iconMap[index],
+    content: section.content,
+    image: images[index],
+  }));
 
   const settings = {
     dots: true,
@@ -91,33 +73,33 @@ const AboutMe: React.FC = () => {
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
                   <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
-                    Gilad Shoham
+                    {t.hero.name}
                   </span>
                 </h1>
-                
+
                 <h2 className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 font-light">
-                  Dev Leader & Open Source Enthusiast
+                  {t.hero.title}
                 </h2>
               </div>
 
               {/* Description */}
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Building the future through code, community, and innovation. With 15+ years of leadership experience, I'm passionate about creating solutions that empower developers worldwide.
+                {t.hero.description}
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button 
+                <button
                   onClick={() => document.getElementById('about-details')?.scrollIntoView({ behavior: 'smooth' })}
                   className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  Learn More About Me
+                  {t.hero.learnMoreBtn}
                 </button>
                 <button
                   onClick={() => window.open('https://www.linkedin.com/in/shohamgilad/', '_blank')}
                   className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transform hover:scale-105 transition-all duration-200"
                 >
-                  Connect With Me
+                  {t.hero.connectBtn}
                 </button>
               </div>
 
@@ -125,15 +107,15 @@ const AboutMe: React.FC = () => {
               <div className="grid grid-cols-3 gap-6 pt-8">
                 <div className="text-center">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">15+</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Years Leading</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">{t.hero.stats.yearsLeading}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">100+</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">{t.hero.stats.projects}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">2</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Communities</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">{t.hero.stats.communities}</div>
                 </div>
               </div>
             </div>
@@ -167,35 +149,35 @@ const AboutMe: React.FC = () => {
       <div id="about-details" className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
-            My Story
+            {t.story.title}
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Philosophy</h3>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t.story.philosophy.title}</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                I believe that software development is a tool to improve human life. I find software to be the most powerful way to share value in order to connect people and improve the quality of all our lives.
+                {t.story.philosophy.content}
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Passion</h3>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t.story.passion.title}</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Software engineering for me is like painting or sculpting, it's a way to take a complicated and beautiful structure, connect all the dots piece by piece, and create a masterpiece. It's more than just art, it's life.
+                {t.story.passion.content}
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Dedication</h3>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t.story.dedication.title}</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                That's why I wake up with a smile and keep it on all day long. I am lucky to be paid for doing what I love the most. I'm not smarter than others, I just really care. I love what I do and do what I love, so I don't play the nine-to-five game, I live it 24/7.
+                {t.story.dedication.content}
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Leadership</h3>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t.story.leadership.title}</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
+                {t.story.leadership.content}
               </p>
             </div>
           </div>
@@ -206,7 +188,7 @@ const AboutMe: React.FC = () => {
       <div className="relative bg-gray-50 dark:bg-gray-900 py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
-            What I Do
+            {t.whatIDo.title}
           </h2>
         <Slider ref={sliderRef} {...settings}>
           {sections.map((section, index) => (

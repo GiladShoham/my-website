@@ -1,7 +1,12 @@
 import React from 'react';
 import { Github, Linkedin, Link } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Footer: React.FC = () => {
+  const { language } = useLanguage();
+  const t = useTranslation(language);
+
   return (
     <footer className="bg-gradient-to-b from-transparent to-gray-100 dark:to-gray-900 py-12 transition-all duration-200">
       <div className="container mx-auto px-4">
@@ -36,7 +41,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="text-center">
             <p className="text-gray-600 dark:text-gray-400 font-medium">
-              &copy; {new Date().getFullYear()} Gilad Shoham. All rights reserved.
+              &copy; {new Date().getFullYear()} {t.hero.name}. {t.footer.copyright}
             </p>
           </div>
         </div>

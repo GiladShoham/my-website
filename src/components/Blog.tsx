@@ -5,6 +5,7 @@ import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
 import ContentFilters from './common/ContentFilters';
 import { useFilterParams } from '../hooks/useFilterParams';
+import { useLanguage } from '../context/LanguageContext';
 
 interface BlogPost {
   id: number;
@@ -21,6 +22,7 @@ interface BlogPost {
 }
 
 const Blog: React.FC = () => {
+  const { language } = useLanguage();
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +34,11 @@ const Blog: React.FC = () => {
   useEffect(() => {
     fetchBlogPosts();
   }, []);
+
+  // Auto-set language filter based on current language
+  useEffect(() => {
+    setLanguageFilter(language);
+  }, [language]);
 
   useEffect(() => {
     filterPosts();

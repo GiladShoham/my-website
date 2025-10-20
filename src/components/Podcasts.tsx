@@ -6,6 +6,7 @@ import { cardClasses } from './common/CardStyles';
 import ContentCard from './common/ContentCard';
 import ContentFilters from './common/ContentFilters';
 import { useFilterParams } from '../hooks/useFilterParams';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Podcast {
   id: number;
@@ -31,6 +32,7 @@ interface Podcast {
 }
 
 const Podcasts: React.FC = () => {
+  const { language } = useLanguage();
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [filteredPodcasts, setFilteredPodcasts] = useState<Podcast[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,6 +53,11 @@ const Podcasts: React.FC = () => {
   useEffect(() => {
     fetchPodcasts();
   }, []);
+
+  // Auto-set language filter based on current language
+  useEffect(() => {
+    setLanguageFilter(language);
+  }, [language]);
 
   useEffect(() => {
     filterPodcasts();

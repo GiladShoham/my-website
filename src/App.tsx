@@ -8,6 +8,7 @@ import Blog from './components/Blog';
 import ContactMe from './components/ContactMe';
 import Footer from './components/Footer';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 const AppContent = () => {
   const location = useLocation();
@@ -40,9 +41,11 @@ const AppContent = () => {
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <LanguageProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

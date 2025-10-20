@@ -6,6 +6,7 @@ import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
 import ContentFilters from './common/ContentFilters';
 import { useFilterParams } from '../hooks/useFilterParams';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Talk {
   id: number;
@@ -68,6 +69,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
 };
 
 const Talks: React.FC = () => {
+  const { language } = useLanguage();
   const [talks, setTalks] = useState<Talk[]>([]);
   const [filteredTalks, setFilteredTalks] = useState<Talk[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,6 +81,11 @@ const Talks: React.FC = () => {
   useEffect(() => {
     fetchTalks();
   }, []);
+
+  // Auto-set language filter based on current language
+  useEffect(() => {
+    setLanguageFilter(language);
+  }, [language]);
 
   useEffect(() => {
     filterTalks();

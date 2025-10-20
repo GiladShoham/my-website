@@ -6,10 +6,14 @@ import MentorshipForm from './forms/MentorshipForm';
 import SmartHomeForm from './forms/SmartHomeForm';
 import OtherForm from './forms/OtherForm';
 import { formClasses } from './common/FormStyles';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 type Topic = 'talk' | 'podcast' | 'investment' | 'mentorship' | 'smarthome' | 'other';
 
 const ContactMe: React.FC = () => {
+  const { language } = useLanguage();
+  const t = useTranslation(language);
   const [topic, setTopic] = useState<Topic>('other');
 
   const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,11 +40,11 @@ const ContactMe: React.FC = () => {
   return (
     <section id="contact" className="mb-12 flex justify-center">
       <div className="max-w-lg w-full">
-        <h2 className={`${formClasses.formTitle} !mb-8`}>Contact Me</h2>
+        <h2 className={`${formClasses.formTitle} !mb-8`}>{t.contact.title}</h2>
         <div className={formClasses.container}>
           <div className={formClasses.inputWrapper}>
             <label htmlFor="topic" className={formClasses.label}>
-              How can I help you?<span className={formClasses.requiredStar}>*</span>
+              {t.contact.topicLabel}<span className={formClasses.requiredStar}>*</span>
             </label>
             <select
               id="topic"
@@ -50,12 +54,12 @@ const ContactMe: React.FC = () => {
               required
               className={formClasses.select}
             >
-              <option value="talk">I want to invite you for a talk</option>
-              <option value="podcast">I want to invite you for a podcast</option>
-              <option value="investment">I'm looking for investment</option>
-              <option value="mentorship">I'm looking for a mentor</option>
-              <option value="smarthome">I'm looking for smart home consulting</option>
-              <option value="other">Other</option>
+              <option value="talk">{t.contact.topics.talk}</option>
+              <option value="podcast">{t.contact.topics.podcast}</option>
+              <option value="investment">{t.contact.topics.investment}</option>
+              <option value="mentorship">{t.contact.topics.mentorship}</option>
+              <option value="smarthome">{t.contact.topics.smarthome}</option>
+              <option value="other">{t.contact.topics.other}</option>
             </select>
           </div>
         </div>
