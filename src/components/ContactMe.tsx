@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import TalkForm from './forms/TalkForm';
 import PodcastForm from './forms/PodcastForm';
 import InvestmentForm from './forms/InvestmentForm';
@@ -10,7 +11,22 @@ import { formClasses } from './common/FormStyles';
 type Topic = 'talk' | 'podcast' | 'investment' | 'mentorship' | 'smarthome' | 'other';
 
 const ContactMe: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const [topic, setTopic] = useState<Topic>('other');
+  const [initialMessage, setInitialMessage] = useState<string>('');
+
+  useEffect(() => {
+    const topicParam = searchParams.get('topic');
+    const messageParam = searchParams.get('message');
+
+    if (topicParam && ['talk', 'podcast', 'investment', 'mentorship', 'smarthome', 'other'].includes(topicParam)) {
+      setTopic(topicParam as Topic);
+    }
+
+    if (messageParam) {
+      setInitialMessage(messageParam);
+    }
+  }, [searchParams]);
 
   const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTopic(e.target.value as Topic);
@@ -19,7 +35,7 @@ const ContactMe: React.FC = () => {
   const renderForm = () => {
     switch (topic) {
       case 'talk':
-        return <TalkForm />;
+        return <TalkForm initialMessage={initialMessage} />;
       case 'podcast':
         return <PodcastForm />;
       case 'investment':
