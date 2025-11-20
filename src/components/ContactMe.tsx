@@ -24,7 +24,7 @@ const ContactMe: React.FC = () => {
     }
 
     if (messageParam) {
-      setInitialMessage(decodeURIComponent(messageParam));
+      setInitialMessage(messageParam);
     }
   }, [searchParams]);
 
