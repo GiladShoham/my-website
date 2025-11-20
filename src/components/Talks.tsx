@@ -41,7 +41,8 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
 
   const handleInviteClick = () => {
     const talkTopic = talk.tags && talk.tags.length > 0 ? talk.tags[0] : 'your talk';
-    const message = `I want a talk similar to the talk about ${talkTopic} you did in ${talk.conference}`;
+    const conferenceName = talk.conference && talk.conference.trim() ? talk.conference : 'the conference';
+    const message = `I want a talk similar to the talk about ${talkTopic} you did in ${conferenceName}`;
     navigate(`/contact?topic=talk&message=${encodeURIComponent(message)}`);
   };
 
