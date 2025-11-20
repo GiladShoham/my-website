@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { submitContactForm } from '../../lib/submit-contact-form';
 import Popup from '../common/Popup';
 import { formClasses, getInputClassName } from '../common/FormStyles';
@@ -16,7 +16,11 @@ interface FormData {
   paid: boolean;
 }
 
-const TalkForm: React.FC = () => {
+interface TalkFormProps {
+  initialMessage?: string;
+}
+
+const TalkForm: React.FC<TalkFormProps> = ({ initialMessage = '' }) => {
   const [formData, setFormData] = useState<FormData>({
     topic: 'talk',
     name: '',
@@ -26,7 +30,7 @@ const TalkForm: React.FC = () => {
     event_format: '',
     audience_size: '',
     event_topic: '',
-    message: '',
+    message: initialMessage,
     paid: false,
   });
 
@@ -35,6 +39,12 @@ const TalkForm: React.FC = () => {
     message: '',
     type: 'success' as 'success' | 'error'
   });
+
+  useEffect(() => {
+    if (initialMessage) {
+      setFormData(prevState => ({ ...prevState, message: initialMessage }));
+    }
+  }, [initialMessage]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;

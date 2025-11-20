@@ -21,6 +21,7 @@ interface ContentCardProps {
   language: 'Hebrew' | 'English';
   descriptionLang?: 'Hebrew' | 'English';
   onReadMore?: () => void;
+  privateBadge?: React.ReactNode;
 }
 
 const ContentCard: React.FC<ContentCardProps> = ({
@@ -34,7 +35,8 @@ const ContentCard: React.FC<ContentCardProps> = ({
   links,
   language,
   descriptionLang = 'English',
-  onReadMore
+  onReadMore,
+  privateBadge
 }) => {
   const languageFlag = language === 'Hebrew' ? '🇮🇱' : '🇺🇸';
   const isDescriptionRTL = descriptionLang === 'Hebrew';
@@ -136,6 +138,11 @@ const ContentCard: React.FC<ContentCardProps> = ({
                   </a>
                 ))}
               </div>
+
+              {/* Private Badge */}
+              {privateBadge && (
+                <div>{privateBadge}</div>
+              )}
             </div>
           </div>
         </div>
