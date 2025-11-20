@@ -40,12 +40,6 @@ const TalkForm: React.FC<TalkFormProps> = ({ initialMessage = '' }) => {
     type: 'success' as 'success' | 'error'
   });
 
-  useEffect(() => {
-    if (initialMessage) {
-      setFormData(prevState => ({ ...prevState, message: initialMessage }));
-    }
-  }, [initialMessage]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
