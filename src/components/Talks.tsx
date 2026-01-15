@@ -13,7 +13,7 @@ interface Talk {
   id: number;
   name: string;
   conference: string;
-  short_desc: string;
+  short_description: string;
   duration: string;
   lang: string;
   date: Date;
@@ -57,7 +57,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
       <div className="relative">
         <ContentCard
           title={talk.override_title || talk.og_title || talk.name}
-          description={talk.override_description || talk.og_description || talk.short_desc || ''}
+          description={talk.override_description || talk.og_description || talk.short_description || ''}
           imageUrl={talk.og_image_url}
           date={talk.date}
           metadata={{
@@ -118,7 +118,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
         isRTL={talk.description_lang === 'Hebrew'}
       >
         <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
-          {talk.override_description || talk.og_description || talk.short_desc}
+          {talk.override_description || talk.og_description || talk.short_description}
         </p>
       </Modal>
     </>
