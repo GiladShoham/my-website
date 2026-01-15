@@ -57,7 +57,7 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
       <div className="relative">
         <ContentCard
           title={talk.override_title || talk.og_title || talk.name}
-          description={talk.override_description || talk.og_description || talk.short_desc}
+          description={talk.override_description || talk.og_description || talk.short_desc || ''}
           imageUrl={talk.og_image_url}
           date={talk.date}
           metadata={{

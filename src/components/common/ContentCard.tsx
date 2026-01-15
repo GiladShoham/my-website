@@ -90,7 +90,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
               dir={isDescriptionRTL ? 'rtl' : 'ltr'}
             >
               <p className="text-gray-600 dark:text-gray-300 line-clamp-3">{description}</p>
-              {description.length > 100 && onReadMore && (
+              {description && description.length > 100 && onReadMore && (
                 <button
                   onClick={onReadMore}
                   className="text-blue-600 dark:text-blue-400 hover:underline mt-2"
