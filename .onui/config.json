@@ -1,0 +1,42 @@
+{
+  "$schema": "https://onui.ai/schema/config.json",
+  "version": "2.0.0",
+  "projectKey": "onui_fRrA9RpEt-0NJY-BPAdzjjHp8Jf8jqwh",
+  "projectId": "da0660bf-1a7b-4960-bdfb-3f0ef5e46db1",
+  "projectName": "gilad-website",
+  "environment": "development",
+  "framework": {
+    "name": "vite",
+    "version": "5.4.2",
+    "router": "file-based",
+    "typescript": true
+  },
+  "sdk": {
+    "version": "1.0.0",
+    "installedAt": "2026-03-09T13:01:40.905Z",
+    "providerFile": ".onui/OnUIProvider.tsx",
+    "layoutFile": "src/main.tsx",
+    "position": "right",
+    "theme": "auto",
+    "toggleMode": "tag",
+    "layoutMode": "overlay",
+    "selectedTheme": "catppuccin"
+  },
+  "navigation": {
+    "type": "react-router",
+    "hook": "useNavigate",
+    "import": "react-router-dom",
+    "function": "navigate(path)"
+  },
+  "api": {
+    "baseUrl": "/api",
+    "interceptor": true,
+    "endpoints": 3
+  },
+  "analysis": {
+    "lastRun": "2026-03-09T13:01:40.905Z",
+    "routeCount": 7,
+    "componentCount": 0,
+    "aiEnabled": false
+  }
+}

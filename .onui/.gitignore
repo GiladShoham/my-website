@@ -1,0 +1,5 @@
+# OnUI - Ignore local/sensitive files
+*.local
+.env*
+backup/
+cache/

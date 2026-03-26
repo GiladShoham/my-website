@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-09T13:01:40.904Z",
+  "routes": [
+    {
+      "path": "/",
+      "name": "Home",
+      "type": "landing",
+      "description": "Landing page",
+      "isProtected": false,
+      "isDynamic": false
+    },
+    {
+      "path": "/about",
+      "name": "About",
+      "type": "other",
+      "description": "About page",
+      "isProtected": false,
+      "isDynamic": false
+    },
+    {
+      "path": "/talks",
+      "name": "Talks",
+      "type": "listing",
+      "description": "List of talks",
+      "isProtected": false,
+      "isDynamic": false
+    },
+    {
+      "path": "/podcasts",
+      "name": "Podcasts",
+      "type": "listing",
+      "description": "List of podcasts",
+      "isProtected": false,
+      "isDynamic": false
+    },
+    {
+      "path": "/blog",
+      "name": "Blog",
+      "type": "other",
+      "description": "Blog page",
+      "isProtected": false,
+      "isDynamic": false
+    },
+    {
+      "path": "/contact",
+      "name": "Contact",
+      "type": "other",
+      "description": "Contact page",
+      "isProtected": false,
+      "isDynamic": false
+    },
+    {
+      "path": "/*",
+      "name": "*",
+      "type": "detail",
+      "description": "View details for a specific *",
+      "isProtected": false,
+      "isDynamic": true
+    }
+  ]
+}

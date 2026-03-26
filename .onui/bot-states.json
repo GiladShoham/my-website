@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-09T13:01:29.344Z",
+  "source": "ai",
+  "routes": {},
+  "apis": {},
+  "components": {
+    "onRender": {
+      "secret": "incognito",
+      "confirmation:destructive": "warning"
+    },
+    "onAction": {
+      "confirmation-confirm:destructive": "evil",
+      "secret-copied": "incognito"
+    }
+  }
+}

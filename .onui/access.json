@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "syncedAt": "2026-03-09T13:01:40.905Z",
+  "projectId": "da0660bf-1a7b-4960-bdfb-3f0ef5e46db1",
+  "routes": {},
+  "apis": {},
+  "rules": [
+    {
+      "pattern": "/admin/**",
+      "type": "route",
+      "accessLevel": "hidden"
+    },
+    {
+      "pattern": "/backoffice/**",
+      "type": "route",
+      "accessLevel": "hidden"
+    },
+    {
+      "pattern": "/internal/**",
+      "type": "route",
+      "accessLevel": "hidden"
+    },
+    {
+      "pattern": "/_*",
+      "type": "route",
+      "accessLevel": "hidden"
+    },
+    {
+      "pattern": "/api/admin/**",
+      "type": "api",
+      "accessLevel": "hidden"
+    },
+    {
+      "pattern": "/api/internal/**",
+      "type": "api",
+      "accessLevel": "hidden"
+    }
+  ],
+  "fieldRedaction": {},
+  "defaults": {
+    "newRoutes": "public",
+    "newApis": "public"
+  }
+}

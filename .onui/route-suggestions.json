@@ -1,0 +1,147 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-09T13:02:07.354Z",
+  "source": "ai",
+  "suggestions": {
+    "/": [
+      {
+        "text": "What can I do on this page?"
+      },
+      {
+        "text": "Help me navigate"
+      },
+      {
+        "text": "User asks to view about section or profile information"
+      },
+      {
+        "text": "User asks to view talks, presentations, or speaking engagements"
+      },
+      {
+        "text": "User asks to view podcasts or audio content"
+      },
+      {
+        "text": "User asks to read blog posts or articles"
+      }
+    ],
+    "/about": [
+      {
+        "text": "What is this person's professional background?"
+      },
+      {
+        "text": "What expertise or skills are highlighted here?"
+      },
+      {
+        "text": "How can I learn more about their work or projects?"
+      },
+      {
+        "text": "What are the best ways to contact them?"
+      },
+      {
+        "text": "User wants to view talks or presentations"
+      },
+      {
+        "text": "User wants to listen to or find podcast episodes"
+      }
+    ],
+    "/talks": [
+      {
+        "text": "What talks has this person given recently?"
+      },
+      {
+        "text": "Do you have any recordings available?"
+      },
+      {
+        "text": "What topics do these presentations cover?"
+      },
+      {
+        "text": "Where can I find slides from a specific talk?"
+      },
+      {
+        "text": "when user wants to see talks or presentations"
+      },
+      {
+        "text": "when user wants to go back to the homepage"
+      }
+    ],
+    "/podcasts": [
+      {
+        "text": "Which podcasts has this person appeared on?"
+      },
+      {
+        "text": "What episodes are available to listen to?"
+      },
+      {
+        "text": "What topics were discussed in this episode?"
+      },
+      {
+        "text": "Where can I listen to this episode?"
+      },
+      {
+        "text": "When user wants to see podcasts"
+      },
+      {
+        "text": "When user clicks the Podcasts navigation link"
+      }
+    ],
+    "/blog": [
+      {
+        "text": "What blog posts have been published recently?"
+      },
+      {
+        "text": "What topics does this blog cover?"
+      },
+      {
+        "text": "Can you summarize this article?"
+      },
+      {
+        "text": "Are there posts about [specific topic]?"
+      },
+      {
+        "text": "When user says 'go to blog', 'view blog', or 'show blog posts'"
+      },
+      {
+        "text": "When user navigates between sections (blog is automatically selected when on /blog route)"
+      }
+    ],
+    "/contact": [
+      {
+        "text": "What's the best way to contact this person?"
+      },
+      {
+        "text": "What should I include in my inquiry?"
+      },
+      {
+        "text": "How long does it usually take to get a response?"
+      },
+      {
+        "text": "Are there different contact methods for different types of requests?"
+      },
+      {
+        "text": "User wants to find contact information or reach out to the website owner"
+      },
+      {
+        "text": "User navigates to the contact page and the UI should reflect the active section"
+      }
+    ],
+    "/*": [
+      {
+        "text": "What can I do on this page?"
+      },
+      {
+        "text": "Help me navigate"
+      },
+      {
+        "text": "User asks to see 'about me', 'profile', or 'bio'"
+      },
+      {
+        "text": "User asks to see 'talks', 'presentations', or 'speaking engagements'"
+      },
+      {
+        "text": "User asks to see 'podcasts' or 'audio content'"
+      },
+      {
+        "text": "User asks to see 'blog', 'articles', or 'posts'"
+      }
+    ]
+  }
+}

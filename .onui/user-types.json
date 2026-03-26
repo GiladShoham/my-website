@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-09T13:02:07.354Z",
+  "source": "ai",
+  "userTypes": [
+    {
+      "name": "end-user",
+      "description": "User type inferred from 7 route(s)",
+      "routes": [
+        "/",
+        "/about",
+        "/talks",
+        "/podcasts",
+        "/blog",
+        "/contact",
+        "/*"
+      ]
+    }
+  ]
+}

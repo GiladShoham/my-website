@@ -1,0 +1,213 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-09T13:02:07.354Z",
+  "source": "ai",
+  "flows": [
+    {
+      "id": "view-portfolio-about",
+      "name": "View Portfolio About Section",
+      "description": "Access the portfolio owner's biographical information and professional introduction",
+      "category": "content",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "navigate-to-root",
+          "action": "Navigate to portfolio root",
+          "route": "/",
+          "userIntent": "Access the portfolio application",
+          "apis": []
+        },
+        {
+          "id": "view-about-content",
+          "action": "View About Me content displayed after automatic redirect",
+          "route": "/about",
+          "userIntent": "Read biographical and professional information",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    },
+    {
+      "id": "browse-talks-content",
+      "name": "Browse Talks and Presentations",
+      "description": "View a collection of talks and presentations delivered by the portfolio owner",
+      "category": "content",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "navigate-to-talks-section",
+          "action": "Click Talks tab in header navigation",
+          "route": "/talks",
+          "userIntent": "Access talks and presentations content",
+          "apis": [
+            {
+              "endpoint": "supabase:talks",
+              "method": "GET"
+            }
+          ]
+        },
+        {
+          "id": "view-talks-list",
+          "action": "View talks list with details and event information",
+          "route": "/talks",
+          "userIntent": "Browse available talks and speaking engagements",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    },
+    {
+      "id": "browse-podcasts-content",
+      "name": "Browse Podcasts",
+      "description": "View a collection of podcasts created by or featuring the portfolio owner",
+      "category": "content",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "navigate-to-podcasts-section",
+          "action": "Click Podcasts tab in header navigation",
+          "route": "/podcasts",
+          "userIntent": "Access podcasts content",
+          "apis": [
+            {
+              "endpoint": "supabase:podcasts",
+              "method": "GET"
+            }
+          ]
+        },
+        {
+          "id": "view-podcasts-list",
+          "action": "View podcasts list with episode details and metadata",
+          "route": "/podcasts",
+          "userIntent": "Browse available podcasts and episodes",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    },
+    {
+      "id": "browse-blog-articles",
+      "name": "Browse Blog Articles",
+      "description": "View and read blog posts or articles published by the portfolio owner",
+      "category": "content",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "navigate-to-blog-section",
+          "action": "Click Blog tab in header navigation",
+          "route": "/blog",
+          "userIntent": "Access blog content",
+          "apis": [
+            {
+              "endpoint": "supabase:blogs",
+              "method": "GET"
+            }
+          ]
+        },
+        {
+          "id": "view-blog-list",
+          "action": "View blog posts list with article metadata and summaries",
+          "route": "/blog",
+          "userIntent": "Browse available blog articles",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    },
+    {
+      "id": "access-contact-information",
+      "name": "Access Contact Information",
+      "description": "View contact information and communication options to reach the portfolio owner",
+      "category": "communication",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "navigate-to-contact-section",
+          "action": "Click Contact tab in header navigation",
+          "route": "/contact",
+          "userIntent": "Find ways to contact the portfolio owner",
+          "apis": []
+        },
+        {
+          "id": "view-contact-options",
+          "action": "View contact form, direct contact information, and social links",
+          "route": "/contact",
+          "userIntent": "Access communication channels",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    },
+    {
+      "id": "toggle-dark-mode",
+      "name": "Toggle Dark Mode Theme",
+      "description": "Switch between light and dark theme across the portfolio application",
+      "category": "settings",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "access-theme-toggle",
+          "action": "Locate and interact with theme toggle in application header",
+          "route": "/about",
+          "userIntent": "Change application color scheme",
+          "apis": []
+        },
+        {
+          "id": "apply-dark-mode",
+          "action": "Application transitions to dark theme via ThemeProvider context",
+          "route": "/about",
+          "userIntent": "Apply dark mode preference across all portfolio sections",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/about",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    },
+    {
+      "id": "navigate-portfolio-sections",
+      "name": "Navigate Between Portfolio Sections",
+      "description": "Switch between different content sections (About, Talks, Podcasts, Blog, Contact) using header navigation",
+      "category": "navigation",
+      "isCritical": false,
+      "steps": [
+        {
+          "id": "view-current-section",
+          "action": "View content in current portfolio section with active tab highlighted",
+          "route": "/about",
+          "userIntent": "See current section content",
+          "apis": []
+        },
+        {
+          "id": "select-different-section",
+          "action": "Click a different tab in header navigation to switch sections",
+          "route": "/talks",
+          "userIntent": "Explore different portfolio content",
+          "apis": []
+        },
+        {
+          "id": "view-new-section-content",
+          "action": "Navigate to selected section and view its content with updated active tab state",
+          "route": "/talks",
+          "userIntent": "Access the newly selected section",
+          "apis": []
+        }
+      ],
+      "entryPoint": "/about",
+      "confidence": 0.8,
+      "source": "ai-inferred"
+    }
+  ],
+  "analyzedAt": "2026-03-09T13:01:29.076Z",
+  "inferredBy": "ai"
+}

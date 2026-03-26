@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-09T13:02:07.354Z",
+  "source": "ai",
+  "instructions": {
+    "/": "This is the root portfolio application that routes between five main content sections (About, Talks, Podcasts, Blog, Contact) with active tab synchronization and dark/light theme support. The app uses React Router with automatic redirection from \"/\" to \"/about\" and catches unmatched routes to redirect to the about page.",
+    "/about": "The About Me page is the default landing route for a personal portfolio application built with React Router. It displays the portfolio owner's biographical information and integrates with a header navigation system and theme provider for light/dark mode switching.",
+    "/talks": "The /talks route displays a talks/presentations component within a themed, multi-page portfolio site. Users access this section via the main navigation, with active tab tracking managed by the AppContent wrapper using React Router's useLocation hook.",
+    "/podcasts": "The /podcasts route renders the Podcasts component as part of a portfolio/personal site with tab-based navigation. The page maintains activeTab state synced with the URL pathname, enabling seamless navigation between about, talks, podcasts, blog, and contact sections.",
+    "/blog": "The /blog route renders the Blog component as the main content within a responsive, theme-aware layout. The page is part of a personal site portfolio that also includes About, Talks, Podcasts, and Contact sections, with navigation managed by React Router and theme context.",
+    "/contact": "The /contact route renders the ContactMe component within a responsive layout that includes a Header, main content area with flex-grow, and Footer. The page is part of a single-page application with theme switching (light/dark mode) and tab-based navigation.",
+    "/*": "This is the root application router that manages navigation between five portfolio sections (about, talks, podcasts, blog, contact). It maintains active tab state synchronized with the current URL pathname and applies theme switching across the entire application using React Context."
+  }
+}

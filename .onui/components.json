@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "analyzedAt": "2026-03-09T13:00:20.984Z",
+  "components": [
+    {
+      "name": "cardClasses",
+      "file": "common/CardStyles.tsx",
+      "props": [],
+      "usedIn": [],
+      "isClientComponent": false,
+      "category": "display",
+      "primitiveType": "unknown",
+      "children": "none",
+      "styleSource": "unknown",
+      "usesDesignTokens": false
+    }
+  ],
+  "registry": {
+    "form": [],
+    "display": [
+      "cardClasses"
+    ],
+    "layout": [],
+    "feedback": [],
+    "navigation": [],
+    "data": [],
+    "unknown": []
+  },
+  "stats": {
+    "total": 1,
+    "byCategory": {
+      "form": 0,
+      "display": 1,
+      "layout": 0,
+      "feedback": 0,
+      "navigation": 0,
+      "data": 0,
+      "unknown": 0
+    },
+    "withVariants": 0,
+    "clientComponents": 0
+  }
+}

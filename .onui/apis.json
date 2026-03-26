@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OnUI Discovered APIs",
+    "version": "2.0.0",
+    "x-onui-generatedAt": "2026-03-09T13:01:40.905Z"
+  },
+  "paths": {},
+  "components": {
+    "securitySchemes": {
+      "rlsAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Supabase RLS (anon key + JWT)"
+      }
+    }
+  },
+  "x-onui-supabaseOps": {
+    "fetchBlogs": {
+      "operationId": "get-supabaseblogs",
+      "summary": "select on blogs table",
+      "parameters": [
+        {
+          "name": "blogs",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "security": [
+        {
+          "rlsAuth": []
+        }
+      ],
+      "x-onui-apiType": "supabase-client",
+      "x-onui-callbackName": "fetchBlogs",
+      "x-onui-side": "client",
+      "x-onui-isUsed": false,
+      "x-onui-sourceFile": "src/components/Blog.tsx",
+      "x-onui-usedIn": [
+        {
+          "file": "src/components/Blog.tsx",
+          "pageType": "component"
+        }
+      ],
+      "x-onui-table": "blogs",
+      "x-onui-operation": "select"
+    },
+    "fetchPodcasts": {
+      "operationId": "get-supabasepodcasts",
+      "summary": "select on podcasts table",
+      "parameters": [
+        {
+          "name": "podcasts",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "security": [
+        {
+          "rlsAuth": []
+        }
+      ],
+      "x-onui-apiType": "supabase-client",
+      "x-onui-callbackName": "fetchPodcasts",
+      "x-onui-side": "client",
+      "x-onui-isUsed": false,
+      "x-onui-sourceFile": "src/components/Podcasts.tsx",
+      "x-onui-usedIn": [
+        {
+          "file": "src/components/Podcasts.tsx",
+          "pageType": "component"
+        }
+      ],
+      "x-onui-table": "podcasts",
+      "x-onui-operation": "select"
+    },
+    "fetchTalks": {
+      "operationId": "get-supabasetalks",
+      "summary": "select on talks table",
+      "parameters": [
+        {
+          "name": "talks",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "security": [
+        {
+          "rlsAuth": []
+        }
+      ],
+      "x-onui-apiType": "supabase-client",
+      "x-onui-callbackName": "fetchTalks",
+      "x-onui-side": "client",
+      "x-onui-isUsed": false,
+      "x-onui-sourceFile": "src/components/Talks.tsx",
+      "x-onui-usedIn": [
+        {
+          "file": "src/components/Talks.tsx",
+          "pageType": "component"
+        }
+      ],
+      "x-onui-table": "talks",
+      "x-onui-operation": "select"
+    }
+  }
+}
