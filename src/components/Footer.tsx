@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
             {[
               { icon: <Github size={24} />, href: 'https://github.com/GiladShoham', label: 'GitHub' },
               { icon: <Linkedin size={24} />, href: 'https://www.linkedin.com/in/shohamgilad/', label: 'LinkedIn' },
-              { icon: <Link size={24} />, href: 'https://linktr.ee/giladshoham', label: 'LinkTree' },
+              { icon: <Link size={24} />, href: 'https://linktr.ee/shohamgilad', label: 'LinkTree' },
               { 
                 icon: (
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
