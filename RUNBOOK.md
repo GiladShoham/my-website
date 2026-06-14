@@ -87,6 +87,37 @@ live `db.useQuery(...)`, so new rows appear without a refresh.
 
 ---
 
+## 4b. Contact-form email notifications
+
+InstantDB has **no Supabase-style server-side triggers**, so the contact form no
+longer gets a "row inserted" hook. Email is sent explicitly instead:
+
+- `server/contact-notification.ts` — runtime-agnostic sender (Resend REST via
+  `fetch`, no SDK; runs on Node, Workers, and Vercel/Next).
+- `netlify/functions/contact-notification.ts` — thin Netlify wrapper (current
+  deploy). Served at `/api/contact-notification` via the `dist/_redirects` alias
+  written by the build script.
+- `src/lib/submit-contact-form.ts` — after the Instant write succeeds, it POSTs
+  the form data to `/api/contact-notification` (best-effort: a failed email does
+  **not** fail the submission, since the data is already saved).
+
+Set these env vars in your Netlify site (Site settings → Environment variables):
+
+```env
+RESEND_API_KEY=<your-resend-api-key>          # secret
+CONTACT_NOTIFICATION_TO=you@example.com        # comma-separate for multiple
+CONTACT_NOTIFICATION_FROM=Website <noreply@yourdomain.com>   # verified Resend sender
+```
+
+(`reply_to` is set to the submitter's email, so you can reply directly.)
+
+**When you migrate to Next.js / Vercel:** create
+`app/api/contact-notification/route.ts` that calls the same
+`sendContactNotification()` from `server/contact-notification.ts`, set the same
+env vars in Vercel, then delete `netlify/functions/` and the
+`/api/contact-notification` line from the build script's `_redirects`. The client
+keeps calling the same `/api/contact-notification` path — no change needed.
+
 ## 5. (Optional) Install InstantDB agent rules
 
 ```bash

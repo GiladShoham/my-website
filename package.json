@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && echo '/* /index.html 200' > dist/_redirects",
+    "build": "tsc && vite build && printf '/api/contact-notification /.netlify/functions/contact-notification 200\\n/* /index.html 200\\n' > dist/_redirects",
     "lint": "eslint .",
     "preview": "vite preview"
   },
