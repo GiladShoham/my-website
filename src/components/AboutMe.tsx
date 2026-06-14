@@ -1,7 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
 import {
-  Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight
+  Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight,
+  Trophy, Crown, Sparkles, Zap
 } from 'lucide-react';
 import { cardClasses } from './common/CardStyles';
 import 'slick-carousel/slick/slick.css';
@@ -58,6 +59,28 @@ const AboutMe: React.FC = () => {
       icon: <MessageSquare className="w-6 h-6 mr-2" />,
       content: "I'm a former professional debater and debate coach. This experience has shaped my approach to problem-solving and communication. I believe in the power of structured thinking and clear communication to drive understanding and progress.",
       image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    },
+  ];
+
+  const achievements = [
+    {
+      title: 'World Chess Champion',
+      year: '2000',
+      icon: <Crown className="w-7 h-7" />,
+      description: 'Crowned World Chess Champion in the year 2000, mastering strategy, foresight, and the art of staying calm under pressure.',
+      gradient: 'from-amber-500 to-yellow-600',
+    },
+    {
+      title: 'AWS AI Superstar',
+      icon: <Sparkles className="w-7 h-7" />,
+      description: 'Recognized as an AWS AI Superstar for driving innovation and excellence in building AI-powered solutions on the cloud.',
+      gradient: 'from-orange-500 to-amber-600',
+    },
+    {
+      title: 'n8n Ambassador',
+      icon: <Zap className="w-7 h-7" />,
+      description: 'Official n8n Ambassador, championing workflow automation and empowering the community to build powerful integrations.',
+      gradient: 'from-pink-500 to-rose-600',
     },
   ];
 
@@ -198,6 +221,52 @@ const AboutMe: React.FC = () => {
                 This rush makes me develop community projects like Stunity and learn new paradigms and tools with the passion of a child getting a new toy. I share my beliefs with others to inspire them, and some follow. I also learn from others. That's what makes me a true leader.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Special Achievements Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-rose-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-20">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-20 left-1/4 w-72 h-72 bg-gradient-to-br from-amber-400/20 to-yellow-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-gradient-to-br from-rose-400/20 to-pink-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="relative container mx-auto px-4">
+          <div className="flex flex-col items-center mb-16">
+            <span className="inline-flex p-3 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-600 text-white shadow-lg mb-4">
+              <Trophy className="w-7 h-7" />
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 dark:from-amber-300 dark:via-orange-300 dark:to-rose-300 bg-clip-text text-transparent">
+              Special Achievements
+            </h2>
+            <p className="mt-3 text-gray-600 dark:text-gray-400 text-center max-w-2xl">
+              A few milestones I'm especially proud of.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {achievements.map((achievement, index) => (
+              <div
+                key={index}
+                className="group relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
+              >
+                <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${achievement.gradient} text-white shadow-lg mb-6`}>
+                  {achievement.icon}
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  {achievement.title}
+                </h3>
+                {achievement.year && (
+                  <span className={`inline-block text-sm font-semibold mb-4 px-3 py-1 rounded-full bg-gradient-to-r ${achievement.gradient} text-white`}>
+                    {achievement.year}
+                  </span>
+                )}
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {achievement.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
