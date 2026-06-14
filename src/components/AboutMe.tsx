@@ -1,16 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import {
-  Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight
+  Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight, ArrowRight
 } from 'lucide-react';
 import { cardClasses } from './common/CardStyles';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+interface Section {
+  title: string;
+  icon: React.ReactNode;
+  content: string;
+  image: string;
+  link?: { to: string; label: string };
+}
+
 const AboutMe: React.FC = () => {
   const sliderRef = React.useRef<Slider>(null);
 
-  const sections = [
+  const sections: Section[] = [
     {
       title: 'Dev and Open Source Leader',
       icon: <Code className="w-6 h-6 mr-2" />,
@@ -20,8 +29,9 @@ const AboutMe: React.FC = () => {
     {
       title: 'Community Leader',
       icon: <Users className="w-6 h-6 mr-2" />,
-      content: "I lead two active and fast-growing communities: MCP Israel and n8n Israel. These communities bring together developers, enthusiasts, and professionals to share knowledge, collaborate on projects, and drive innovation in their respective domains. Building and nurturing these communities allows me to foster learning and growth while connecting like-minded individuals.",
+      content: "I build and lead several active and fast-growing communities, including MCP Israel, n8n Israel, the AI Transformation Guild & AI Leaders, and The Agentcy. These communities bring together developers, enthusiasts, and professionals to share knowledge, collaborate on projects, and drive innovation in AI and automation. Building and nurturing these communities allows me to foster learning and growth while connecting like-minded individuals.",
       image: 'https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754834694/combined-logos_taaqne.png',
+      link: { to: '/communities', label: 'Explore my communities' },
     },
     {
       title: 'Angel Investor',
@@ -132,7 +142,7 @@ const AboutMe: React.FC = () => {
                   <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">2</div>
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Communities</div>
                 </div>
               </div>
@@ -240,6 +250,15 @@ const AboutMe: React.FC = () => {
                         <p className="text-sm md:text-base lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
                           {section.content}
                         </p>
+                        {section.link && (
+                          <Link
+                            to={section.link.to}
+                            className="mt-4 inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                          >
+                            {section.link.label}
+                            <ArrowRight className="w-4 h-4" />
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
