@@ -299,6 +299,36 @@ const AboutMe: React.FC = () => {
         </button>
         </div>
       </div>
+
+      {/* Communities CTA Section */}
+      <div className="container mx-auto px-4 py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 p-10 md:p-16 text-center shadow-2xl">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+          </div>
+          <div className="relative">
+            <span className="inline-flex p-4 rounded-2xl bg-white/15 text-white mb-6">
+              <Users className="w-8 h-8" />
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Join My Communities
+            </h2>
+            <p className="text-lg text-blue-50 leading-relaxed max-w-2xl mx-auto mb-8">
+              I build and lead several active AI and automation communities — MCP Israel, n8n Israel,
+              the AI Transformation Guild &amp; AI Leaders, and The Agentcy. Discover what each one is
+              about and how you can join.
+            </p>
+            <Link
+              to="/communities"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transform hover:scale-105 transition-all duration-200 shadow-lg"
+            >
+              Explore My Communities
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
