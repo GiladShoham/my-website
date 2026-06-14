@@ -1,16 +1,13 @@
-import { supabase } from './supabase';
+import { id } from '@instantdb/react';
+import { db } from './db';
 import { ContactFormData } from '../types/contact-form-data';
 
 export async function submitContactForm(formData: ContactFormData) {
   try {
-    const { data, error } = await supabase
-      .from('contact_me')
-      .insert([formData]);
-
-    if (error) throw error;
-    return { success: true, data };
+    await db.transact(db.tx.contact_me[id()].create(formData));
+    return { success: true };
   } catch (error) {
     console.error('Error submitting form:', error);
     return { success: false, error };
   }
-} 
+}

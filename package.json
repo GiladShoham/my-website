@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.45.4",
+    "@instantdb/admin": "^1.0.49",
+    "@instantdb/react": "^1.0.49",
     "airtable": "^0.12.2",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",

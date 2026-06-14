@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+.env.local
+
+# Exported data from the Supabase -> InstantDB migration (may contain PII)
+scripts/data
 
 # Editor directories and files
 .vscode/*

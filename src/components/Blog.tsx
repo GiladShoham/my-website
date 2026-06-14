@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { BookOpen } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 import ContentCard from './common/ContentCard';
 import { cardClasses } from './common/CardStyles';
 import ContentFilters from './common/ContentFilters';
 import { useFilterParams } from '../hooks/useFilterParams';
 
 interface BlogPost {
-  id: number;
+  id: string;
   name: string;
   short_description: string;
   tags: string[];
@@ -21,21 +21,8 @@ interface BlogPost {
 }
 
 const Blog: React.FC = () => {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string>('all');
   const [tagFilter, setTagFilter] = useState<string>('');
-  const [allTags, setAllTags] = useState<string[]>([]);
-
-  useEffect(() => {
-    fetchBlogPosts();
-  }, []);
-
-  useEffect(() => {
-    filterPosts();
-  }, [blogPosts, languageFilter, tagFilter]);
 
   useFilterParams({
     languageFilter,
@@ -44,37 +31,27 @@ const Blog: React.FC = () => {
     setTagFilter
   });
 
-  const fetchBlogPosts = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('blogs')
-        .select('*')
-        .order('date', { ascending: false });
+  // Live query — results update automatically, no manual refresh needed.
+  const { isLoading, error, data } = db.useQuery({
+    blogs: { $: { order: { date: 'desc' } } }
+  });
 
-      if (error) throw error;
+  const blogPosts = useMemo<BlogPost[]>(
+    () =>
+      (data?.blogs ?? []).map((post) => ({
+        ...post,
+        date: new Date(post.date as string | number | Date),
+        tags: post.tags || []
+      })) as BlogPost[],
+    [data]
+  );
 
-      if (data) {
-        const posts = data.map(post => ({
-          ...post,
-          date: new Date(post.date),
-          tags: post.tags || []
-        }));
-        setBlogPosts(posts);
-        const tags = Array.from(new Set(posts.flatMap(post => post.tags)));
-        setAllTags(tags);
-      } else {
-        setBlogPosts([]);
-      }
-    } catch (error) {
-      setError('Failed to fetch blog posts');
-      console.error('Error fetching blog posts:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const allTags = useMemo(
+    () => Array.from(new Set(blogPosts.flatMap((post) => post.tags))),
+    [blogPosts]
+  );
 
-  const filterPosts = () => {
+  const filteredPosts = useMemo(() => {
     let filtered = blogPosts;
     if (languageFilter !== 'all') {
       filtered = filtered.filter(post => post.lang === languageFilter);
@@ -82,11 +59,11 @@ const Blog: React.FC = () => {
     if (tagFilter) {
       filtered = filtered.filter(post => post.tags.includes(tagFilter));
     }
-    setFilteredPosts(filtered);
-  };
+    return filtered;
+  }, [blogPosts, languageFilter, tagFilter]);
 
-  if (loading) return <div className="text-center">Loading blog posts...</div>;
-  if (error) return <div className="text-center text-red-600">Error: {error}</div>;
+  if (isLoading) return <div className="text-center">Loading blog posts...</div>;
+  if (error) return <div className="text-center text-red-600">Error: {error.message}</div>;
 
   return (
     <section className="container mx-auto px-4 py-8">

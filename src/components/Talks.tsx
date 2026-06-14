@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { Video, Lock, Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 import Modal from './Modal';
 import ContentCard from './common/ContentCard';
 import Tooltip from './common/Tooltip';
@@ -10,7 +10,7 @@ import ContentFilters from './common/ContentFilters';
 import { useFilterParams } from '../hooks/useFilterParams';
 
 interface Talk {
-  id: number;
+  id: string;
   name: string;
   conference: string;
   short_description: string;
@@ -126,58 +126,8 @@ const TalkCard: React.FC<{ talk: Talk }> = ({ talk }) => {
 };
 
 const Talks: React.FC = () => {
-  const [talks, setTalks] = useState<Talk[]>([]);
-  const [filteredTalks, setFilteredTalks] = useState<Talk[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string>('all');
   const [tagFilter, setTagFilter] = useState<string>('');
-  const [allTags, setAllTags] = useState<string[]>([]);
-
-  useEffect(() => {
-    fetchTalks();
-  }, []);
-
-  useEffect(() => {
-    filterTalks();
-  }, [talks, languageFilter, tagFilter]);
-
-  const fetchTalks = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('talks')
-        .select('*')
-        .order('date', { ascending: false });
-
-      if (error) throw error;
-
-      const formattedData = (data || []).map(talk => ({
-        ...talk,
-        date: new Date(talk.date),
-        tags: talk.tags || []
-      }));
-      setTalks(formattedData);
-      const tags = Array.from(new Set(formattedData.flatMap(talk => talk.tags || [])));
-      setAllTags(tags);
-    } catch (error) {
-      setError('Failed to fetch talks');
-      console.error('Error fetching talks:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterTalks = () => {
-    let filtered = talks;
-    if (languageFilter !== 'all') {
-      filtered = filtered.filter(talk => talk.lang === languageFilter);
-    }
-    if (tagFilter) {
-      filtered = filtered.filter(talk => talk.tags && talk.tags.includes(tagFilter));
-    }
-    setFilteredTalks(filtered);
-  };
 
   useFilterParams({
     languageFilter,
@@ -186,8 +136,39 @@ const Talks: React.FC = () => {
     setTagFilter
   });
 
-  if (loading) return <div className="text-gray-800 dark:text-gray-100">Loading talks...</div>;
-  if (error) return <div className="text-red-600 dark:text-red-400">Error: {error}</div>;
+  // Live query — results update automatically, no manual refresh needed.
+  const { isLoading, error, data } = db.useQuery({
+    talks: { $: { order: { date: 'desc' } } }
+  });
+
+  const talks = useMemo<Talk[]>(
+    () =>
+      (data?.talks ?? []).map((talk) => ({
+        ...talk,
+        date: new Date(talk.date as string | number | Date),
+        tags: talk.tags || []
+      })) as Talk[],
+    [data]
+  );
+
+  const allTags = useMemo(
+    () => Array.from(new Set(talks.flatMap((talk) => talk.tags || []))),
+    [talks]
+  );
+
+  const filteredTalks = useMemo(() => {
+    let filtered = talks;
+    if (languageFilter !== 'all') {
+      filtered = filtered.filter(talk => talk.lang === languageFilter);
+    }
+    if (tagFilter) {
+      filtered = filtered.filter(talk => talk.tags && talk.tags.includes(tagFilter));
+    }
+    return filtered;
+  }, [talks, languageFilter, tagFilter]);
+
+  if (isLoading) return <div className="text-gray-800 dark:text-gray-100">Loading talks...</div>;
+  if (error) return <div className="text-red-600 dark:text-red-400">Error: {error.message}</div>;
 
   return (
     <section className="container mx-auto px-4 py-8">

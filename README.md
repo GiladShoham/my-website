@@ -2,14 +2,14 @@
 
 # Personal Website
 
-This is the source code for my personal website, built with [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/). The website fetches data from [Supabase](https://supabase.com/).
+This is the source code for my personal website, built with [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/). The website uses [InstantDB](https://www.instantdb.com/) as its backend (live queries — data updates in real time without manual refresh).
 
 ## Features
 
 - **React** for building the user interface.
 - **TypeScript** for static typing.
 - **Vite** for fast development and bundling.
-- **Supabase** for backend and database integration.
+- **InstantDB** for backend and database (real-time `db.useQuery`).
   
 ## Getting Started
 
@@ -41,12 +41,20 @@ yarn install
 
 ### Environment Variables
 
-Create a `.env` file at the root of the project and add your Supabase credentials:
+The app needs your InstantDB app id. Copy `.env.example` to get the full list of
+variables, then set the app id in `.env`:
 
 ```env
-VITE_SUPABASE_URL=your-supabase-url
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+VITE_INSTANT_APP_ID=your-instant-app-id
 ```
+
+The InstantDB admin token and (one-time) Supabase migration credentials go in
+`.env.local` (git-ignored). See [`.env.example`](./.env.example) and
+[`RUNBOOK.md`](./RUNBOOK.md).
+
+> **First-time setup / migration:** This project was migrated from Supabase to
+> InstantDB. Follow [`RUNBOOK.md`](./RUNBOOK.md) to create the InstantDB app,
+> push the schema/permissions, and (optionally) migrate existing data.
 
 ### Scripts
 
@@ -83,7 +91,7 @@ npm run preview    # Preview the production build
 ## Tech Stack
 
 - **Frontend**: React, TypeScript, Vite
-- **Backend**: Supabase
+- **Backend**: InstantDB
 
 ## License
 

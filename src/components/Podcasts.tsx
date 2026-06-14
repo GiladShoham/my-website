@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Mic } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 import Modal from './Modal';
 import { cardClasses } from './common/CardStyles';
 import ContentCard from './common/ContentCard';
@@ -8,7 +8,7 @@ import ContentFilters from './common/ContentFilters';
 import { useFilterParams } from '../hooks/useFilterParams';
 
 interface Podcast {
-  id: number;
+  id: string;
   podcast_name: string;
   episode: string;
   date: Date;
@@ -31,13 +31,8 @@ interface Podcast {
 }
 
 const Podcasts: React.FC = () => {
-  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
-  const [filteredPodcasts, setFilteredPodcasts] = useState<Podcast[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string>('all');
   const [tagFilter, setTagFilter] = useState<string>('');
-  const [allTags, setAllTags] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPodcast, setSelectedPodcast] = useState<Podcast | null>(null);
 
@@ -48,41 +43,27 @@ const Podcasts: React.FC = () => {
     setTagFilter
   });
 
-  useEffect(() => {
-    fetchPodcasts();
-  }, []);
+  // Live query — results update automatically, no manual refresh needed.
+  const { isLoading, error, data } = db.useQuery({
+    podcasts: { $: { order: { date: 'desc' } } }
+  });
 
-  useEffect(() => {
-    filterPodcasts();
-  }, [podcasts, languageFilter, tagFilter]);
-
-  const fetchPodcasts = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('podcasts')
-        .select('*')
-        .order('date', { ascending: false });
-
-      if (error) throw error;
-
-      const formattedData = (data || []).map(podcast => ({
+  const podcasts = useMemo<Podcast[]>(
+    () =>
+      (data?.podcasts ?? []).map((podcast) => ({
         ...podcast,
-        date: new Date(podcast.date),
+        date: new Date(podcast.date as string | number | Date),
         tags: podcast.tags || []
-      }));
-      setPodcasts(formattedData);
-      const tags = Array.from(new Set(formattedData.flatMap(podcast => podcast.tags)));
-      setAllTags(tags);
-    } catch (error) {
-      setError('Failed to fetch podcasts');
-      console.error('Error fetching podcasts:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+      })) as Podcast[],
+    [data]
+  );
 
-  const filterPodcasts = () => {
+  const allTags = useMemo(
+    () => Array.from(new Set(podcasts.flatMap((podcast) => podcast.tags))),
+    [podcasts]
+  );
+
+  const filteredPodcasts = useMemo(() => {
     let filtered = podcasts;
     if (languageFilter !== 'all') {
       filtered = filtered.filter(podcast => podcast.lang === languageFilter);
@@ -90,11 +71,11 @@ const Podcasts: React.FC = () => {
     if (tagFilter) {
       filtered = filtered.filter(podcast => podcast.tags && podcast.tags.includes(tagFilter));
     }
-    setFilteredPodcasts(filtered);
-  };
+    return filtered;
+  }, [podcasts, languageFilter, tagFilter]);
 
-  if (loading) return <div>Loading podcasts...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isLoading) return <div>Loading podcasts...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <section className="container mx-auto px-4 py-8">
