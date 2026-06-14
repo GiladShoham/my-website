@@ -141,10 +141,13 @@ const AboutMe: React.FC = () => {
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">100+</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
                 </div>
-                <div className="text-center">
+                <Link to="/communities" className="text-center group cursor-pointer">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Communities</div>
-                </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors inline-flex items-center gap-1">
+                    Communities
+                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </Link>
               </div>
             </div>
 
@@ -253,7 +256,7 @@ const AboutMe: React.FC = () => {
                         {section.link && (
                           <Link
                             to={section.link.to}
-                            className="mt-4 inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg w-fit"
                           >
                             {section.link.label}
                             <ArrowRight className="w-4 h-4" />

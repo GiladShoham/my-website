@@ -29,6 +29,7 @@ const communities: Community[] = [
     description:
       "Whether you're building automations, working with n8n, or just curious about how to connect services smartly, this is the right place. Not sure how to get started? Ask and get help from the community. Built an interesting workflow? Share it and get feedback. Discovered a cool integration or a useful trick? Let others enjoy it too. Here you'll find guides, tips, and resources, plus discussions, news, trends, and questions about nodes, integrations, and self-hosting. Join a community of creators, automators, and integration experts and grow together.",
     highlights: ['Workflows & feedback', 'Integrations', 'Self-hosting', 'Guides & tips'],
+    members: '3,000+ members',
     registrationUrl: 'https://gilad.click/n8n-israel-registration',
   },
   {
@@ -38,6 +39,7 @@ const communities: Community[] = [
     description:
       "A community for professionals leading the implementation, adoption, and transformation of AI within organizations. It's designed for those for whom this is part of their role: innovation managers, AI Leads, Product and Data people, and key stakeholders advancing real AI applications across the business. The community is a place to share hands-on experience from the field, get advice, discuss challenges, learn from others' approaches, and discover tools and methods that truly work. The focus is on real organizational work, not games or experiments, but implementation that creates real value.",
     highlights: ['Real-world experience', 'Org adoption', 'Advice & challenges', 'Tools that work'],
+    members: '500+ members',
     registrationUrl: 'https://gilad.click/ai-transformation-guild-registration',
   },
   {
@@ -47,6 +49,7 @@ const communities: Community[] = [
     description:
       "Welcome to The Agentcy, the Israeli headquarters for agentic teams, orchestration, and running companies powered by AI agents. We're here to turn AI from a chatbot into a Synthetic Workforce. The community focuses on building, managing, and optimizing Multi-Agent Systems, from deep technical tooling (like Paperclip and LangGraph) to leading orchestration and management products (Overcut, Agentopology). On the agenda: Field Reports (case studies and architectures of agent teams), Agentic Workflows (how to make agents actually work together), New Recruits (the newest tools and agents on the market), and the Situation Room (real-time consultations and problem-solving).",
     highlights: ['Multi-Agent Systems', 'Orchestration', 'Field reports', 'Live problem-solving'],
+    members: '600+ members',
     registrationUrl: 'https://gilad.click/the-agentcy-registration',
   },
 ];
