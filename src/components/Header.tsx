@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex flex-grow justify-center">
             <ul className="flex space-x-1">
-              {['about', 'talks', 'podcasts', 'blog', 'contact'].map((tab) => (
+              {['about', 'talks', 'podcasts', 'communities', 'blog', 'contact'].map((tab) => (
                 <li key={tab}>
                   <button
                     onClick={() => handleTabClick(tab)}
@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         {isMenuOpen && (
           <div className="md:hidden py-4">
             <ul className="flex flex-col space-y-2">
-              {['about', 'talks', 'podcasts', 'blog', 'contact'].map((tab) => (
+              {['about', 'talks', 'podcasts', 'communities', 'blog', 'contact'].map((tab) => (
                 <li key={tab}>
                   <button
                     onClick={() => handleTabClick(tab)}

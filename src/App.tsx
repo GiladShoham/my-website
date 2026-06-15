@@ -4,6 +4,7 @@ import Header from './components/Header';
 import AboutMe from './components/AboutMe';
 import Talks from './components/Talks';
 import Podcasts from './components/Podcasts';
+import Communities from './components/Communities';
 import Blog from './components/Blog';
 import ContactMe from './components/ContactMe';
 import Footer from './components/Footer';
@@ -27,6 +28,7 @@ const AppContent = () => {
           <Route path="/about" element={<AboutMe />} />
           <Route path="/talks" element={<Talks />} />
           <Route path="/podcasts" element={<Podcasts />} />
+          <Route path="/communities" element={<Communities />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<ContactMe />} />
           <Route path="*" element={<Navigate to="/about" replace />} />
