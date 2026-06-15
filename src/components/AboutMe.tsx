@@ -80,6 +80,7 @@ const AboutMe: React.FC = () => {
     autoplay: true,
     autoplaySpeed: 5000,
     arrows: false,
+    adaptiveHeight: true,
   };
 
   return (
@@ -279,22 +280,21 @@ const AboutMe: React.FC = () => {
           .slick-dots li button:before {
             font-size: 8px;
           }
-          /* Let each slide grow to its content (uniform via flex) so taller
-             slides, like the Community Leader card with its button, are never
-             clipped by slick's fixed list height — especially on mobile. */
-          .slick-list {
-            height: auto !important;
-          }
+          /* slick's default ".slick-slide { height: 100% }" forces every slide
+             to the container's fixed height, which clips taller slides (e.g. the
+             Community Leader card with its button) on mobile. Let each slide size
+             to its own content and use a flex track to avoid float misalignment;
+             adaptiveHeight then fits the viewport to the active slide so the dots
+             always sit right beneath it. */
           .slick-track {
             display: flex !important;
-            align-items: stretch !important;
-            height: auto !important;
+            align-items: flex-start !important;
           }
           .slick-slide {
             height: auto !important;
           }
           .slick-slide > div {
-            height: 100%;
+            height: auto !important;
           }
         `}</style>
         
