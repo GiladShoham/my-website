@@ -279,6 +279,23 @@ const AboutMe: React.FC = () => {
           .slick-dots li button:before {
             font-size: 8px;
           }
+          /* Let each slide grow to its content (uniform via flex) so taller
+             slides, like the Community Leader card with its button, are never
+             clipped by slick's fixed list height — especially on mobile. */
+          .slick-list {
+            height: auto !important;
+          }
+          .slick-track {
+            display: flex !important;
+            align-items: stretch !important;
+            height: auto !important;
+          }
+          .slick-slide {
+            height: auto !important;
+          }
+          .slick-slide > div {
+            height: 100%;
+          }
         `}</style>
         
         {/* Navigation buttons */}
