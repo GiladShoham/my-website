@@ -1,17 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import {
   Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight,
-  Trophy, Crown, Sparkles, Zap
+  Trophy, Crown, Sparkles, Zap, ArrowRight
 } from 'lucide-react';
 import { cardClasses } from './common/CardStyles';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+interface Section {
+  title: string;
+  icon: React.ReactNode;
+  content: string;
+  image: string;
+  link?: { to: string; label: string };
+}
+
 const AboutMe: React.FC = () => {
   const sliderRef = React.useRef<Slider>(null);
 
-  const sections = [
+  const sections: Section[] = [
     {
       title: 'Dev and Open Source Leader',
       icon: <Code className="w-6 h-6 mr-2" />,
@@ -21,8 +30,9 @@ const AboutMe: React.FC = () => {
     {
       title: 'Community Leader',
       icon: <Users className="w-6 h-6 mr-2" />,
-      content: "I lead two active and fast-growing communities: MCP Israel and n8n Israel. These communities bring together developers, enthusiasts, and professionals to share knowledge, collaborate on projects, and drive innovation in their respective domains. Building and nurturing these communities allows me to foster learning and growth while connecting like-minded individuals.",
+      content: "I build and lead several active and fast-growing communities, including MCP Israel, n8n Israel, the AI Transformation Guild & AI Leaders, and The Agentcy. These communities bring together developers, enthusiasts, and professionals to share knowledge, collaborate on projects, and drive innovation in AI and automation. Building and nurturing these communities allows me to foster learning and growth while connecting like-minded individuals.",
       image: 'https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754834694/combined-logos_taaqne.png',
+      link: { to: '/communities', label: 'Explore my communities' },
     },
     {
       title: 'Angel Investor',
@@ -65,9 +75,8 @@ const AboutMe: React.FC = () => {
   const achievements = [
     {
       title: 'World Chess Champion',
-      year: '2000',
       icon: <Crown className="w-7 h-7" />,
-      description: 'Crowned World Chess Champion in the year 2000, mastering strategy, foresight, and the art of staying calm under pressure.',
+      description: 'Crowned World Chess Champion, mastering strategy, foresight, and the art of staying calm under pressure.',
       gradient: 'from-amber-500 to-yellow-600',
     },
     {
@@ -93,6 +102,7 @@ const AboutMe: React.FC = () => {
     autoplay: true,
     autoplaySpeed: 5000,
     arrows: false,
+    adaptiveHeight: true,
   };
 
   return (
@@ -154,10 +164,13 @@ const AboutMe: React.FC = () => {
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">100+</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">2</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Communities</div>
-                </div>
+                <Link to="/communities" className="text-center group cursor-pointer">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors inline-flex items-center gap-1">
+                    Communities
+                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </Link>
               </div>
             </div>
 
@@ -254,14 +267,9 @@ const AboutMe: React.FC = () => {
                 <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${achievement.gradient} text-white shadow-lg mb-6`}>
                   {achievement.icon}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   {achievement.title}
                 </h3>
-                {achievement.year && (
-                  <span className={`inline-block text-sm font-semibold mb-4 px-3 py-1 rounded-full bg-gradient-to-r ${achievement.gradient} text-white`}>
-                    {achievement.year}
-                  </span>
-                )}
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   {achievement.description}
                 </p>
@@ -296,7 +304,7 @@ const AboutMe: React.FC = () => {
                   
                   {/* Content Section */}
                   <div className="md:w-1/2">
-                    <div className="flex flex-col gap-4 h-[500px] md:justify-center">
+                    <div className="flex flex-col gap-4 md:h-[500px] md:justify-center">
                       <div className="flex flex-col gap-3">
                         <span className="inline-flex w-fit p-2 md:p-3 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
                           {section.icon}
@@ -309,6 +317,15 @@ const AboutMe: React.FC = () => {
                         <p className="text-sm md:text-base lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
                           {section.content}
                         </p>
+                        {section.link && (
+                          <Link
+                            to={section.link.to}
+                            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg w-fit"
+                          >
+                            {section.link.label}
+                            <ArrowRight className="w-4 h-4" />
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -325,6 +342,22 @@ const AboutMe: React.FC = () => {
           }
           .slick-dots li button:before {
             font-size: 8px;
+          }
+          /* slick's default ".slick-slide { height: 100% }" forces every slide
+             to the container's fixed height, which clips taller slides (e.g. the
+             Community Leader card with its button) on mobile. Let each slide size
+             to its own content and use a flex track to avoid float misalignment;
+             adaptiveHeight then fits the viewport to the active slide so the dots
+             always sit right beneath it. */
+          .slick-track {
+            display: flex !important;
+            align-items: flex-start !important;
+          }
+          .slick-slide {
+            height: auto !important;
+          }
+          .slick-slide > div {
+            height: auto !important;
           }
         `}</style>
         
@@ -344,6 +377,36 @@ const AboutMe: React.FC = () => {
         >
           <ChevronRight className="w-6 h-6" />
         </button>
+        </div>
+      </div>
+
+      {/* Communities CTA Section */}
+      <div className="container mx-auto px-4 py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 p-10 md:p-16 text-center shadow-2xl">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+          </div>
+          <div className="relative">
+            <span className="inline-flex p-4 rounded-2xl bg-white/15 text-white mb-6">
+              <Users className="w-8 h-8" />
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Join My Communities
+            </h2>
+            <p className="text-lg text-blue-50 leading-relaxed max-w-2xl mx-auto mb-8">
+              I build and lead several active AI and automation communities — MCP Israel, n8n Israel,
+              the AI Transformation Guild &amp; AI Leaders, and The Agentcy. Discover what each one is
+              about and how you can join.
+            </p>
+            <Link
+              to="/communities"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transform hover:scale-105 transition-all duration-200 shadow-lg"
+            >
+              Explore My Communities
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
