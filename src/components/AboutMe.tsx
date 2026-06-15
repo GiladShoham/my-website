@@ -240,7 +240,7 @@ const AboutMe: React.FC = () => {
                   
                   {/* Content Section */}
                   <div className="md:w-1/2">
-                    <div className="flex flex-col gap-4 h-[500px] md:justify-center">
+                    <div className="flex flex-col gap-4 md:h-[500px] md:justify-center">
                       <div className="flex flex-col gap-3">
                         <span className="inline-flex w-fit p-2 md:p-3 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
                           {section.icon}
