@@ -42,7 +42,7 @@ const AboutMe: React.FC = () => {
     {
       title: 'Public Speaker',
       icon: <Mic className="w-6 h-6 mr-2" />,
-      content: 'I love sharing my experience on stage, with years of speaking at events from local meetups to international conferences. My talks cover topics like web, dev tools, architecture, JS, development processes, smart homes, and more. I focus on deep technical dives and real innovation.',
+      content: 'I love sharing my experience on stage, with years of speaking at events from local meetups to international conferences. My talks cover AI topics like agentic workflows, token optimization, and AI coding tools such as Claude Code, Cursor, and Copilot, along with web, dev tools, architecture, JS, development processes, smart homes, and more. I focus on deep technical dives and real innovation.',
       image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     },
     {
