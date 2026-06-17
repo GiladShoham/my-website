@@ -23,6 +23,9 @@ jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
+      # Gives LHCI a git context (commit hash/branch) for its upload step.
+      - uses: actions/checkout@v4
+
       - name: Resolve Deploy Preview URL
         id: vars
         run: echo "url=https://deploy-preview-${{ github.event.number }}--gilad-website.netlify.app" >> "$GITHUB_OUTPUT"
@@ -52,6 +55,7 @@ jobs:
         run: for i in 1 2 3 4 5; do curl -s "$URL/" -o /dev/null; sleep 2; done
 
       - name: Run Lighthouse (3 runs)
+        id: lhci
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: ${{ steps.vars.outputs.url }}/
@@ -61,13 +65,17 @@ jobs:
       - name: Comment median scores
         if: always()
         uses: actions/github-script@v7
+        env:
+          MANIFEST: ${{ steps.lhci.outputs.manifest }}
         with:
           script: |
             const fs = require('fs');
-            let manifest;
-            try {
-              manifest = JSON.parse(fs.readFileSync('.lighthouseci/manifest.json', 'utf8'));
-            } catch (e) {
+            let manifest = [];
+            try { manifest = JSON.parse(process.env.MANIFEST || '[]'); } catch (e) {}
+            if (!manifest.length) {
+              try { manifest = JSON.parse(fs.readFileSync('.lighthouseci/manifest.json', 'utf8')); } catch (e) {}
+            }
+            if (!manifest.length) {
               core.warning('No Lighthouse manifest found; skipping comment.');
               return;
             }
