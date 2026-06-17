@@ -1,0 +1,113 @@
+name: Lighthouse (warm, median of 5)
+
+# Netlify's built-in Lighthouse plugin runs once against a cold, freshly
+# deployed CDN, so its score swings wildly (~70-100 on identical code). This
+# workflow instead waits for the current commit's Deploy Preview, warms the
+# CDN edge, then runs Lighthouse 5 times and reports the representative
+# (median) run - a stable number you can trust commit-to-commit.
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+# One in-flight run per PR; newer commits cancel older audits.
+concurrency:
+  group: lighthouse-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      # Gives LHCI a git context (commit hash/branch) for its upload step.
+      - uses: actions/checkout@v4
+
+      - name: Resolve Deploy Preview URL
+        id: vars
+        run: echo "url=https://deploy-preview-${{ github.event.number }}--gilad-website.netlify.app" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for this commit's preview to go live
+        env:
+          URL: ${{ steps.vars.outputs.url }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          MERGE_SHA: ${{ github.sha }}
+        run: |
+          echo "Waiting for $URL/commit.txt to report $HEAD_SHA"
+          for i in $(seq 1 80); do
+            got="$(curl -fsS "$URL/commit.txt" 2>/dev/null | tr -d '[:space:]' || true)"
+            if [ -n "$got" ] && { [ "$got" = "$HEAD_SHA" ] || [ "$got" = "$MERGE_SHA" ]; }; then
+              echo "Preview live for commit $got"
+              exit 0
+            fi
+            echo "attempt $i/80: got='${got:0:12}' - retrying in 15s"
+            sleep 15
+          done
+          echo "::error::Timed out waiting for the Deploy Preview to match this commit."
+          exit 1
+
+      - name: Warm the CDN edge cache
+        env:
+          URL: ${{ steps.vars.outputs.url }}
+        run: for i in 1 2 3 4 5; do curl -s "$URL/" -o /dev/null; sleep 2; done
+
+      - name: Run Lighthouse (5 runs)
+        id: lhci
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: ${{ steps.vars.outputs.url }}/
+          configPath: ./.github/lighthouserc.json
+          temporaryPublicStorage: true
+
+      - name: Comment median scores
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          MANIFEST: ${{ steps.lhci.outputs.manifest }}
+        with:
+          script: |
+            const fs = require('fs');
+            let manifest = [];
+            try { manifest = JSON.parse(process.env.MANIFEST || '[]'); } catch (e) {}
+            if (!manifest.length) {
+              try { manifest = JSON.parse(fs.readFileSync('.lighthouseci/manifest.json', 'utf8')); } catch (e) {}
+            }
+            if (!manifest.length) {
+              core.warning('No Lighthouse manifest found; skipping comment.');
+              return;
+            }
+            const rep = manifest.find(r => r.isRepresentativeRun) || manifest[0];
+            const s = rep.summary;
+            const pct = v => Math.round(v * 100);
+            const badge = v => (v >= 90 ? '🟢' : v >= 50 ? '🟠' : '🔴');
+            const rows = [
+              ['Performance', pct(s.performance)],
+              ['Accessibility', pct(s.accessibility)],
+              ['Best Practices', pct(s['best-practices'])],
+              ['SEO', pct(s.seo)],
+            ];
+            const marker = '<!-- lhci-warm-median -->';
+            const body = [
+              marker,
+              '## 🔦 Lighthouse — median of 5 (warm cache)',
+              '',
+              `URL: \`${rep.url}\``,
+              '',
+              '| Category | Score |',
+              '|---|---:|',
+              ...rows.map(([k, v]) => `| ${k} | ${badge(v)} ${v} |`),
+              '',
+              '_CDN pre-warmed; 5 runs; representative (median) run shown._',
+            ].join('\n');
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }

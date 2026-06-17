@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
+  // The landing content lives at / now; keep the old /about URL working by
+  // redirecting it home (permanent 308, served at the Netlify CDN edge).
+  async redirects() {
+    return [{ source: '/about', destination: '/', permanent: true }];
+  },
 };
 
 export default nextConfig;

@@ -15,6 +15,9 @@ const Header: React.FC = () => {
 
   const activeTab = pathname === '/' ? 'about' : pathname.split('/')[1];
 
+  // The About tab is the landing page, served at / (no /about route).
+  const tabHref = (tab: string) => (tab === 'about' ? '/' : `/${tab}`);
+
   return (
     <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4">
@@ -45,7 +48,7 @@ const Header: React.FC = () => {
               {tabs.map((tab) => (
                 <li key={tab}>
                   <Link
-                    href={`/${tab}`}
+                    href={tabHref(tab)}
                     className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 block ${
                       activeTab === tab
                         ? 'text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-md'
@@ -78,7 +81,7 @@ const Header: React.FC = () => {
               {tabs.map((tab) => (
                 <li key={tab}>
                   <Link
-                    href={`/${tab}`}
+                    href={tabHref(tab)}
                     onClick={() => setIsMenuOpen(false)}
                     className={`w-full px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 block ${
                       activeTab === tab

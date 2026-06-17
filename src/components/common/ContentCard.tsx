@@ -67,7 +67,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
       <div className="flex flex-col h-full">
         {imageUrl && (
           <div className="w-full h-64">
-            <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
+            <img src={imageUrl} alt={title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
         )}
         
