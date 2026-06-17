@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Slider from 'react-slick';
 import {
@@ -9,6 +11,12 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const AboutMe: React.FC = () => {
   const sliderRef = React.useRef<Slider>(null);
+  // react-slick relies on the DOM (clones slides, measures width), so render it
+  // only after mount to avoid SSR/hydration mismatches.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sections = [
     {
@@ -208,6 +216,7 @@ const AboutMe: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
             What I Do
           </h2>
+        {mounted && (
         <Slider ref={sliderRef} {...settings}>
           {sections.map((section, index) => (
             <div key={index} className="px-4 pb-8">
@@ -248,7 +257,8 @@ const AboutMe: React.FC = () => {
             </div>
           ))}
         </Slider>
-        
+        )}
+
         {/* Custom styles for dots */}
         <style>{`
           .slick-dots {
