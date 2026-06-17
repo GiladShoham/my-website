@@ -24,8 +24,14 @@ function resolveSiteUrl(): string {
 
 const siteUrl = resolveSiteUrl();
 
-const ogImage =
-  'https://res.cloudinary.com/dzc7cp7jh/image/upload/t_Profile/v1728585776/Profile_Picture_Gilad_ubruik.png';
+// Social share image. Forced to a 1200x630 JPEG (not f_auto) because social
+// scrapers don't reliably render WebP/AVIF; smart-cropped to the subject.
+const ogImage = {
+  url: 'https://res.cloudinary.com/dzc7cp7jh/image/upload/c_fill,g_auto,w_1200,h_630,q_auto,f_jpg/v1772482350/Gilad-Shoham_Session-402_1141_qrgyij.jpg',
+  width: 1200,
+  height: 630,
+  alt: 'Gilad Shoham',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
