@@ -3,7 +3,9 @@
 # and routing automatically.
 
 [build]
-  command = "pnpm build"
+  # Stamp the built commit into /commit.txt so the Lighthouse CI workflow can
+  # confirm it audits the current commit's deploy (not a stale preview).
+  command = "mkdir -p public && printf '%s' \"$COMMIT_REF\" > public/commit.txt && pnpm build"
   publish = ".next"
 
 [build.environment]

@@ -32,3 +32,6 @@ next-env.d.ts
 *.sln
 *.sw?
 .history
+
+# Generated at build time to stamp the deployed commit
+/public/commit.txt
