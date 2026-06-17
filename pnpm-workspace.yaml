@@ -1,0 +1,4 @@
+# sharp is declined: the app uses <img>/Cloudinary, not next/image, so its
+# native build is unnecessary. Set to true if next/image is ever adopted.
+allowBuilds:
+  sharp: false

@@ -3,12 +3,15 @@
 # and routing automatically.
 
 [build]
-  command = "npm run build"
+  command = "pnpm build"
   publish = ".next"
 
 [build.environment]
   # Next.js 16 requires Node.js >= 20.9.
   NODE_VERSION = "20.9.0"
+  # Pin pnpm to match package.json's "packageManager" field. Netlify auto-detects
+  # pnpm from the committed pnpm-lock.yaml; this just locks the version.
+  PNPM_VERSION = "11.7.0"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
