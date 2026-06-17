@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   description: 'Podcast appearances and episodes featuring Gilad Shoham.',
 };
 
-export const revalidate = 3600;
+// Render on every request so newly-added Supabase rows appear immediately.
+export const dynamic = 'force-dynamic';
 
 export default async function PodcastsPage() {
   const podcasts = await fetchPodcasts();
