@@ -1,9 +1,9 @@
-name: Lighthouse (warm, median of 3)
+name: Lighthouse (warm, median of 5)
 
 # Netlify's built-in Lighthouse plugin runs once against a cold, freshly
 # deployed CDN, so its score swings wildly (~70-100 on identical code). This
 # workflow instead waits for the current commit's Deploy Preview, warms the
-# CDN edge, then runs Lighthouse 3 times and reports the representative
+# CDN edge, then runs Lighthouse 5 times and reports the representative
 # (median) run - a stable number you can trust commit-to-commit.
 
 on:
@@ -54,7 +54,7 @@ jobs:
           URL: ${{ steps.vars.outputs.url }}
         run: for i in 1 2 3 4 5; do curl -s "$URL/" -o /dev/null; sleep 2; done
 
-      - name: Run Lighthouse (3 runs)
+      - name: Run Lighthouse (5 runs)
         id: lhci
         uses: treosh/lighthouse-ci-action@v12
         with:
@@ -92,7 +92,7 @@ jobs:
             const marker = '<!-- lhci-warm-median -->';
             const body = [
               marker,
-              '## 🔦 Lighthouse — median of 3 (warm cache)',
+              '## 🔦 Lighthouse — median of 5 (warm cache)',
               '',
               `URL: \`${rep.url}\``,
               '',
@@ -100,7 +100,7 @@ jobs:
               '|---|---:|',
               ...rows.map(([k, v]) => `| ${k} | ${badge(v)} ${v} |`),
               '',
-              '_CDN pre-warmed; 3 runs; representative (median) run shown._',
+              '_CDN pre-warmed; 5 runs; representative (median) run shown._',
             ].join('\n');
             const { owner, repo } = context.repo;
             const issue_number = context.payload.pull_request.number;

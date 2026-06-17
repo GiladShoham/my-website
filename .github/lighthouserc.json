@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 3,
+      "numberOfRuns": 5,
       "settings": {
         "comment": "Netlify marks Deploy Previews noindex (x-robots-tag), which fails the is-crawlable SEO audit. It does not apply to production, so skip it to keep the SEO score representative.",
         "skipAudits": ["is-crawlable"]
