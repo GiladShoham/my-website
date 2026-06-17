@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   description: 'Articles and blog posts written by Gilad Shoham.',
 };
 
-export const revalidate = 3600;
+// Render on every request so newly-added Supabase rows appear immediately.
+export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
   const posts = await fetchBlogPosts();
