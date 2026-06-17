@@ -5,7 +5,24 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gilad-website.netlify.app';
+const FALLBACK_SITE_URL = 'https://gilad-website.netlify.app';
+
+// Validate NEXT_PUBLIC_SITE_URL so a malformed value (e.g. missing protocol)
+// can't throw from `new URL()` and break the build/SSR.
+function resolveSiteUrl(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!fromEnv) return FALLBACK_SITE_URL;
+  try {
+    return new URL(fromEnv).toString();
+  } catch {
+    console.warn(
+      `Invalid NEXT_PUBLIC_SITE_URL "${fromEnv}"; falling back to ${FALLBACK_SITE_URL}`
+    );
+    return FALLBACK_SITE_URL;
+  }
+}
+
+const siteUrl = resolveSiteUrl();
 
 const ogImage =
   'https://res.cloudinary.com/dzc7cp7jh/image/upload/t_Profile/v1728585776/Profile_Picture_Gilad_ubruik.png';

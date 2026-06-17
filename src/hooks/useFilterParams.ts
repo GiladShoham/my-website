@@ -52,6 +52,5 @@ export const useFilterParams = ({
       ? `${window.location.pathname}?${queryString}`
       : window.location.pathname;
     window.history.replaceState(null, '', newUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languageFilter, tagFilter]);
 };
