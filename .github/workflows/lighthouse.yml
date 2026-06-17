@@ -59,7 +59,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: ${{ steps.vars.outputs.url }}/
-          runs: 3
+          configPath: ./.github/lighthouserc.json
           temporaryPublicStorage: true
 
       - name: Comment median scores
