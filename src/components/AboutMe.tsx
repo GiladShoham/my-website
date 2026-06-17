@@ -197,7 +197,7 @@ const AboutMe: React.FC = () => {
                   <div className="relative w-full h-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-2 shadow-2xl">
                     <div className="relative w-full h-full">
                       <Image
-                        src="https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto/v1754835143/AT_T_Leaders_in_Tech_May_2025_-_square_stnetd.png"
+                        src="https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto,c_fill,g_auto,ar_1:1,w_800/v1772482350/Gilad-Shoham_Session-402_1141_qrgyij.jpg"
                         alt="Gilad Shoham"
                         fill
                         priority
