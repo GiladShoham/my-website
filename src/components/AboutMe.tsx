@@ -196,11 +196,17 @@ const AboutMe: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
                   <div className="relative w-full h-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-2 shadow-2xl">
                     <div className="relative w-full h-full">
+                      {/* LCP image: served straight from Cloudinary (already
+                          WebP/AVIF + pre-sized to 800px) and preloaded via
+                          `priority`. `unoptimized` skips Netlify's image
+                          optimizer, which is ~8x slower on a cold cache and
+                          adds no benefit here. */}
                       <Image
                         src="https://res.cloudinary.com/dzc7cp7jh/image/upload/f_auto,q_auto,c_fill,g_auto,ar_1:1,w_800/v1772482350/Gilad-Shoham_Session-402_1141_qrgyij.jpg"
                         alt="Gilad Shoham"
                         fill
                         priority
+                        unoptimized
                         sizes="(min-width: 1024px) 384px, 320px"
                         className="object-cover rounded-2xl"
                       />
