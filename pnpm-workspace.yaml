@@ -1,4 +1,5 @@
-# sharp is declined: the app uses <img>/Cloudinary, not next/image, so its
-# native build is unnecessary. Set to true if next/image is ever adopted.
+# Allow sharp's native build. Next.js / @netlify/plugin-nextjs expect sharp to
+# be built during the production build (npm built it automatically before the
+# pnpm switch); pnpm needs this approval explicitly.
 allowBuilds:
-  sharp: false
+  sharp: true

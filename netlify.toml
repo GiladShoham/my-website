@@ -7,14 +7,10 @@
   publish = ".next"
 
 [build.environment]
-  # Node 22 LTS ships a modern Corepack that can provision pnpm 11.7.0
-  # (the Corepack bundled with Node 20.9 has a stale key list and rejects it).
   NODE_VERSION = "22.12.0"
-  # Corepack reads the pnpm version from package.json's "packageManager" field.
-  # Don't prompt before downloading it, and skip the signature check that older
-  # Corepack key lists fail on for newer pnpm releases.
-  COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"
-  COREPACK_INTEGRITY_KEYS = "0"
+  # Netlify auto-detects pnpm from the committed pnpm-lock.yaml and provisions
+  # this version directly (no Corepack), avoiding Corepack signature-key issues.
+  PNPM_VERSION = "11.7.0"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
