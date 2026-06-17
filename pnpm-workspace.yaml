@@ -1,0 +1,5 @@
+# Allow sharp's native build. Next.js / @netlify/plugin-nextjs expect sharp to
+# be built during the production build (npm built it automatically before the
+# pnpm switch); pnpm needs this approval explicitly.
+allowBuilds:
+  sharp: true

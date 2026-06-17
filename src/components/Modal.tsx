@@ -15,7 +15,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, isRTL =
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4">
-        <div className="fixed inset-0 bg-black opacity-50" onClick={onClose}></div>
+        <button
+          type="button"
+          aria-label="Close modal"
+          tabIndex={-1}
+          className="fixed inset-0 bg-black opacity-50 cursor-default"
+          onClick={onClose}
+        ></button>
         <div className="relative bg-white dark:bg-gray-800 rounded-lg max-w-lg w-full p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 

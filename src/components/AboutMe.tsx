@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import {
   Code, DollarSign, Mic, Users, Home, PenTool, MessageSquare, ChevronLeft, ChevronRight,
@@ -19,6 +21,12 @@ interface Section {
 
 const AboutMe: React.FC = () => {
   const sliderRef = React.useRef<Slider>(null);
+  // react-slick relies on the DOM (clones slides, measures width), so render it
+  // only after mount to avoid SSR/hydration mismatches.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sections: Section[] = [
     {
@@ -164,7 +172,7 @@ const AboutMe: React.FC = () => {
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">100+</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
                 </div>
-                <Link to="/communities" className="text-center group cursor-pointer">
+                <Link href="/communities" className="text-center group cursor-pointer">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors inline-flex items-center gap-1">
                     Communities
@@ -285,6 +293,7 @@ const AboutMe: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
             What I Do
           </h2>
+        {mounted && (
         <Slider ref={sliderRef} {...settings}>
           {sections.map((section, index) => (
             <div key={index} className="px-4 pb-8">
@@ -319,7 +328,7 @@ const AboutMe: React.FC = () => {
                         </p>
                         {section.link && (
                           <Link
-                            to={section.link.to}
+                            href={section.link.to}
                             className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg w-fit"
                           >
                             {section.link.label}
@@ -334,7 +343,8 @@ const AboutMe: React.FC = () => {
             </div>
           ))}
         </Slider>
-        
+        )}
+
         {/* Custom styles for dots */}
         <style>{`
           .slick-dots {
@@ -400,7 +410,7 @@ const AboutMe: React.FC = () => {
               about and how you can join.
             </p>
             <Link
-              to="/communities"
+              href="/communities"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transform hover:scale-105 transition-all duration-200 shadow-lg"
             >
               Explore My Communities

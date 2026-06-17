@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for Slick carousel */
+.slick-prev,
+.slick-next {
+  z-index: 1;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
+
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #2563eb;
+}
+
+/* Make carousel taller */
+.slick-slide > div {
+  height: 600px;
+}
+
+.slick-slide > div > div {
+  height: 100%;
+}
+
+/* Ensure text is visible in dark mode */
+.dark h2,
+.dark h3,
+.dark p {
+  color: #e5e7eb;
+}
+
+.dark .text-gray-700 {
+  color: #d1d5db;
+}
+
+.dark .text-gray-600 {
+  color: #9ca3af;
+}

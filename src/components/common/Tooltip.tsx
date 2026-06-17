@@ -5,7 +5,7 @@ interface TooltipProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  anchorRef: React.RefObject<HTMLElement>;
+  anchorRef: React.RefObject<HTMLElement | null>;
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ isOpen, onClose, children, anchorRef }) => {
