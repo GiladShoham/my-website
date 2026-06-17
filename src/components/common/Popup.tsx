@@ -19,6 +19,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, message, type }) => {
       <div className={`${bgColor} p-6 rounded-lg shadow-xl max-w-sm w-full mx-4 relative`}>
         <button
           onClick={onClose}
+          aria-label="Close"
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">

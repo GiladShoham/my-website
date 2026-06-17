@@ -2,23 +2,24 @@
 
 # Personal Website
 
-This is the source code for my personal website, built with [Next.js](https://nextjs.org/) (App Router), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Tailwind CSS](https://tailwindcss.com/). The website fetches data from [Supabase](https://supabase.com/).
+This is the source code for my personal website, built with [Next.js 16](https://nextjs.org/) (App Router, Turbopack), [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), and [Tailwind CSS](https://tailwindcss.com/). The website fetches data from [Supabase](https://supabase.com/).
 
 The site is **server-side rendered (SSR)** for fast load times and great SEO: the Talks, Podcasts, and Blog pages fetch their data on the server, and every page ships proper `<title>` / Open Graph / Twitter metadata.
 
 ## Features
 
-- **Next.js (App Router)** with server-side rendering and incremental static regeneration (ISR).
-- **React + TypeScript** for the UI and static typing.
+- **Next.js 16 (App Router)** with server-side rendering and incremental static regeneration (ISR), built on Turbopack (default in v16).
+- **React 19 + TypeScript** for the UI and static typing.
 - **Tailwind CSS** for styling, with a no-flash dark mode.
 - **Supabase** for backend and database integration (queried on the server for SSR).
 - **Per-page SEO metadata** (title templates, Open Graph, Twitter cards) via the Next.js Metadata API.
+- **[oxlint](https://oxc.rs/docs/guide/usage/linter.html)** as the linter (a fast, Rust-based replacement for ESLint).
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (version >= 18.18)
+- [Node.js](https://nodejs.org/) **>= 20.9** (required by Next.js 16)
 - [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), or [yarn](https://yarnpkg.com/)
 
 ### Installation
@@ -55,10 +56,35 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ### Scripts
 
 ```bash
-npm run dev     # Start the development server (http://localhost:3000)
-npm run build   # Build the project for production
-npm run start   # Run the production build locally
-npm run lint    # Lint the project with ESLint
+npm run dev        # Start the dev server with hot reload (http://localhost:3000)
+npm run build      # Build the production bundle (server-renders pages, runs type-checking)
+npm run start      # Serve the production build locally (run `npm run build` first)
+npm run lint       # Lint the project with oxlint
+npm run lint:fix   # Lint and auto-fix what oxlint can
+```
+
+Typical local loop:
+
+```bash
+npm run dev                      # iterate
+npm run lint && npm run build    # verify before pushing
+npm run start                    # smoke-test the production build at http://localhost:3000
+```
+
+> **Note on `NODE_ENV`:** `build` and `start` pin `NODE_ENV=production` themselves, so
+> they work even if your shell exports `NODE_ENV=development` globally. Don't set
+> `NODE_ENV` in `.env` files — Next.js manages it per command. `dev` always runs in
+> development mode.
+
+### Verifying SSR works
+
+Because the Talks/Podcasts/Blog pages render on the server, their data is present in the
+raw HTML before any JavaScript runs. You can confirm this with `curl` (which does not
+execute JS):
+
+```bash
+npm run build && npm run start
+curl -s http://localhost:3000/talks | grep -c "Watch"   # > 0 means the data was server-rendered
 ```
 
 ## Deployment

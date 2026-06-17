@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Popup from '../common/Popup';
-import { formClasses, getInputClassName } from '../common/FormStyles';
+import { formClasses } from '../common/FormStyles';
 
 interface FormData {
   name: string;
