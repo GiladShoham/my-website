@@ -20,7 +20,7 @@ The site is **server-side rendered (SSR)** for fast load times and great SEO: th
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) **>= 20.9** (required by Next.js 16)
-- [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), or [yarn](https://yarnpkg.com/)
+- [pnpm](https://pnpm.io/)
 
 ### Installation
 
@@ -34,7 +34,7 @@ cd my-website
 Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Environment Variables
@@ -56,19 +56,19 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ### Scripts
 
 ```bash
-npm run dev        # Start the dev server with hot reload (http://localhost:3000)
-npm run build      # Build the production bundle (server-renders pages, runs type-checking)
-npm run start      # Serve the production build locally (run `npm run build` first)
-npm run lint       # Lint the project with oxlint
-npm run lint:fix   # Lint and auto-fix what oxlint can
+pnpm dev        # Start the dev server with hot reload (http://localhost:3000)
+pnpm build      # Build the production bundle (server-renders pages, runs type-checking)
+pnpm start      # Serve the production build locally (run `pnpm build` first)
+pnpm lint       # Lint the project with oxlint
+pnpm lint:fix   # Lint and auto-fix what oxlint can
 ```
 
 Typical local loop:
 
 ```bash
-npm run dev                      # iterate
-npm run lint && npm run build    # verify before pushing
-npm run start                    # smoke-test the production build at http://localhost:3000
+pnpm dev                    # iterate
+pnpm lint && pnpm build     # verify before pushing
+pnpm start                  # smoke-test the production build at http://localhost:3000
 ```
 
 > **Note on `NODE_ENV`:** `build` and `start` pin `NODE_ENV=production` themselves, so
@@ -83,7 +83,7 @@ raw HTML before any JavaScript runs. You can confirm this with `curl` (which doe
 execute JS):
 
 ```bash
-npm run build && npm run start
+pnpm build && pnpm start
 curl -s http://localhost:3000/talks | grep -c "Watch"   # > 0 means the data was server-rendered
 ```
 
@@ -106,7 +106,7 @@ Netlify fully supports Next.js SSR via the official
 [`@netlify/plugin-nextjs`](https://github.com/netlify/next-runtime) runtime,
 which is configured in `netlify.toml`. The existing Netlify site keeps working:
 
-1. The build command is `npm run build` and the plugin handles routing/SSR/ISR.
+1. The build command is `pnpm build` and the plugin handles routing/SSR/ISR.
 2. Add the same environment variables under
    **Site settings → Environment variables**.
 3. Push to the connected branch and Netlify deploys automatically.
