@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-const tabs = ['about', 'talks', 'podcasts', 'blog', 'contact'];
+const tabs = ['about', 'talks', 'podcasts', 'communities', 'blog', 'contact'];
 
 const Header: React.FC = () => {
   const pathname = usePathname();
