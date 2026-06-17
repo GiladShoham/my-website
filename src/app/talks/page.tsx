@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Talks by Gilad Shoham at meetups and international conferences on web, dev tools, architecture, JavaScript, development processes, smart homes, and more.',
 };
 
-// Render on every request so newly-added Supabase rows appear immediately.
+// Render on every request so newly-added InstantDB rows appear immediately.
 // The page is still server-rendered (content in the HTML for SEO); the only
 // cost is one fast DB query per request.
 export const dynamic = 'force-dynamic';

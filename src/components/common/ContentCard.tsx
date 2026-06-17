@@ -8,7 +8,7 @@ interface ContentCardProps {
   date: Date;
   metadata?: {
     podcastName?: string;
-    episodeNumber?: string;
+    episodeNumber?: string | number;
     conference?: string;
   };
   tags: string[];
