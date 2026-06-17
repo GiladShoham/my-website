@@ -17,11 +17,10 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
-  // Redirect the bare root to /about at the CDN edge (the Netlify Next.js
-  // runtime emits config redirects as edge redirects), avoiding the runtime
-  // 307 that booted the SSR function and cost ~1s on the most-hit URL.
+  // The landing content lives at / now; keep the old /about URL working by
+  // redirecting it home (permanent 308, served at the Netlify CDN edge).
   async redirects() {
-    return [{ source: '/', destination: '/about', permanent: true }];
+    return [{ source: '/about', destination: '/', permanent: true }];
   },
 };
 
