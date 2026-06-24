@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Podcast appearances and episodes featuring Gilad Shoham.',
 };
 
-// Render on every request so newly-added Supabase rows appear immediately.
+// Render on every request so newly-added InstantDB rows appear immediately.
 export const dynamic = 'force-dynamic';
 
 export default async function PodcastsPage() {

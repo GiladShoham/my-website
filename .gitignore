@@ -35,3 +35,9 @@ next-env.d.ts
 
 # Generated at build time to stamp the deployed commit
 /public/commit.txt
+
+# One-time data-migration exports (may contain PII, e.g. contact_me)
+scripts/data/
+
+# Claude Code worktrees
+.claude/worktrees/

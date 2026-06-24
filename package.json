@@ -11,12 +11,14 @@
     "lint:fix": "oxlint --fix"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.45.4",
+    "@instantdb/admin": "^1.0.49",
+    "@instantdb/react": "^1.0.49",
     "lucide-react": "^1.20.0",
     "next": "^16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-slick": "^0.30.2",
+    "server-only": "^0.0.1",
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^2.5.4"
   },
